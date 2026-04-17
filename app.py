@@ -42,25 +42,30 @@ setTimeout(removeTopGap, 100);
 setTimeout(removeTopGap, 500);
 
 const css = `
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Mono:ital,wght@0,300;0,400;0,500&display=swap');
 :root{
-  --bg:#07090f;--s1:#0c0f1a;--s2:#111827;--s3:#1a2235;
-  --border:#1e2a3a;--b2:#26344a;
-  --green:#22c55e;--red:#ef4444;--amber:#f59e0b;--blue:#3b82f6;
-  --green-bg:rgba(34,197,94,0.07);--red-bg:rgba(239,68,68,0.07);
-  --amber-bg:rgba(245,158,11,0.07);--blue-bg:rgba(59,130,246,0.07);
-  --text:#f1f5f9;--t2:#94a3b8;--t3:#475569;
+  --bg:#05070e;--s1:#090d18;--s2:#0e1420;--s3:#131c2e;--s4:#1a2438;
+  --border:#1a2538;--b2:#223047;--b3:#2d3f5a;
+  --green:#22c55e;--green2:#16a34a;--red:#ef4444;--amber:#f59e0b;--blue:#3b82f6;--purple:#8b5cf6;
+  --green-bg:rgba(34,197,94,0.06);--red-bg:rgba(239,68,68,0.06);
+  --amber-bg:rgba(245,158,11,0.06);--blue-bg:rgba(59,130,246,0.06);
+  --glow-green:0 0 20px rgba(34,197,94,0.15);
+  --text:#f1f5f9;--t2:#94a3b8;--t3:#475569;--t4:#2d3f57;
 }
 *{box-sizing:border-box;}
 html,body,[class*="css"]{font-family:'Outfit',sans-serif!important;font-size:15px!important;}
-.main .block-container{padding:0.1rem 2rem 3rem!important;max-width:1560px!important;}
+.main .block-container{padding:0.1rem 2rem 3rem!important;max-width:1580px!important;}
 .stApp{background:var(--bg)!important;}
-section[data-testid="stSidebar"]{background:var(--s1)!important;border-right:1px solid var(--border)!important;}
-section[data-testid="stSidebar"] .block-container{padding:1.25rem 1rem!important;}
+
+/* ── Sidebar ── */
+section[data-testid="stSidebar"]{
+  background:linear-gradient(180deg,#080c16 0%,#060a12 100%)!important;
+  border-right:1px solid var(--border)!important;}
+section[data-testid="stSidebar"] .block-container{padding:1.4rem 1.1rem!important;}
 #MainMenu,footer,header{visibility:hidden!important;}
 .stDeployButton{display:none!important;}
 
-/* ── Remove ALL Streamlit top padding ── */
+/* ── Remove top padding ── */
 .block-container{padding-top:0!important;margin-top:0!important;}
 [data-testid="stHeader"]{display:none!important;height:0!important;min-height:0!important;}
 div[data-testid="stDecoration"]{display:none!important;height:0!important;}
@@ -71,216 +76,256 @@ iframe[height="0"]{height:0!important;min-height:0!important;max-height:0!import
   display:block!important;margin:0!important;padding:0!important;border:none!important;overflow:hidden!important;}
 div[data-testid="stCustomComponentV1"]{height:0!important;min-height:0!important;overflow:hidden!important;margin:0!important;}
 
-/* ── Sidebar ── */
-.nav-logo{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text);
-  letter-spacing:-0.02em;padding-bottom:1.1rem;border-bottom:1px solid var(--border);
-  margin-bottom:1.2rem;display:flex;align-items:center;gap:10px;}
-.nav-logo .dot{width:8px;height:8px;border-radius:50%;background:var(--green);
-  box-shadow:0 0 8px var(--green);flex-shrink:0;}
-.nav-logo .sub{font-size:0.58rem;color:var(--t3);font-weight:400;letter-spacing:0.12em;
+/* ── Sidebar nav logo ── */
+.nav-logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:1.05rem;color:var(--text);
+  letter-spacing:-0.03em;padding-bottom:1.1rem;border-bottom:1px solid var(--border);
+  margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+.nav-logo .dot{width:7px;height:7px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 0 2px rgba(34,197,94,0.2),0 0 12px var(--green);flex-shrink:0;
+  animation:pulse-dot 2.4s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 2px rgba(34,197,94,0.2),0 0 12px var(--green);}
+  50%{box-shadow:0 0 0 4px rgba(34,197,94,0.1),0 0 20px var(--green);}}
+.nav-logo .sub{font-size:0.55rem;color:var(--t4);font-weight:400;letter-spacing:0.15em;
   text-transform:uppercase;display:block;margin-top:2px;}
 
-/* ── Nav items (radio styled as sidebar menu) ── */
-.stRadio>div{gap:2px!important;}
+/* ── Nav radio ── */
+.stRadio>div{gap:1px!important;}
 .stRadio>div>label{
-  font-family:'Outfit',sans-serif!important;font-size:0.82rem!important;font-weight:500!important;
-  color:var(--t2)!important;padding:9px 12px!important;border-radius:8px!important;
-  border:none!important;transition:all .15s!important;cursor:pointer!important;width:100%!important;}
-.stRadio>div>label:hover{color:var(--text)!important;background:var(--s2)!important;}
-/* Hide only the radio circle svg/input, keep the text */
+  font-family:'Outfit',sans-serif!important;font-size:0.8rem!important;font-weight:500!important;
+  color:var(--t3)!important;padding:9px 12px!important;border-radius:7px!important;
+  border:none!important;transition:all .18s ease!important;cursor:pointer!important;width:100%!important;}
+.stRadio>div>label:hover{color:var(--t2)!important;background:var(--s2)!important;}
 .stRadio>div>label>div:first-child{display:none!important;}
-.stRadio>div>label p{
-  margin:0!important;font-family:'Outfit',sans-serif!important;
-  font-size:0.82rem!important;font-weight:500!important;color:inherit!important;}
+.stRadio>div>label p{margin:0!important;font-family:'Outfit',sans-serif!important;
+  font-size:0.8rem!important;font-weight:500!important;color:inherit!important;}
 
-.nav-section{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--t3);
-  text-transform:uppercase;letter-spacing:0.14em;margin:1.4rem 0 0.5rem;opacity:0.7;}
-.nav-divider{height:1px;background:var(--border);margin:1.2rem 0;}
+.nav-section{font-family:'DM Mono',monospace;font-size:0.52rem;color:var(--t4);
+  text-transform:uppercase;letter-spacing:0.16em;margin:1.4rem 0 0.6rem;}
+.nav-divider{height:1px;background:var(--border);margin:1.1rem 0;}
+.file-pill{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--t3);
+  padding:3px 0;display:flex;align-items:center;gap:7px;}
+.file-pill::before{content:'·';color:var(--green);font-size:0.9rem;line-height:1;}
 
-.file-pill{font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--t3);
-  padding:2px 0;display:flex;align-items:center;gap:6px;opacity:0.75;}
-.file-pill::before{content:'·';color:var(--green);font-size:0.8rem;}
-
-.stButton>button{font-family:'DM Mono',monospace!important;font-size:0.7rem!important;
+.stButton>button{font-family:'DM Mono',monospace!important;font-size:0.68rem!important;
   color:var(--t3)!important;background:transparent!important;border:1px solid var(--border)!important;
-  border-radius:7px!important;padding:6px 12px!important;width:100%;transition:all .15s;}
-.stButton>button:hover{color:var(--text)!important;border-color:var(--b2)!important;
+  border-radius:7px!important;padding:7px 12px!important;width:100%;transition:all .18s;}
+.stButton>button:hover{color:var(--text)!important;border-color:var(--b3)!important;
   background:var(--s2)!important;}
 
 /* ── Page header ── */
-.ph{margin-bottom:1.6rem;padding-top:0;}
-.ph-title{font-family:'Outfit',sans-serif;font-weight:800;font-size:2rem;
-  color:var(--text);letter-spacing:-0.03em;line-height:1;margin-bottom:5px;}
-.ph-sub{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--t3);
-  letter-spacing:0.12em;text-transform:uppercase;}
+.ph{margin-bottom:1.8rem;padding-top:0;position:relative;}
+.ph-eyebrow{font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--green);
+  letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px;opacity:0.8;}
+.ph-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:2.1rem;
+  color:var(--text);letter-spacing:-0.04em;line-height:1;margin-bottom:6px;
+  background:linear-gradient(135deg,#f1f5f9 30%,#94a3b8 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ph-sub{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--t3);
+  letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:10px;}
+.ph-sub::before{content:'';display:inline-block;width:20px;height:1px;background:var(--green);opacity:0.5;}
+.ph-clock{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--t3);
+  margin-left:auto;}
 
 /* ── KPI cards ── */
-.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;margin-bottom:1.8rem;}
-.kpi{background:var(--s1);border:1px solid var(--border);border-radius:11px;
-  padding:18px 20px;position:relative;overflow:hidden;}
-.kpi-top{height:2px;position:absolute;top:0;left:0;right:0;}
-.kpi-lbl{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--t3);
-  text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;}
-.kpi-val{font-family:'Outfit',sans-serif;font-size:1.65rem;font-weight:700;
-  color:var(--text);line-height:1;margin-bottom:6px;}
-.kpi-d{font-family:'DM Mono',monospace;font-size:0.72rem;}
+.kpi-row{display:grid;gap:10px;margin-bottom:1.8rem;}
+.kpi{background:var(--s1);border:1px solid var(--border);border-radius:12px;
+  padding:18px 20px;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s;
+  cursor:default;}
+.kpi:hover{border-color:var(--b3);box-shadow:0 4px 24px rgba(0,0,0,0.4);}
+.kpi::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at top left,rgba(34,197,94,0.03) 0%,transparent 60%);
+  pointer-events:none;}
+.kpi-top{height:2px;position:absolute;top:0;left:0;right:0;border-radius:12px 12px 0 0;}
+.kpi-lbl{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--t3);
+  text-transform:uppercase;letter-spacing:0.12em;margin-bottom:10px;}
+.kpi-val{font-family:'Outfit',sans-serif;font-size:1.7rem;font-weight:800;
+  color:var(--text);line-height:1;margin-bottom:7px;letter-spacing:-0.02em;}
+.kpi-d{font-family:'DM Mono',monospace;font-size:0.68rem;}
 .kpi-d.g{color:var(--green);}.kpi-d.r{color:var(--red);}.kpi-d.n{color:var(--t3);}
 
 /* ── Section label ── */
-.sl{font-family:'DM Mono',monospace;font-size:0.63rem;color:var(--t3);
-  text-transform:uppercase;letter-spacing:0.14em;margin:1.8rem 0 1rem;
-  display:flex;align-items:center;gap:10px;}
-.sl::after{content:'';flex:1;height:1px;background:var(--border);}
+.sl{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--t3);
+  text-transform:uppercase;letter-spacing:0.16em;margin:2rem 0 1.1rem;
+  display:flex;align-items:center;gap:12px;}
+.sl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
 
 /* ── Perf cards ── */
 .perf-row{display:grid;gap:8px;margin-bottom:1.6rem;}
 .perf-c{background:var(--s1);border:1px solid var(--border);border-radius:9px;
-  padding:15px 12px;text-align:center;}
-.perf-c.hl{border-color:var(--amber);background:var(--amber-bg);}
-.perf-lbl{font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--t3);
-  text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;}
+  padding:14px 12px;text-align:center;transition:border-color .2s;}
+.perf-c:hover{border-color:var(--b3);}
+.perf-c.hl{border-color:rgba(245,158,11,0.4);background:var(--amber-bg);}
+.perf-lbl{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--t3);
+  text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px;}
 .perf-lbl.h{color:var(--amber);}
 .perf-v{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;line-height:1;}
-.perf-abs{font-family:'DM Mono',monospace;font-size:0.63rem;margin-top:4px;}
+.perf-abs{font-family:'DM Mono',monospace;font-size:0.62rem;margin-top:4px;}
 
 /* ── Positions table ── */
 .ptable{width:100%;border-collapse:collapse;}
-.ptable th{font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--t3);
+.ptable th{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--t3);
   text-transform:uppercase;letter-spacing:0.08em;padding:10px 14px;text-align:right;
   border-bottom:1px solid var(--border);background:var(--s2);}
 .ptable th:first-child{text-align:left;}
-.ptable td{font-family:'Outfit',sans-serif;font-size:0.88rem;color:var(--t2);
-  padding:12px 14px;text-align:right;border-bottom:1px solid var(--border);}
+.ptable td{font-family:'Outfit',sans-serif;font-size:0.87rem;color:var(--t2);
+  padding:11px 14px;text-align:right;border-bottom:1px solid rgba(26,37,56,0.6);}
 .ptable td:first-child{text-align:left;color:var(--text);font-weight:500;}
 .ptable tr:hover td{background:var(--s2);}
-.tbadge{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--blue);
-  background:var(--blue-bg);border:1px solid rgba(59,130,246,0.2);
-  padding:2px 6px;border-radius:3px;margin-left:8px;}
+.tbadge{font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--blue);
+  background:var(--blue-bg);border:1px solid rgba(59,130,246,0.18);
+  padding:2px 6px;border-radius:3px;margin-left:7px;}
 .pos{color:var(--green)!important;font-weight:600;}
 .neg{color:var(--red)!important;font-weight:600;}
 
 /* ── Date inputs ── */
 .stDateInput input{background:var(--s2)!important;border:1px solid var(--border)!important;
   color:var(--text)!important;font-family:'DM Mono',monospace!important;
-  font-size:0.75rem!important;border-radius:6px!important;}
+  font-size:0.75rem!important;border-radius:7px!important;}
 
 /* ── Ticker input ── */
 .stTextInput input{background:var(--s1)!important;border:1px solid var(--border)!important;
   color:var(--text)!important;font-family:'DM Mono',monospace!important;
-  font-size:0.95rem!important;border-radius:9px!important;padding:12px 16px!important;
-  letter-spacing:0.04em!important;}
+  font-size:0.92rem!important;border-radius:10px!important;padding:13px 17px!important;
+  letter-spacing:0.04em!important;transition:border-color .2s,box-shadow .2s!important;}
 .stTextInput input:focus{border-color:var(--green)!important;
-  box-shadow:0 0 0 2px rgba(34,197,94,0.12)!important;}
-.stTextInput input::placeholder{color:var(--t3)!important;}
+  box-shadow:0 0 0 3px rgba(34,197,94,0.1)!important;}
+.stTextInput input::placeholder{color:var(--t4)!important;}
 
-/* ── Period pills (Page 2 chart) ── */
-.period-bar{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
-.period-pill{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--t2);
-  background:var(--s1);border:1px solid var(--border);border-radius:5px;
-  padding:5px 11px;cursor:pointer;transition:all .15s;user-select:none;}
-.period-pill:hover{border-color:var(--b2);color:var(--text);}
-.period-pill.active{background:var(--s2);border-color:var(--green);color:var(--green);}
-
-/* ── Stock perf strip (Page 2) ── */
-.stock-perf-strip{display:flex;gap:8px;margin:10px 0 16px;flex-wrap:wrap;}
-.sp-item{background:var(--s1);border:1px solid var(--border);border-radius:7px;
-  padding:8px 14px;text-align:center;flex:1;min-width:80px;}
-.sp-lbl{font-family:'DM Mono',monospace;font-size:0.57rem;color:var(--t3);
+/* ── Stock perf strip ── */
+.stock-perf-strip{display:flex;gap:7px;margin:10px 0 16px;flex-wrap:wrap;}
+.sp-item{background:var(--s1);border:1px solid var(--border);border-radius:8px;
+  padding:8px 14px;text-align:center;flex:1;min-width:80px;transition:border-color .2s;}
+.sp-item:hover{border-color:var(--b3);}
+.sp-lbl{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--t3);
   text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;}
-.sp-val{font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:700;}
+.sp-val{font-family:'Outfit',sans-serif;font-size:0.92rem;font-weight:700;}
 
 /* ── Criteria rows ── */
-.cr{display:flex;align-items:center;padding:13px 17px;border-radius:9px;
-  margin:5px 0;border:1px solid transparent;gap:13px;position:relative;}
-.cr.g{background:var(--green-bg);border-color:rgba(34,197,94,0.25);}
-.cr.r{background:var(--red-bg);border-color:rgba(239,68,68,0.25);}
-.cr.y{background:var(--amber-bg);border-color:rgba(245,158,11,0.25);}
+.cr{display:flex;align-items:center;padding:12px 16px;border-radius:9px;
+  margin:4px 0;border:1px solid transparent;gap:12px;position:relative;
+  transition:transform .15s,box-shadow .15s;}
+.cr:hover{transform:translateX(2px);}
+.cr.g{background:var(--green-bg);border-color:rgba(34,197,94,0.2);}
+.cr.r{background:var(--red-bg);border-color:rgba(239,68,68,0.2);}
+.cr.y{background:var(--amber-bg);border-color:rgba(245,158,11,0.2);}
 .cr.n{background:var(--s1);border-color:var(--border);}
-.cr-badge{width:28px;height:28px;border-radius:7px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;}
-.cr-badge.g{background:rgba(34,197,94,0.15);color:var(--green);}
-.cr-badge.r{background:rgba(239,68,68,0.15);color:var(--red);}
-.cr-badge.y{background:rgba(245,158,11,0.15);color:var(--amber);}
+.cr-badge{width:26px;height:26px;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;}
+.cr-badge.g{background:rgba(34,197,94,0.14);color:var(--green);}
+.cr-badge.r{background:rgba(239,68,68,0.14);color:var(--red);}
+.cr-badge.y{background:rgba(245,158,11,0.14);color:var(--amber);}
 .cr-badge.n{background:var(--s2);color:var(--t3);}
-.cr-num{font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--t3);width:18px;flex-shrink:0;}
-.cr-name{font-family:'Outfit',sans-serif;font-size:0.88rem;color:var(--text);font-weight:500;flex:1;}
-.cr-val{font-family:'DM Mono',monospace;font-size:0.83rem;font-weight:500;width:95px;text-align:right;}
+.cr-num{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--t4);width:18px;flex-shrink:0;}
+.cr-name{font-family:'Outfit',sans-serif;font-size:0.86rem;color:var(--text);font-weight:500;flex:1;}
+.cr-val{font-family:'DM Mono',monospace;font-size:0.82rem;font-weight:500;width:95px;text-align:right;}
 .cr-val.g{color:var(--green);}.cr-val.r{color:var(--red);}
 .cr-val.y{color:var(--amber);}.cr-val.n{color:var(--t3);}
-.cr-thresh{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--t3);
-  width:135px;text-align:right;line-height:1.8;}
-.cr-thresh .tg{color:rgba(34,197,94,0.65);}.cr-thresh .tr{color:rgba(239,68,68,0.65);}
+.cr-thresh{font-family:'DM Mono',monospace;font-size:0.56rem;color:var(--t3);
+  width:130px;text-align:right;line-height:1.9;}
+.cr-thresh .tg{color:rgba(34,197,94,0.6);}.cr-thresh .tr{color:rgba(239,68,68,0.6);}
 .cr-tip{position:relative;display:flex;align-items:center;flex:1;gap:8px;}
-.tip-icon{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--t3);
+.tip-icon{font-family:'DM Mono',monospace;font-size:0.52rem;color:var(--t3);
   background:var(--s2);border:1px solid var(--border);border-radius:3px;
-  padding:1px 5px;cursor:help;flex-shrink:0;}
+  padding:1px 5px;cursor:help;flex-shrink:0;transition:color .15s,border-color .15s;}
+.cr-tip:hover .tip-icon{color:var(--blue);border-color:rgba(59,130,246,0.4);}
 .tip-box{display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:9999;
-  background:var(--s2);border:1px solid var(--b2);border-radius:9px;
-  padding:11px 14px;width:290px;box-shadow:0 10px 28px rgba(0,0,0,0.65);}
-.tip-t{font-family:'Outfit',sans-serif;font-size:0.78rem;font-weight:600;
+  background:var(--s3);border:1px solid var(--b2);border-radius:10px;
+  padding:12px 15px;width:295px;box-shadow:0 16px 40px rgba(0,0,0,0.7);}
+.tip-t{font-family:'Outfit',sans-serif;font-size:0.77rem;font-weight:600;
   color:var(--text);margin-bottom:6px;}
-.tip-d{font-family:'Outfit',sans-serif;font-size:0.74rem;color:var(--t2);line-height:1.6;}
+.tip-d{font-family:'Outfit',sans-serif;font-size:0.73rem;color:var(--t2);line-height:1.65;}
 .cr-tip:hover .tip-box{display:block;}
 
-/* ── Score ── */
-.score-card{background:var(--s1);border:1px solid var(--border);border-radius:13px;
-  padding:26px 22px;text-align:center;}
-.score-lbl{font-family:'DM Mono',monospace;font-size:0.63rem;color:var(--t3);
-  text-transform:uppercase;letter-spacing:0.1em;margin-bottom:9px;}
-.score-num{font-family:'Outfit',sans-serif;font-size:3.8rem;font-weight:800;line-height:1;}
-.score-verdict{font-family:'DM Mono',monospace;font-size:0.68rem;font-weight:500;
-  letter-spacing:0.1em;margin-top:3px;}
-.score-bar-bg{background:var(--s2);border-radius:3px;height:5px;overflow:hidden;margin:14px 0 12px;}
-.score-bar{height:5px;border-radius:3px;}
-
-/* ── Score counts pill strip ── */
-.score-counts{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
-.sc-pill{font-family:'DM Mono',monospace;font-size:0.65rem;font-weight:500;
-  padding:4px 10px;border-radius:5px;border:1px solid transparent;}
-.sc-pill.g{background:rgba(34,197,94,0.12);border-color:rgba(34,197,94,0.3);color:var(--green);}
-.sc-pill.r{background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.3);color:var(--red);}
-.sc-pill.y{background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.3);color:var(--amber);}
+/* ── Score ring card ── */
+.score-card{background:linear-gradient(145deg,var(--s1) 0%,var(--s2) 100%);
+  border:1px solid var(--border);border-radius:14px;
+  padding:28px 22px;text-align:center;position:relative;overflow:hidden;}
+.score-card::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(34,197,94,0.06) 0%,transparent 70%);
+  pointer-events:none;}
+.score-lbl{font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--t3);
+  text-transform:uppercase;letter-spacing:0.12em;margin-bottom:14px;}
+.score-ring{position:relative;display:inline-block;margin-bottom:10px;}
+.score-ring svg{transform:rotate(-90deg);}
+.score-ring-val{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:'Outfit',sans-serif;font-size:2.6rem;font-weight:900;line-height:1;
+  letter-spacing:-0.03em;}
+.score-ring-sub{position:absolute;bottom:18%;left:50%;transform:translateX(-50%);
+  font-family:'DM Mono',monospace;font-size:0.52rem;color:var(--t3);white-space:nowrap;}
+.score-verdict{font-family:'DM Mono',monospace;font-size:0.65rem;font-weight:600;
+  letter-spacing:0.12em;margin-top:2px;}
+.score-counts{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+.sc-pill{font-family:'DM Mono',monospace;font-size:0.62rem;font-weight:500;
+  padding:4px 9px;border-radius:5px;border:1px solid transparent;}
+.sc-pill.g{background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.25);color:var(--green);}
+.sc-pill.r{background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.25);color:var(--red);}
+.sc-pill.y{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.25);color:var(--amber);}
 .sc-pill.n{background:var(--s2);border-color:var(--border);color:var(--t3);}
-
-.score-w{font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--t3);line-height:2;
-  margin-top:14px;border-top:1px solid var(--border);padding-top:13px;text-align:left;}
+.score-w{font-family:'DM Mono',monospace;font-size:0.57rem;color:var(--t3);line-height:2.1;
+  margin-top:14px;border-top:1px solid var(--border);padding-top:12px;text-align:left;}
 .score-w span{color:var(--t2);}
 
 /* ── Legend ── */
-.legend-strip{display:flex;gap:14px;margin-bottom:1rem;flex-wrap:wrap;}
+.legend-strip{display:flex;gap:12px;margin-bottom:0.9rem;flex-wrap:wrap;}
 .legend-item{display:flex;align-items:center;gap:6px;
-  font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--t2);}
-.legend-dot{width:9px;height:9px;border-radius:2px;}
+  font-family:'DM Mono',monospace;font-size:0.63rem;color:var(--t2);}
+.legend-dot{width:8px;height:8px;border-radius:2px;}
 
 /* ── Company header ── */
-.company-header{background:var(--s1);border:1px solid var(--border);border-radius:13px;
-  padding:22px 26px;margin-bottom:1.5rem;display:flex;align-items:center;gap:30px;flex-wrap:wrap;}
-.company-name{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:700;color:var(--text);}
-.company-ticker{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--green);
-  letter-spacing:0.1em;margin-top:4px;}
-.company-meta{display:flex;gap:26px;margin-left:auto;align-items:center;flex-wrap:wrap;}
-.meta-lbl{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--t3);
-  text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;}
-.meta-val{font-family:'Outfit',sans-serif;font-size:0.88rem;color:var(--t2);}
-.price-box{background:var(--s2);border:1px solid var(--b2);border-radius:9px;
-  padding:12px 20px;text-align:center;}
-.price-lbl{font-family:'DM Mono',monospace;font-size:0.57rem;color:var(--t3);
-  letter-spacing:0.08em;margin-bottom:3px;}
-.price-val{font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:700;color:var(--green);}
+.company-header{
+  background:linear-gradient(135deg,var(--s1) 0%,var(--s2) 100%);
+  border:1px solid var(--border);border-radius:14px;
+  padding:22px 28px;margin-bottom:1.5rem;display:flex;align-items:center;gap:28px;flex-wrap:wrap;
+  position:relative;overflow:hidden;}
+.company-header::after{content:'';position:absolute;right:-20px;top:-20px;
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(34,197,94,0.04) 0%,transparent 70%);}
+.company-name{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:800;
+  color:var(--text);letter-spacing:-0.02em;}
+.company-ticker{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--green);
+  letter-spacing:0.1em;margin-top:3px;}
+.company-meta{display:flex;gap:24px;margin-left:auto;align-items:center;flex-wrap:wrap;}
+.meta-lbl{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--t3);
+  text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;}
+.meta-val{font-family:'Outfit',sans-serif;font-size:0.86rem;color:var(--t2);}
+.price-box{background:var(--s3);border:1px solid var(--b2);border-radius:10px;
+  padding:12px 22px;text-align:center;}
+.price-lbl{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--t3);
+  letter-spacing:0.08em;margin-bottom:4px;}
+.price-val{font-family:'Outfit',sans-serif;font-size:1.45rem;font-weight:800;color:var(--green);}
 
 /* ── Empty state ── */
-.empty-state{background:var(--s1);border:1px solid var(--border);border-radius:13px;
-  padding:60px 24px;text-align:center;margin-top:1.5rem;}
-.empty-icon{font-size:2.2rem;color:var(--t3);margin-bottom:12px;}
-.empty-title{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:600;
-  color:var(--t2);margin-bottom:7px;}
-.empty-sub{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--t3);line-height:2;}
+.empty-state{background:var(--s1);border:1px solid var(--border);border-radius:14px;
+  padding:70px 24px;text-align:center;margin-top:1.5rem;}
+.empty-icon{font-size:2.4rem;color:var(--t4);margin-bottom:14px;}
+.empty-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:600;
+  color:var(--t2);margin-bottom:8px;}
+.empty-sub{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--t3);line-height:2.1;}
 
 /* ── Expanders ── */
 .streamlit-expanderHeader{font-family:'DM Mono',monospace!important;
-  font-size:0.68rem!important;color:var(--t3)!important;
-  text-transform:uppercase!important;letter-spacing:0.1em!important;}
+  font-size:0.65rem!important;color:var(--t3)!important;
+  text-transform:uppercase!important;letter-spacing:0.12em!important;}
+
+/* ── Spinner / progress ── */
+.stProgress > div > div{background:var(--green)!important;border-radius:4px!important;}
+.stProgress > div{background:var(--s2)!important;border-radius:4px!important;}
+
+/* ── Selectbox & multiselect ── */
+.stSelectbox > div > div, .stMultiSelect > div > div{
+  background:var(--s1)!important;border:1px solid var(--border)!important;
+  border-radius:8px!important;color:var(--text)!important;}
+
+/* ── Toggle ── */
+.stToggle label{font-family:'DM Mono',monospace!important;font-size:0.7rem!important;color:var(--t2)!important;}
+
+/* ── Screener mini score bar ── */
+.mini-score-bar{display:inline-block;width:44px;height:4px;border-radius:2px;
+  background:var(--s3);vertical-align:middle;margin-left:4px;overflow:hidden;position:relative;}
+.mini-score-fill{height:100%;border-radius:2px;transition:width .3s;}
 `;
+
 const st=document.createElement('style');
 st.textContent=css;
 window.parent.document.head.appendChild(st);
@@ -313,7 +358,6 @@ window.parent.document.head.appendChild(st);
 (function styleActiveNav(){
   function update(){
     var P=window.parent.document;
-    // Only target the sidebar radio (first stRadio in sidebar)
     var sidebar=P.querySelector('[data-testid="stSidebar"]');
     if(!sidebar) return;
     var labels=sidebar.querySelectorAll('.stRadio label');
@@ -321,9 +365,9 @@ window.parent.document.head.appendChild(st);
       var inp=lbl.querySelector('input[type="radio"]');
       if(!inp) return;
       if(inp.checked){
-        lbl.style.cssText='color:#f1f5f9!important;background:#111827!important;border-left:2px solid #22c55e!important;padding-left:11px!important;border-radius:8px!important;';
+        lbl.style.cssText='color:#f1f5f9!important;background:#0e1420!important;border-left:2px solid #22c55e!important;padding-left:11px!important;border-radius:7px!important;';
       } else {
-        lbl.style.cssText='color:#94a3b8!important;background:transparent!important;border-left:none!important;padding-left:12px!important;border-radius:8px!important;';
+        lbl.style.cssText='color:#475569!important;background:transparent!important;border-left:none!important;padding-left:12px!important;border-radius:7px!important;';
       }
       if(!lbl._navBound){
         lbl.addEventListener('click',function(){setTimeout(update,80);});
@@ -333,6 +377,34 @@ window.parent.document.head.appendChild(st);
   }
   update();
   setInterval(update,500);
+})();
+
+// Live clock + market status in sidebar
+(function liveClock(){
+  var P=window.parent.document;
+  // Create clock element once
+  var clockEl=P.getElementById('_pea_clock');
+  if(!clockEl){
+    clockEl=P.createElement('div');
+    clockEl.id='_pea_clock';
+    clockEl.style.cssText='font-family:"DM Mono",monospace;font-size:0.58rem;color:#2d3f57;text-align:center;margin-top:auto;padding-top:8px;line-height:2;';
+    var sidebar=P.querySelector('[data-testid="stSidebar"] .block-container');
+    if(sidebar) sidebar.appendChild(clockEl);
+  }
+  function tick(){
+    var now=new Date();
+    var hh=String(now.getHours()).padStart(2,'0');
+    var mm=String(now.getMinutes()).padStart(2,'0');
+    var ss=String(now.getSeconds()).padStart(2,'0');
+    var d=now.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+    // Euronext Paris: 09:00-17:30 mon-fri
+    var day=now.getDay(); var h=now.getHours(); var m=now.getMinutes();
+    var open=(day>=1&&day<=5)&&((h>9||(h===9&&m>=0))&&(h<17||(h===17&&m<30)));
+    var status=open?'<span style="color:#22c55e">● OUVERT</span>':'<span style="color:#475569">○ FERMÉ</span>';
+    clockEl.innerHTML=hh+':'+mm+':'+ss+'<br>'+d+'<br>Euronext · '+status;
+  }
+  tick();
+  setInterval(tick,1000);
 })();
 </script>
 """, height=0, scrolling=False)
@@ -370,6 +442,54 @@ DEFINITIONS = {
 }
 
 P_COLORS = ["#22c55e","#f59e0b","#3b82f6","#ef4444","#8b5cf6","#06b6d4","#f97316","#84cc16"]
+
+# ── Benchmark personnalisable ─────────────────────────────────────────────────
+BENCHMARKS_AVAILABLE = {
+    "MSCI World (IWDA)":      "IWDA.AS",
+    "CAC 40":                 "^FCHI",
+    "S&P 500":                "^GSPC",
+    "Stoxx Europe 600":       "EXSA.DE",
+    "CAC Mid 60":             "^CACMD",
+    "Nasdaq 100":             "^NDX",
+    "MSCI Emerging Markets":  "EIMI.AS",
+}
+
+# ── Persistance locale (fichier JSON) ─────────────────────────────────────────
+import json, os
+
+STATE_FILE = "pea_state.json"
+
+def _load_state() -> dict:
+    """Charge l'état persistant depuis le fichier JSON local."""
+    try:
+        if os.path.exists(STATE_FILE):
+            with open(STATE_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+    except:
+        pass
+    return {"journal": [], "alerts": [], "watchlist": [], "benchmark": "MSCI World (IWDA)"}
+
+def _save_state(state: dict):
+    """Sauvegarde l'état dans le fichier JSON local."""
+    try:
+        with open(STATE_FILE, "w", encoding="utf-8") as f:
+            json.dump(state, f, ensure_ascii=False, indent=2, default=str)
+    except:
+        pass
+
+def get_state(key: str, default=None):
+    """Lit une valeur depuis le state persistant + session_state."""
+    if f"_pstate_{key}" not in st.session_state:
+        st.session_state[f"_pstate_{key}"] = _load_state().get(key, default)
+    return st.session_state[f"_pstate_{key}"]
+
+def set_state(key: str, value):
+    """Écrit une valeur dans session_state + sauvegarde le fichier."""
+    st.session_state[f"_pstate_{key}"] = value
+    state = _load_state()
+    state[key] = value
+    _save_state(state)
+
 
 STOCK_PERIODS = [
     ("Jour",    "1d",  1),
@@ -819,6 +939,13 @@ def safe_float(v):
     try: return float(v) if v is not None else None
     except: return None
 
+def fix_yield(v):
+    """yfinance retourne parfois dividendYield × 100. On normalise toujours en ratio (0.03 = 3%)."""
+    f = safe_float(v)
+    if f is None: return None
+    if f > 1: f = f / 100   # ex: 1.93 → 0.0193
+    return min(f, 0.25)     # cap 25% pour données corrompues
+
 def fmt_pct_safe(v):
     f = safe_float(v)
     return f"{f*100:.1f}%" if f is not None else "N/A"
@@ -834,8 +961,11 @@ def perf_color(pct):
 # PAGE 1 — PORTEFEUILLE
 # ══════════════════════════════════════════════════════════════════════════════
 def page_portfolio():
-    st.markdown('<div class="ph"><div class="ph-title">Portefeuille PEA</div>'
-                '<div class="ph-sub">▸ Valorisation temps réel · Fortuneo</div></div>',
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">▸ PEA · Fortuneo</div>'
+                '<div class="ph-title">Portefeuille</div>'
+                '<div class="ph-sub">Valorisation temps réel</div>'
+                '</div>',
                 unsafe_allow_html=True)
 
     try:
@@ -1070,8 +1200,11 @@ def page_portfolio():
 # PAGE 2 — ANALYSE 10-BAGGERS
 # ══════════════════════════════════════════════════════════════════════════════
 def page_10baggers():
-    st.markdown('<div class="ph"><div class="ph-title">Analyse 10-Baggers</div>'
-                '<div class="ph-sub">▸ Checklist fondamentale · Score pondéré /100</div></div>',
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">◎ Analyse fondamentale</div>'
+                '<div class="ph-title">10-Baggers</div>'
+                '<div class="ph-sub">Checklist · Score pondéré /100</div>'
+                '</div>',
                 unsafe_allow_html=True)
 
     ticker_input = st.text_input("Ticker", "",
@@ -1135,10 +1268,26 @@ def page_10baggers():
         rev_cagr = get_5y_cagr(t.financials.loc["Total Revenue"]) if "Total Revenue" in t.financials.index else None
     except: rev_cagr = None
 
+    buyback = None
     try:
-        sh = t.balance_sheet.loc["Ordinary Shares Number"].dropna().sort_index()
-        buyback = (sh.iloc[-1] < sh.iloc[0]) if len(sh) >= 2 else None
-    except: buyback = None
+        bs_tmp = t.balance_sheet
+        for field in ["Ordinary Shares Number", "Share Issued", "Common Stock"]:
+            if field in bs_tmp.index:
+                sh = bs_tmp.loc[field].dropna().sort_index()
+                if len(sh) >= 2:
+                    buyback = bool(sh.iloc[-1] < sh.iloc[0])
+                    break
+        if buyback is None:
+            cf_tmp = t.cashflow
+            for field in ["Repurchase Of Capital Stock", "Common Stock Repurchased",
+                          "Repurchase of Common Stock"]:
+                if field in cf_tmp.index:
+                    val = cf_tmp.loc[field].dropna()
+                    if not val.empty:
+                        buyback = bool(float(val.iloc[0]) < 0)
+                        break
+    except:
+        buyback = None
 
     try:
         fin  = t.financials; bs = t.balance_sheet
@@ -1275,21 +1424,37 @@ def page_10baggers():
     col_sc, col_cr = st.columns([1, 2])
 
     with col_sc:
+        # SVG ring parameters
+        R = 54; CX = 70; CY = 70; SW = 7
+        circumference = 2 * 3.14159 * R
+        dash = circumference * sc / 100
+        gap  = circumference - dash
+        ring_color = sc_c
+        # Animated SVG ring
         st.markdown(f"""<div class="score-card">
           <div class="score-lbl">Score de recommandation</div>
-          <div class="score-num" style="color:{sc_c}">{sc}</div>
-          <div class="score-verdict" style="color:{sc_c}">/100 · {verdict}</div>
-          <div class="score-bar-bg">
-            <div class="score-bar" style="width:{sc}%;background:{sc_c}"></div>
+          <div class="score-ring">
+            <svg width="140" height="140" viewBox="0 0 140 140">
+              <circle cx="{CX}" cy="{CY}" r="{R}" fill="none"
+                stroke="#1a2538" stroke-width="{SW}"/>
+              <circle cx="{CX}" cy="{CY}" r="{R}" fill="none"
+                stroke="{ring_color}" stroke-width="{SW}"
+                stroke-linecap="round"
+                stroke-dasharray="{dash:.1f} {gap:.1f}"
+                style="transition:stroke-dasharray 1s ease;filter:drop-shadow(0 0 6px {ring_color}44)"/>
+            </svg>
+            <div class="score-ring-val" style="color:{ring_color}">{sc}</div>
+            <div class="score-ring-sub">/100</div>
           </div>
+          <div class="score-verdict" style="color:{ring_color}">{verdict}</div>
           <div class="score-counts">
-            <span class="sc-pill g">✓ {greens} validés</span>
-            <span class="sc-pill r">✗ {reds} refusés</span>
-            <span class="sc-pill y">◐ {yellows} neutres</span>
-            <span class="sc-pill n">○ {nas} N/A</span>
+            <span class="sc-pill g">✓ {greens}</span>
+            <span class="sc-pill r">✗ {reds}</span>
+            <span class="sc-pill y">◐ {yellows}</span>
+            <span class="sc-pill n">○ {nas}</span>
           </div>
           <div class="score-w"><span>Pondérations (/100)</span><br>
-            CA 15% · ROIC 15%<br>Marge FCF 12% · Croiss. FCF 12%<br>
+            CA 15% · ROIC 15%<br>Marge FCF 12% · FCF 12%<br>
             D/EBITDA 10% · Momentum 10%<br>Rachat 8% · PER 7%<br>
             Dividende 6% · Payout 5%
           </div></div>""", unsafe_allow_html=True)
@@ -1391,7 +1556,8 @@ def page_10baggers():
     tgt    = safe_float(info.get("targetMeanPrice"))
     upside = (fmt_p2((tgt/(cur_px or 1))-1)+" upside") if tgt and cur_px else ""
     reco   = (info.get("recommendationKey") or "").lower()
-    dyield = safe_float(info.get("dividendYield"))
+    dyield_raw = safe_float(info.get("dividendYield"))
+    dyield = (dyield_raw / 100 if dyield_raw and dyield_raw > 1 else dyield_raw)
 
     html = ""
 
@@ -1731,7 +1897,8 @@ def page_10baggers():
 # ══════════════════════════════════════════════════════════════════════════════
 
 # Liste complète de tickers PEA français (.PA) — Euronext Paris
-PEA_FR_TICKERS = ["ALEUP.PA",
+PEA_FR_TICKERS = [
+"ALEUP.PA",
  "ALIBR.PA",
  "ALHAF.PA",
  "ALSRS.PA",
@@ -2043,6 +2210,7 @@ PEA_FR_TICKERS = ["ALEUP.PA",
  "ALLGO.PA",
  "VIL.PA",
  "ALHYP.PA"]
+
 # Déduplique et trie
 PEA_FR_TICKERS = sorted(list(set(PEA_FR_TICKERS)))
 
@@ -2089,11 +2257,35 @@ def compute_10bagger_data(ticker_str):
         rev_cagr = get_5y_cagr(t.financials.loc["Total Revenue"]) if "Total Revenue" in t.financials.index else None
     except: rev_cagr = None
 
-    # 2. Rachat
+    # 2. Rachat — plusieurs méthodes de fallback
+    buyback = None
     try:
-        sh = t.balance_sheet.loc["Ordinary Shares Number"].dropna().sort_index()
-        buyback = (sh.iloc[-1] < sh.iloc[0]) if len(sh) >= 2 else None
-    except: buyback = None
+        # Méthode 1 : évolution du nombre d'actions au bilan
+        bs = t.balance_sheet
+        for field in ["Ordinary Shares Number", "Share Issued", "Common Stock"]:
+            if field in bs.index:
+                sh = bs.loc[field].dropna().sort_index()
+                if len(sh) >= 2:
+                    buyback = bool(sh.iloc[-1] < sh.iloc[0])
+                    break
+        # Méthode 2 : Repurchase Of Capital Stock dans le cashflow
+        if buyback is None:
+            cf = t.cashflow
+            for field in ["Repurchase Of Capital Stock", "Common Stock Repurchased",
+                          "Purchase Of Business", "Repurchase of Common Stock"]:
+                if field in cf.index:
+                    val = cf.loc[field].dropna()
+                    if not val.empty:
+                        buyback = bool(float(val.iloc[0]) < 0)
+                        break
+        # Méthode 3 : info yfinance sharesOutstanding vs floatShares trend
+        if buyback is None:
+            so = info.get("sharesOutstanding")
+            if so:
+                # On ne peut pas comparer dans le temps ici, on laisse None
+                pass
+    except:
+        buyback = None
 
     # 3. ROIC
     try:
@@ -2229,8 +2421,11 @@ def compute_10bagger_data(ticker_str):
 
 
 def page_screener():
-    st.markdown('<div class="ph"><div class="ph-title">Screener Multi-Actions</div>'
-                '<div class="ph-sub">▸ Analyse 10-Baggers · Comparaison en masse</div></div>',
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">⊞ Screening multi-actions</div>'
+                '<div class="ph-title">Screener</div>'
+                '<div class="ph-sub">10-Baggers · Comparaison en masse</div>'
+                '</div>',
                 unsafe_allow_html=True)
 
     # ── Initialisation session state ──────────────────────────────────────────
@@ -2357,7 +2552,9 @@ def page_screener():
         rw_cols = st.columns(4)
         col_i = 0
         for lbl, (key, vmin, vmax, is_pct) in raw_keys.items():
+            import math
             vals = [r["_raw"].get(key) for r in results if r["_raw"].get(key) is not None]
+            vals = [v for v in vals if math.isfinite(v)]
             if not vals:
                 continue
             scale = 100 if is_pct else 1
@@ -2446,8 +2643,11 @@ def page_screener():
 
     def score_badge(sc):
         c = "#22c55e" if sc >= 70 else ("#f59e0b" if sc >= 50 else "#ef4444")
-        return (f'<span style="font-family:Outfit,sans-serif;font-weight:700;'
-                f'font-size:1rem;color:{c}">{sc}</span>')
+        bar = (f'<span class="mini-score-bar">'
+               f'<span class="mini-score-fill" style="width:{sc}%;background:{c}"></span>'
+               f'</span>')
+        return (f'<span style="font-family:Outfit,sans-serif;font-weight:800;'
+                f'font-size:1.05rem;color:{c};letter-spacing:-0.02em">{sc}</span>{bar}')
 
     def status_cell(st_code):
         ic  = STATUS_ICON[st_code]
@@ -2534,6 +2734,3251 @@ def page_screener():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# PAGE 4 — INTELLIGENCE DE MARCHÉ
+# ══════════════════════════════════════════════════════════════════════════════
+
+@st.cache_data(ttl=300)
+def get_multi_history(tickers: tuple, period="1y"):
+    """Fetch Close prices for multiple tickers, return aligned DataFrame."""
+    frames = {}
+    for tk in tickers:
+        try:
+            h = yf.Ticker(tk).history(period=period)["Close"]
+            h.index = h.index.tz_localize(None)
+            frames[tk] = h
+        except:
+            pass
+    if not frames:
+        return pd.DataFrame()
+    df = pd.DataFrame(frames)
+    df = df.dropna(how="all")
+    return df
+
+@st.cache_data(ttl=300)
+def get_ticker_signals(ticker: str):
+    """Compute technical signals for a single ticker."""
+    try:
+        h = yf.Ticker(ticker).history(period="1y")
+        if h.empty or len(h) < 50:
+            return None
+        h.index = h.index.tz_localize(None)
+        c = h["Close"]; v = h["Volume"]
+
+        last   = float(c.iloc[-1])
+        mm20   = float(c.rolling(20).mean().iloc[-1])
+        mm50   = float(c.rolling(50).mean().iloc[-1])
+        mm200  = float(c.rolling(200).mean().iloc[-1]) if len(c) >= 200 else None
+        vol20  = float(v.rolling(20).mean().iloc[-1])
+        vol_r  = float(v.iloc[-1]) / vol20 if vol20 > 0 else 1.0
+
+        # RSI 14
+        delta  = c.diff()
+        gain   = delta.clip(lower=0).rolling(14).mean()
+        loss   = (-delta.clip(upper=0)).rolling(14).mean()
+        rs     = gain / loss.replace(0, np.nan)
+        rsi    = float(100 - 100 / (1 + rs.iloc[-1]))
+
+        # Bollinger
+        bb_m   = c.rolling(20).mean()
+        bb_s   = c.rolling(20).std()
+        bb_u   = float((bb_m + 2*bb_s).iloc[-1])
+        bb_l   = float((bb_m - 2*bb_s).iloc[-1])
+        bb_pct = (last - bb_l) / (bb_u - bb_l) * 100 if bb_u != bb_l else 50
+
+        # MACD
+        ema12  = c.ewm(span=12).mean()
+        ema26  = c.ewm(span=26).mean()
+        macd   = ema12 - ema26
+        signal = macd.ewm(span=9).mean()
+        hist   = float((macd - signal).iloc[-1])
+
+        # 52w
+        w52_h  = float(c.rolling(252).max().iloc[-1]) if len(c) >= 252 else float(c.max())
+        w52_l  = float(c.rolling(252).min().iloc[-1]) if len(c) >= 252 else float(c.min())
+        pct_from_high = (last - w52_h) / w52_h * 100
+
+        # Pattern detection
+        signals = []
+        if mm200 and last > mm200 and last > mm50 and last > mm20:
+            signals.append(("TENDANCE HAUSSIÈRE", "g", "Au-dessus MM20/50/200"))
+        elif mm200 and last < mm200:
+            signals.append(("SOUS MM200", "r", "Tendance baissière LT"))
+        if abs(last - mm50) / mm50 < 0.02:
+            signals.append(("TEST MM50", "y", f"À {abs(last-mm50)/mm50*100:.1f}% de la MM50"))
+        if mm200 and abs(last - mm200) / mm200 < 0.015:
+            signals.append(("TEST MM200", "r", f"À {abs(last-mm200)/mm200*100:.1f}% de la MM200"))
+        if rsi > 75:
+            signals.append(("RSI SURACHETÉ", "r", f"RSI = {rsi:.0f}"))
+        elif rsi < 28:
+            signals.append(("RSI SURVENDU", "g", f"RSI = {rsi:.0f} — rebond possible"))
+        if vol_r > 2.0 and last > c.iloc[-2]:
+            signals.append(("BREAKOUT VOLUME", "g", f"Volume ×{vol_r:.1f} · Hausse"))
+        elif vol_r > 2.0 and last < c.iloc[-2]:
+            signals.append(("VOLUME BAISSIER", "r", f"Volume ×{vol_r:.1f} · Baisse"))
+        if bb_pct > 90:
+            signals.append(("BB BANDE HAUTE", "r", f"BB% = {bb_pct:.0f}% — retour possible"))
+        elif bb_pct < 10:
+            signals.append(("BB BANDE BASSE", "g", f"BB% = {bb_pct:.0f}% — rebond possible"))
+        if hist > 0 and float(macd.iloc[-2]) < float(signal.iloc[-2]):
+            signals.append(("MACD CROISEMENT ↑", "g", "Signal haussier CT"))
+        elif hist < 0 and float(macd.iloc[-2]) > float(signal.iloc[-2]):
+            signals.append(("MACD CROISEMENT ↓", "r", "Signal baissier CT"))
+        if pct_from_high > -5:
+            signals.append(("PROCHE SOMMET 52S", "y", f"{pct_from_high:+.1f}% du plus haut"))
+        if not signals:
+            signals.append(("NEUTRE", "n", "Pas de signal fort détecté"))
+
+        return {
+            "last": last, "mm20": mm20, "mm50": mm50, "mm200": mm200,
+            "rsi": rsi, "bb_pct": bb_pct, "vol_r": vol_r, "hist": hist,
+            "w52_h": w52_h, "w52_l": w52_l, "pct_from_high": pct_from_high,
+            "signals": signals,
+        }
+    except:
+        return None
+
+
+def page_intelligence():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">◈ Analyse avancée</div>'
+                '<div class="ph-title">Intelligence de Marché</div>'
+                '<div class="ph-sub">Corrélations · Signaux · Alertes · Stress-test · Risque</div>'
+                '</div>', unsafe_allow_html=True)
+
+    # ── Chargement du portefeuille ────────────────────────────────────────────
+    try:
+        df_hist, df_corr, df_vers = load_data()
+        df_pos, s = compute_portfolio(df_hist, df_corr, df_vers)
+    except Exception as e:
+        st.error(f"Fichiers introuvables : {e}")
+        return
+
+    if df_pos.empty:
+        st.info("Aucune position pour l'analyse.")
+        return
+
+    # Tickers du portefeuille (avec cours dispo)
+    port_tickers = [r["Ticker"] for _, r in df_pos.iterrows()
+                    if r["Ticker"] and r["Ticker"] != "N/A"]
+    # Actions seulement (pas ETF) pour les signaux techniques
+    action_tickers = [r["Ticker"] for _, r in df_pos.iterrows()
+                      if r["Ticker"] and r["Ticker"] != "N/A"
+                      and r.get("Type", "Action") == "Action"]
+
+    # Onglets internes
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        "  ◫  Corrélations  ",
+        "  ⚡  Signaux  ",
+        "  🔔  Alertes  ",
+        "  💥  Stress-test  ",
+        "  ⚖  Concentration  ",
+    ])
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # ONGLET 1 — CORRÉLATIONS
+    # ══════════════════════════════════════════════════════════════════════════
+    with tab1:
+        section_label("Matrice de corrélations — Portefeuille + Indices")
+
+        BENCHMARKS = {
+            "CAC 40": "^FCHI", "MSCI World": "IWDA.AS",
+            "S&P 500": "^GSPC", "EUR/USD": "EURUSD=X",
+        }
+        all_tickers_corr = port_tickers + list(BENCHMARKS.values())
+
+        per_corr = st.radio("Période", ["3 mois", "6 mois", "1 an", "2 ans"],
+                            horizontal=True, index=2, key="corr_period")
+        period_map = {"3 mois": "3mo", "6 mois": "6mo", "1 an": "1y", "2 ans": "2y"}
+
+        with st.spinner("Calcul des corrélations…"):
+            df_prices = get_multi_history(tuple(all_tickers_corr), period_map[per_corr])
+
+        if df_prices.empty or df_prices.shape[1] < 2:
+            st.warning("Données insuffisantes pour la matrice.")
+        else:
+            rets = df_prices.pct_change().dropna()
+            corr = rets.corr()
+
+            # Rename benchmark columns
+            rev_bench = {v: k for k, v in BENCHMARKS.items()}
+            corr.columns = [rev_bench.get(c, c) for c in corr.columns]
+            corr.index   = [rev_bench.get(c, c) for c in corr.index]
+
+            # Heatmap
+            z    = corr.values.tolist()
+            lbls = list(corr.columns)
+            n    = len(lbls)
+
+            # Color: -1=red, 0=dark, 1=green
+            fig_corr = go.Figure(go.Heatmap(
+                z=z, x=lbls, y=lbls,
+                colorscale=[
+                    [0,   "#ef4444"], [0.35, "#1a2235"],
+                    [0.5, "#0e1420"], [0.65, "#1a2235"],
+                    [1,   "#22c55e"],
+                ],
+                zmin=-1, zmax=1,
+                text=[[f"{v:.2f}" for v in row] for row in z],
+                texttemplate="%{text}",
+                textfont=dict(size=10, family="DM Mono"),
+                hovertemplate="<b>%{y} × %{x}</b><br>Corrélation : %{z:.3f}<extra></extra>",
+                colorbar=dict(thickness=12, len=0.8,
+                              tickfont=dict(family="DM Mono", size=9, color="#475569")),
+            ))
+            fig_corr.update_layout(
+                **plotly_base(max(340, n * 38),
+                              {"tickfont": {"family": "DM Mono", "size": 9}}))
+            fig_corr.update_layout(
+                xaxis=dict(tickfont=dict(family="DM Mono", size=9), tickangle=-40,
+                           gridcolor="rgba(0,0,0,0)"),
+                margin=dict(l=90, r=20, t=20, b=90),
+            )
+            st.plotly_chart(fig_corr, use_container_width=True)
+
+            # Alerte sur corrélations trop élevées entre positions
+            high_corr = []
+            for i in range(len(port_tickers)):
+                for j in range(i+1, len(port_tickers)):
+                    a = rev_bench.get(port_tickers[i], port_tickers[i])
+                    b = rev_bench.get(port_tickers[j], port_tickers[j])
+                    if a in corr.index and b in corr.columns:
+                        v = corr.loc[a, b]
+                        if abs(v) > 0.75:
+                            high_corr.append((a, b, v))
+
+            if high_corr:
+                section_label("⚠ Corrélations élevées entre positions")
+                html_hc = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'
+                for a, b, v in sorted(high_corr, key=lambda x: -abs(x[2])):
+                    c = "#ef4444" if v > 0 else "#3b82f6"
+                    html_hc += (f'<div style="background:var(--s1);border:1px solid var(--border);'
+                                f'border-radius:9px;padding:12px 15px">'
+                                f'<div style="font-family:DM Mono,monospace;font-size:0.65rem;'
+                                f'color:{c};font-weight:600">{v:+.2f}</div>'
+                                f'<div style="font-family:Outfit,sans-serif;font-size:0.82rem;'
+                                f'color:var(--text);margin-top:3px">{a} × {b}</div>'
+                                f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;'
+                                f'color:var(--t3);margin-top:2px">'
+                                f'{"Diversification réduite" if v>0 else "Couverture naturelle"}'
+                                f'</div></div>')
+                html_hc += '</div>'
+                st.markdown(html_hc, unsafe_allow_html=True)
+            else:
+                st.success("✓ Aucune corrélation extrême détectée entre vos positions.")
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # ONGLET 2 — SIGNAUX TECHNIQUES
+    # ══════════════════════════════════════════════════════════════════════════
+    with tab2:
+        section_label("Détection automatique de patterns · Actions uniquement")
+
+        if not action_tickers:
+            st.info("Aucune action détectée dans le portefeuille (ETF exclus).")
+        else:
+            all_signals_data = {}
+            with st.spinner("Analyse technique en cours…"):
+                for tk in action_tickers:
+                    all_signals_data[tk] = get_ticker_signals(tk)
+
+        COLOR_MAP = {"g": "#22c55e", "r": "#ef4444", "y": "#f59e0b", "n": "#475569"}
+        BG_MAP    = {"g": "rgba(34,197,94,0.07)", "r": "rgba(239,68,68,0.07)",
+                     "y": "rgba(245,158,11,0.07)", "n": "var(--s1)"}
+
+        rows_html = ""
+        for tk in action_tickers:
+            sig = all_signals_data.get(tk)
+            if not sig:
+                continue
+
+            pct_52 = sig["pct_from_high"]
+            rsi_c  = "#ef4444" if sig["rsi"] > 70 else ("#22c55e" if sig["rsi"] < 30 else "#f59e0b")
+
+            # Signal badges
+            badge_html = ""
+            for label, cls, detail in sig["signals"][:3]:
+                badge_html += (f'<span style="display:inline-block;font-family:DM Mono,monospace;'
+                               f'font-size:0.58rem;font-weight:600;color:{COLOR_MAP[cls]};'
+                               f'background:{BG_MAP[cls]};border:1px solid {COLOR_MAP[cls]}33;'
+                               f'border-radius:4px;padding:2px 7px;margin:2px 2px 2px 0;'
+                               f'white-space:nowrap">{label}</span>')
+
+            # RSI bar
+            rsi_pct = max(0, min(100, sig["rsi"]))
+            rsi_bar = (f'<div style="background:var(--s3);border-radius:3px;height:4px;'
+                       f'margin-top:5px;overflow:hidden">'
+                       f'<div style="width:{rsi_pct:.0f}%;height:100%;'
+                       f'background:{rsi_c};border-radius:3px"></div></div>')
+
+            # 52w bar
+            if sig["w52_h"] != sig["w52_l"]:
+                pos52 = (sig["last"] - sig["w52_l"]) / (sig["w52_h"] - sig["w52_l"]) * 100
+            else:
+                pos52 = 50
+            bar52 = (f'<div style="background:var(--s3);border-radius:3px;height:4px;'
+                     f'margin-top:5px;overflow:hidden">'
+                     f'<div style="width:{pos52:.0f}%;height:100%;'
+                     f'background:#3b82f6;border-radius:3px"></div></div>')
+
+            rows_html += (
+                f'<div style="background:var(--s1);border:1px solid var(--border);'
+                f'border-radius:11px;padding:16px 18px;margin-bottom:10px">'
+                f'<div style="display:flex;justify-content:space-between;align-items:center;'
+                f'margin-bottom:10px">'
+                f'<span style="font-family:DM Mono,monospace;font-size:0.78rem;'
+                f'color:#22c55e;font-weight:600">{tk}</span>'
+                f'<span style="font-family:Outfit,sans-serif;font-size:0.95rem;'
+                f'font-weight:700;color:var(--text)">{sig["last"]:.2f}</span>'
+                f'</div>'
+                f'<div style="margin-bottom:8px">{badge_html}</div>'
+                f'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;'
+                f'margin-top:10px">'
+                f'<div><div style="font-family:DM Mono,monospace;font-size:0.55rem;'
+                f'color:var(--t3);text-transform:uppercase;letter-spacing:0.1em">RSI 14</div>'
+                f'<div style="font-family:Outfit,sans-serif;font-size:0.9rem;font-weight:600;'
+                f'color:{rsi_c}">{sig["rsi"]:.0f}</div>{rsi_bar}</div>'
+                f'<div><div style="font-family:DM Mono,monospace;font-size:0.55rem;'
+                f'color:var(--t3);text-transform:uppercase;letter-spacing:0.1em">52s pos.</div>'
+                f'<div style="font-family:Outfit,sans-serif;font-size:0.9rem;font-weight:600;'
+                f'color:{("#22c55e" if pct_52 > -10 else "#f59e0b")}">'
+                f'{pct_52:+.1f}%</div>{bar52}</div>'
+                f'<div><div style="font-family:DM Mono,monospace;font-size:0.55rem;'
+                f'color:var(--t3);text-transform:uppercase;letter-spacing:0.1em">Vol ×moy</div>'
+                f'<div style="font-family:Outfit,sans-serif;font-size:0.9rem;font-weight:600;'
+                f'color:{("#22c55e" if sig["vol_r"] > 1.5 else "var(--t2)")}">'
+                f'×{sig["vol_r"]:.1f}</div></div>'
+                f'</div></div>'
+            )
+
+        if rows_html:
+            st.markdown(rows_html, unsafe_allow_html=True)
+
+            # Résumé global des signaux
+            section_label("Vue consolidée — tous signaux")
+            all_sig_flat = []
+            for tk, sig in all_signals_data.items():
+                if sig:
+                    for lbl, cls, det in sig["signals"]:
+                        all_sig_flat.append((tk, lbl, cls, det))
+
+            greens = [(t,l,d) for t,l,c,d in all_sig_flat if c=="g"]
+            reds   = [(t,l,d) for t,l,c,d in all_sig_flat if c=="r"]
+
+            c_g, c_r = st.columns(2)
+            def sig_list(items, color, title):
+                html = (f'<div style="background:var(--s1);border:1px solid var(--border);'
+                        f'border-radius:11px;padding:16px 18px">'
+                        f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;'
+                        f'color:{color};text-transform:uppercase;letter-spacing:0.1em;'
+                        f'margin-bottom:10px">{title}</div>')
+                if not items:
+                    html += '<div style="font-family:DM Mono,monospace;font-size:0.65rem;color:var(--t3)">Aucun</div>'
+                for tk, lbl, det in items:
+                    html += (f'<div style="display:flex;justify-content:space-between;'
+                             f'padding:6px 0;border-bottom:1px solid var(--border)">'
+                             f'<span style="font-family:DM Mono,monospace;font-size:0.65rem;'
+                             f'color:{color};font-weight:600">{tk}</span>'
+                             f'<span style="font-family:DM Mono,monospace;font-size:0.62rem;'
+                             f'color:var(--t2)">{lbl}</span>'
+                             f'<span style="font-family:DM Mono,monospace;font-size:0.58rem;'
+                             f'color:var(--t3)">{det}</span></div>')
+                html += '</div>'
+                return html
+            with c_g:
+                st.markdown(sig_list(greens, "#22c55e", f"✓ Signaux haussiers · {len(greens)}"), unsafe_allow_html=True)
+            with c_r:
+                st.markdown(sig_list(reds, "#ef4444", f"✗ Signaux baissiers · {len(reds)}"), unsafe_allow_html=True)
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # ONGLET 3 — ALERTES
+    # ══════════════════════════════════════════════════════════════════════════
+    with tab3:
+        section_label("Alertes personnalisées")
+
+        st.markdown('<div style="font-family:DM Mono,monospace;font-size:0.68rem;'
+                    'color:var(--t3);margin-bottom:1rem">Définissez des seuils de prix ou RSI '
+                    '— statut calculé à chaque rafraîchissement.</div>', unsafe_allow_html=True)
+
+        # Init alertes depuis état persistant
+        if "alerts" not in st.session_state:
+            st.session_state.alerts = get_state("alerts", [])
+
+        # Formulaire ajout
+        with st.expander("➕  Ajouter une alerte", expanded=len(st.session_state.alerts) == 0):
+            ca, cb, cc, cd = st.columns([2, 2, 2, 1])
+            with ca:
+                al_ticker = st.selectbox("Ticker", port_tickers + ["Autre…"], key="al_tk")
+                if al_ticker == "Autre…":
+                    al_ticker = st.text_input("Ticker personnalisé", key="al_tk_custom").upper()
+            with cb:
+                al_type = st.selectbox("Condition", [
+                    "Prix ≤", "Prix ≥", "RSI ≤", "RSI ≥",
+                    "% depuis 52s haut ≤", "Volume ×moy ≥",
+                ], key="al_type")
+            with cc:
+                al_val = st.number_input("Seuil", value=0.0, key="al_val", format="%.2f")
+            with cd:
+                st.markdown("<br>", unsafe_allow_html=True)
+                if st.button("Ajouter", use_container_width=True, key="al_add"):
+                    if al_ticker:
+                        st.session_state.alerts.append({
+                            "ticker": al_ticker, "type": al_type,
+                            "val": al_val, "created": datetime.now().strftime("%d/%m %H:%M")
+                        })
+                        set_state("alerts", st.session_state.alerts)
+                        st.rerun()
+
+        if not st.session_state.alerts:
+            st.markdown("""<div class="empty-state" style="padding:30px">
+              <div class="empty-icon" style="font-size:1.4rem">🔔</div>
+              <div class="empty-title">Aucune alerte configurée</div>
+              <div class="empty-sub">Ajoutez une alerte ci-dessus.</div>
+            </div>""", unsafe_allow_html=True)
+        else:
+            # Évaluation des alertes
+            alert_sigs = {}
+            tks_needed = list({a["ticker"] for a in st.session_state.alerts})
+            with st.spinner("Vérification des alertes…"):
+                for tk in tks_needed:
+                    alert_sigs[tk] = get_ticker_signals(tk)
+
+            rows_a = ""
+            to_delete = []
+            for i, al in enumerate(st.session_state.alerts):
+                sig  = alert_sigs.get(al["ticker"])
+                atype = al["type"]; aval = al["val"]
+                triggered = False; cur_val_str = "—"
+
+                if sig:
+                    if atype == "Prix ≤":
+                        triggered = sig["last"] <= aval; cur_val_str = f"{sig['last']:.2f}"
+                    elif atype == "Prix ≥":
+                        triggered = sig["last"] >= aval; cur_val_str = f"{sig['last']:.2f}"
+                    elif atype == "RSI ≤":
+                        triggered = sig["rsi"] <= aval; cur_val_str = f"{sig['rsi']:.0f}"
+                    elif atype == "RSI ≥":
+                        triggered = sig["rsi"] >= aval; cur_val_str = f"{sig['rsi']:.0f}"
+                    elif atype == "% depuis 52s haut ≤":
+                        triggered = sig["pct_from_high"] <= aval; cur_val_str = f"{sig['pct_from_high']:+.1f}%"
+                    elif atype == "Volume ×moy ≥":
+                        triggered = sig["vol_r"] >= aval; cur_val_str = f"×{sig['vol_r']:.1f}"
+
+                status_c = "#ef4444" if triggered else "#475569"
+                status_l = "🔴 DÉCLENCHÉ" if triggered else "○ En attente"
+                bg = "rgba(239,68,68,0.06)" if triggered else "var(--s1)"
+                border = "rgba(239,68,68,0.3)" if triggered else "var(--border)"
+
+                rows_a += (
+                    f'<div style="background:{bg};border:1px solid {border};'
+                    f'border-radius:10px;padding:13px 17px;margin-bottom:8px;'
+                    f'display:flex;align-items:center;gap:16px">'
+                    f'<span style="font-family:DM Mono,monospace;font-size:0.72rem;'
+                    f'color:#22c55e;font-weight:600;min-width:70px">{al["ticker"]}</span>'
+                    f'<span style="font-family:DM Mono,monospace;font-size:0.68rem;'
+                    f'color:var(--t2);flex:1">{atype} <b style="color:var(--text)">{aval}</b></span>'
+                    f'<span style="font-family:DM Mono,monospace;font-size:0.65rem;'
+                    f'color:var(--t3)">Actuel : <b style="color:var(--t2)">{cur_val_str}</b></span>'
+                    f'<span style="font-family:DM Mono,monospace;font-size:0.62rem;'
+                    f'color:{status_c};font-weight:600">{status_l}</span>'
+                    f'<span style="font-family:DM Mono,monospace;font-size:0.55rem;'
+                    f'color:var(--t4)">{al["created"]}</span>'
+                    f'</div>'
+                )
+
+            st.markdown(rows_a, unsafe_allow_html=True)
+
+            if st.button("🗑  Effacer toutes les alertes", key="al_clear"):
+                st.session_state.alerts = []
+                set_state("alerts", [])
+                st.rerun()
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # ONGLET 4 — STRESS-TEST
+    # ══════════════════════════════════════════════════════════════════════════
+    with tab4:
+        section_label("Stress-test de portefeuille")
+
+        st.markdown('<div style="font-family:DM Mono,monospace;font-size:0.67rem;color:var(--t3);'
+                    'margin-bottom:1.2rem">Simulation du P&L si le marché subit un choc.<br>'
+                    'Basé sur le bêta réel de chaque position (yfinance).</div>',
+                    unsafe_allow_html=True)
+
+        # Fetch betas
+        @st.cache_data(ttl=600)
+        def get_betas(tickers_tuple):
+            betas = {}
+            for tk in tickers_tuple:
+                try:
+                    info = yf.Ticker(tk).info
+                    b = info.get("beta")
+                    betas[tk] = float(b) if b else 1.0
+                except:
+                    betas[tk] = 1.0
+            return betas
+
+        with st.spinner("Récupération des bêtas…"):
+            betas = get_betas(tuple(port_tickers))
+
+        # Scénarios prédéfinis
+        SCENARIOS = {
+            "Correction normale (-10%)":    -10,
+            "Correction sévère (-20%)":     -20,
+            "Bear market (-35%)":           -35,
+            "Crash 2008 (-50%)":            -50,
+            "Flash crash (-15%)":           -15,
+            "Rally (+15%)":                 +15,
+            "Bull run (+30%)":              +30,
+        }
+
+        st.markdown('<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.2rem">', unsafe_allow_html=True)
+        sc_sel, sc_custom = st.columns([2, 1])
+        with sc_sel:
+            scenario_name = st.selectbox("Scénario prédéfini", list(SCENARIOS.keys()), key="stress_sc")
+            shock_pct = SCENARIOS[scenario_name]
+        with sc_custom:
+            custom_shock = st.slider("Choc personnalisé (%)", -60, +60, shock_pct, 1, key="stress_custom")
+            shock_pct = custom_shock
+
+        # Calcul impact
+        val_totale = s["total_valeur"]
+        rows_stress = []
+        total_impact = 0.0
+        for _, r in df_pos.iterrows():
+            tk = r["Ticker"]
+            if tk == "N/A":
+                continue
+            beta  = betas.get(tk, 1.0)
+            impact_pct = shock_pct * beta
+            impact_eur = r["Valeur (€)"] * impact_pct / 100
+            new_val    = r["Valeur (€)"] + impact_eur
+            total_impact += impact_eur
+            rows_stress.append({
+                "Titre": r["Titre"], "Ticker": tk,
+                "Valeur": r["Valeur (€)"], "Bêta": beta,
+                "Choc effectif": impact_pct, "Impact (€)": impact_eur,
+                "Valeur post-choc": new_val,
+            })
+        rows_stress.sort(key=lambda x: x["Impact (€)"])
+
+        # KPIs stress
+        new_total    = val_totale + total_impact
+        impact_pct_t = total_impact / val_totale * 100 if val_totale > 0 else 0
+        shock_c = "#22c55e" if shock_pct > 0 else "#ef4444"
+        kpi_s = (
+            f'<div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">'
+            + kpi_card("Choc marché", f"{shock_pct:+.0f}%",
+                       top_color=f"linear-gradient(90deg,{shock_c},transparent)")
+            + kpi_card("Impact portefeuille",
+                       f"{total_impact:+,.0f} €",
+                       f"{impact_pct_t:+.1f}% de la valeur",
+                       total_impact >= 0,
+                       top_color=f"linear-gradient(90deg,{shock_c},transparent)")
+            + kpi_card("Valeur avant", f"{val_totale:,.0f} €",
+                       top_color="linear-gradient(90deg,#3b82f6,transparent)")
+            + kpi_card("Valeur après", f"{new_total:,.0f} €",
+                       top_color=f"linear-gradient(90deg,{shock_c},transparent)")
+            + '</div>'
+        )
+        st.markdown(kpi_s, unsafe_allow_html=True)
+
+        # Tableau
+        rows_html_s = ""
+        for r in rows_stress:
+            ic  = "#ef4444" if r["Impact (€)"] < 0 else "#22c55e"
+            sg  = "+" if r["Impact (€)"] >= 0 else ""
+            beta_c = "#ef4444" if r["Bêta"] > 1.5 else ("#f59e0b" if r["Bêta"] > 1.0 else "#22c55e")
+            rows_html_s += (
+                f'<tr>'
+                f'<td style="text-align:left">{r["Titre"]}'
+                f'<span class="tbadge">{r["Ticker"]}</span></td>'
+                f'<td><span style="font-family:DM Mono,monospace;font-size:0.75rem;color:{beta_c}">'
+                f'{r["Bêta"]:.2f}</span></td>'
+                f'<td>{r["Valeur"]:,.0f} €</td>'
+                f'<td><span style="color:{ic};font-weight:600;font-family:DM Mono,monospace;font-size:0.75rem">'
+                f'{r["Choc effectif"]:+.1f}%</span></td>'
+                f'<td class="{"pos" if r["Impact (€)"]>=0 else "neg"}">'
+                f'{sg}{r["Impact (€)"]:,.0f} €</td>'
+                f'<td>{r["Valeur post-choc"]:,.0f} €</td>'
+                f'</tr>'
+            )
+
+        st.markdown(
+            f'<div style="background:var(--s1);border:1px solid var(--border);'
+            f'border-radius:11px;overflow:hidden;margin-bottom:1.5rem">'
+            f'<table class="ptable"><thead><tr>'
+            f'<th style="text-align:left">Titre</th>'
+            f'<th>Bêta</th><th>Valeur actuelle</th>'
+            f'<th>Choc effectif</th><th>Impact €</th><th>Valeur après choc</th>'
+            f'</tr></thead><tbody>{rows_html_s}</tbody></table></div>',
+            unsafe_allow_html=True
+        )
+
+        # Graphique waterfall
+        section_label("Cascade d'impact par position")
+        sorted_r = sorted(rows_stress, key=lambda x: x["Impact (€)"])
+        fig_wf = go.Figure(go.Bar(
+            x=[r["Ticker"] for r in sorted_r],
+            y=[r["Impact (€)"] for r in sorted_r],
+            marker_color=["#22c55e" if r["Impact (€)"] >= 0 else "#ef4444" for r in sorted_r],
+            marker_opacity=0.85,
+            text=[f"{r['Impact (€)']:+,.0f}€" for r in sorted_r],
+            textposition="outside",
+            textfont=dict(family="DM Mono", size=9),
+            hovertemplate="<b>%{x}</b><br>Impact : %{y:+,.0f} €<extra></extra>",
+        ))
+        fig_wf.update_layout(**plotly_base(260, {"ticksuffix": " €", "tickformat": ",.0f"}))
+        fig_wf.add_hline(y=0, line_color="#2d3f57", line_width=1)
+        st.plotly_chart(fig_wf, use_container_width=True)
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # ONGLET 5 — CONCENTRATION & RISQUE
+    # ══════════════════════════════════════════════════════════════════════════
+    with tab5:
+        section_label("Analyse de concentration & risque")
+
+        total_v = df_pos["Valeur (€)"].sum()
+        df_pos2 = df_pos.copy()
+        df_pos2["Poids (%)"] = df_pos2["Valeur (€)"] / total_v * 100
+        df_pos2 = df_pos2.sort_values("Poids (%)", ascending=False).reset_index(drop=True)
+
+        # HHI — Herfindahl-Hirschman Index
+        hhi = sum((w/100)**2 for w in df_pos2["Poids (%)"])
+        n_equiv = 1 / hhi if hhi > 0 else len(df_pos2)
+        hhi_score = max(0, min(100, int((1 - hhi) * 100)))
+        hhi_c = "#22c55e" if hhi_score >= 70 else ("#f59e0b" if hhi_score >= 45 else "#ef4444")
+        hhi_label = "Bien diversifié" if hhi_score >= 70 else ("Concentré" if hhi_score < 45 else "Modéré")
+
+        # Largest position risk
+        top_pos = df_pos2.iloc[0]
+        top_risk = top_pos["Poids (%)"] > 20
+
+        # Nb actifs > 10%
+        heavy = df_pos2[df_pos2["Poids (%)"] > 10]
+
+        kpi_c = (
+            f'<div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">'
+            + kpi_card("Score diversification",
+                       str(hhi_score),
+                       hhi_label, hhi_score >= 60,
+                       top_color=f"linear-gradient(90deg,{hhi_c},transparent)")
+            + kpi_card("Positions équivalentes",
+                       f"{n_equiv:.1f}",
+                       "positions de poids égal",
+                       top_color="linear-gradient(90deg,#3b82f6,transparent)")
+            + kpi_card("Plus grosse position",
+                       f"{top_pos['Poids (%)']:.1f}%",
+                       top_pos["Titre"][:20],
+                       not top_risk,
+                       top_color=f"linear-gradient(90deg,{'#ef4444' if top_risk else '#22c55e'},transparent)")
+            + kpi_card("Positions > 10%",
+                       str(len(heavy)),
+                       "risque de concentration" if len(heavy) > 3 else "acceptable",
+                       len(heavy) <= 3,
+                       top_color=f"linear-gradient(90deg,{'#f59e0b' if len(heavy)>2 else '#22c55e'},transparent)")
+            + '</div>'
+        )
+        st.markdown(kpi_c, unsafe_allow_html=True)
+
+        # Graphique treemap de concentration
+        section_label("Carte de poids — Treemap")
+        fig_tm = go.Figure(go.Treemap(
+            labels=df_pos2["Titre"].apply(lambda x: x[:18]).tolist(),
+            parents=[""] * len(df_pos2),
+            values=df_pos2["Valeur (€)"].tolist(),
+            customdata=df_pos2[["Poids (%)", "+/- Value (%)"]].values,
+            texttemplate="<b>%{label}</b><br>%{customdata[0]:.1f}%",
+            hovertemplate="<b>%{label}</b><br>Valeur : %{value:,.0f} €<br>"
+                          "Poids : %{customdata[0]:.1f}%<br>"
+                          "P&L : %{customdata[1]:+.1f}%<extra></extra>",
+            marker=dict(
+                colors=df_pos2["+/- Value (%)"].tolist(),
+                colorscale=[[0, "#ef4444"], [0.5, "#1a2235"], [1, "#22c55e"]],
+                cmid=0,
+                showscale=True,
+                colorbar=dict(
+                    title=dict(text="P&L %", font=dict(family="DM Mono", size=9)),
+                    thickness=10, len=0.7,
+                    tickfont=dict(family="DM Mono", size=8),
+                ),
+            ),
+            textfont=dict(family="Outfit", size=11),
+        ))
+        fig_tm.update_layout(
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            margin=dict(l=0, r=0, t=10, b=0),
+            height=340,
+        )
+        st.plotly_chart(fig_tm, use_container_width=True)
+
+        # Tableau de concentration
+        section_label("Détail par position")
+        rows_c = ""
+        for _, r in df_pos2.iterrows():
+            w = r["Poids (%)"]
+            bar_w = min(100, w * 4)
+            risk_flag = " ⚠" if w > 20 else (" ·" if w > 10 else "")
+            pnl_c = "#22c55e" if r["+/- Value (%)"] >= 0 else "#ef4444"
+            rows_c += (
+                f'<tr>'
+                f'<td style="text-align:left">{r["Titre"]}'
+                f'<span class="tbadge">{r["Ticker"]}</span>'
+                f'<span style="color:#f59e0b;font-size:0.7rem">{risk_flag}</span></td>'
+                f'<td>{r["Valeur (€)"]:,.0f} €</td>'
+                f'<td><div style="display:flex;align-items:center;gap:8px;justify-content:flex-end">'
+                f'<span style="font-family:DM Mono,monospace;font-size:0.75rem;'
+                f'color:{"#ef4444" if w>20 else ("var(--amber)" if w>10 else "var(--text)")}">'
+                f'{w:.1f}%</span>'
+                f'<div style="width:60px;height:5px;background:var(--s3);border-radius:3px;overflow:hidden">'
+                f'<div style="width:{bar_w:.0f}%;height:100%;background:'
+                f'{"#ef4444" if w>20 else ("#f59e0b" if w>10 else "#22c55e")};border-radius:3px"></div>'
+                f'</div></div></td>'
+                f'<td class="{"pos" if r["+/- Value (%)"]>=0 else "neg"}">'
+                f'{r["+/- Value (%)"]:+.2f}%</td>'
+                f'<td>{r.get("Secteur","—")}</td>'
+                f'</tr>'
+            )
+        st.markdown(
+            f'<div style="background:var(--s1);border:1px solid var(--border);'
+            f'border-radius:11px;overflow:hidden">'
+            f'<table class="ptable"><thead><tr>'
+            f'<th style="text-align:left">Titre</th>'
+            f'<th>Valeur</th><th>Poids</th><th>P&L %</th><th style="text-align:left">Secteur</th>'
+            f'</tr></thead><tbody>{rows_c}</tbody></table></div>',
+            unsafe_allow_html=True
+        )
+
+        # Alertes concentration
+        alerts_c = []
+        if top_pos["Poids (%)"] > 25:
+            alerts_c.append(f"⚠ {top_pos['Titre']} représente {top_pos['Poids (%)']:.1f}% du portefeuille — sur-exposition.")
+        if len(heavy) > 4:
+            alerts_c.append(f"⚠ {len(heavy)} positions dépassent 10% du portefeuille — risque de concentration élevé.")
+        if n_equiv < 4:
+            alerts_c.append(f"⚠ Diversification faible : équivalent {n_equiv:.1f} positions de même poids.")
+        if not alerts_c:
+            st.success("✓ Concentration du portefeuille dans les normes.")
+        else:
+            for a in alerts_c:
+                st.warning(a)
+
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE 5 — BACKTESTING
+# ══════════════════════════════════════════════════════════════════════════════
+
+@st.cache_data(ttl=600)
+def backtest_strategy(tickers: tuple, start_date: str, score_threshold: int):
+    """
+    Stratégie naïve : achète équipondéré tous les tickers qui passent le seuil
+    de score 10-Baggers. Calcule la perf depuis start_date.
+    Retourne DataFrame avec valeur normalisée (base 100).
+    """
+    results = {}
+    for tk in tickers:
+        try:
+            h = yf.Ticker(tk).history(start=start_date)["Close"]
+            h.index = h.index.tz_localize(None)
+            if len(h) > 5:
+                results[tk] = h / h.iloc[0] * 100
+        except:
+            pass
+    if not results:
+        return pd.DataFrame(), pd.DataFrame()
+
+    df = pd.DataFrame(results).dropna(how="all").ffill()
+    df["Stratégie"] = df.mean(axis=1)
+
+    # Benchmarks
+    benchmarks = {}
+    for name, sym in [("CAC 40", "^FCHI"), ("MSCI World", "IWDA.AS")]:
+        try:
+            h = yf.Ticker(sym).history(start=start_date)["Close"]
+            h.index = h.index.tz_localize(None)
+            if len(h) > 5:
+                benchmarks[name] = h / h.iloc[0] * 100
+        except:
+            pass
+    df_bench = pd.DataFrame(benchmarks).dropna(how="all").ffill()
+
+    return df, df_bench
+
+
+def page_backtesting():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">⏱ Simulation historique</div>'
+                '<div class="ph-title">Backtesting</div>'
+                '<div class="ph-sub">Stratégie 10-Baggers · Performance historique simulée</div>'
+                '</div>', unsafe_allow_html=True)
+
+    st.markdown(
+        '<div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.25);'
+        'border-radius:10px;padding:12px 16px;margin-bottom:1.4rem;font-family:DM Mono,monospace;'
+        'font-size:0.65rem;color:#f59e0b">⚠ Backtesting naïf — les performances passées ne préjugent '
+        'pas des performances futures. Équipondération, sans frais ni fiscalité.</div>',
+        unsafe_allow_html=True)
+
+    # ── Configuration ─────────────────────────────────────────────────────────
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        bt_period = st.selectbox("Période de simulation",
+            ["1 an", "2 ans", "3 ans", "5 ans"], index=1, key="bt_period")
+        period_days = {"1 an": 365, "2 ans": 730, "3 ans": 1095, "5 ans": 1825}
+        start_dt = (datetime.today() - timedelta(days=period_days[bt_period])).strftime("%Y-%m-%d")
+    with c2:
+        score_thresh = st.slider("Score 10-Baggers minimum", 0, 100, 60, 5, key="bt_thresh")
+    with c3:
+        default_universe = ", ".join(PEA_FR_TICKERS)
+        universe_input = st.text_area("Universe (tickers séparés par virgules)",
+            value=default_universe,
+            height=80, key="bt_universe", label_visibility="visible")
+
+    run_bt = st.button("▶  Lancer le backtest", type="primary", use_container_width=False, key="bt_run")
+
+    if "bt_results" not in st.session_state:
+        st.session_state.bt_results = None
+
+    if run_bt:
+        raw_tickers = [t.strip().upper() for t in universe_input.replace(",", " ").split() if t.strip()]
+
+        # Score chaque ticker
+        progress = st.progress(0, "Calcul des scores 10-Baggers…")
+        scored = []
+        for i, tk in enumerate(raw_tickers):
+            progress.progress(int(i / len(raw_tickers) * 60), f"Score {tk}…")
+            data = compute_10bagger_data(tk)
+            if data and data["Score"] >= score_thresh:
+                scored.append((tk, data["Score"], data["Nom"]))
+        progress.progress(60, "Récupération des historiques…")
+
+        if not scored:
+            st.warning(f"Aucun ticker avec score ≥ {score_thresh}. Baisse le seuil ou élargis l'univers.")
+            st.session_state.bt_results = None
+        else:
+            tickers_sel = tuple(tk for tk, _, _ in scored)
+            df_strat, df_bench = backtest_strategy(tickers_sel, start_dt, score_thresh)
+            progress.progress(100, "Terminé ✓")
+            st.session_state.bt_results = {
+                "df_strat": df_strat, "df_bench": df_bench,
+                "scored": scored, "start_dt": start_dt, "thresh": score_thresh,
+            }
+
+    res = st.session_state.bt_results
+    if res is None:
+        st.markdown("""<div class="empty-state">
+          <div class="empty-icon">⏱</div>
+          <div class="empty-title">Configurez et lancez le backtest</div>
+          <div class="empty-sub">Sélectionnez un univers, un seuil de score et une période.</div>
+        </div>""", unsafe_allow_html=True)
+        return
+
+    df_s   = res["df_strat"]
+    df_b   = res["df_bench"]
+    scored = res["scored"]
+
+    if df_s.empty:
+        st.error("Données insuffisantes pour la période sélectionnée.")
+        return
+
+    # ── KPIs ─────────────────────────────────────────────────────────────────
+    section_label("Résultats de la stratégie")
+
+    strat_perf = float(df_s["Stratégie"].iloc[-1] - 100) if "Stratégie" in df_s.columns else 0
+    cac_perf   = float(df_b["CAC 40"].iloc[-1] - 100) if "CAC 40" in df_b.columns else None
+    msci_perf  = float(df_b["MSCI World"].iloc[-1] - 100) if "MSCI World" in df_b.columns else None
+    alpha_cac  = strat_perf - cac_perf if cac_perf is not None else None
+    n_sel      = len(scored)
+
+    sc = "#22c55e" if strat_perf >= 0 else "#ef4444"
+    kpi_bt = (
+        f'<div class="kpi-row" style="grid-template-columns:repeat(5,1fr)">'
+        + kpi_card("Actions sélectionnées", str(n_sel),
+                   f"score ≥ {res['thresh']}",
+                   top_color="linear-gradient(90deg,#3b82f6,transparent)")
+        + kpi_card("Perf Stratégie", f"{strat_perf:+.1f}%",
+                   res["bt_period"] if "bt_period" in res else "",
+                   strat_perf >= 0,
+                   top_color=f"linear-gradient(90deg,{sc},transparent)")
+        + kpi_card("Perf CAC 40",
+                   f"{cac_perf:+.1f}%" if cac_perf is not None else "—",
+                   top_color="linear-gradient(90deg,#475569,transparent)")
+        + kpi_card("Perf MSCI World",
+                   f"{msci_perf:+.1f}%" if msci_perf is not None else "—",
+                   top_color="linear-gradient(90deg,#475569,transparent)")
+        + kpi_card("Alpha vs CAC",
+                   f"{alpha_cac:+.1f}%" if alpha_cac is not None else "—",
+                   alpha_cac >= 0 if alpha_cac is not None else None,
+                   top_color=f"linear-gradient(90deg,{'#22c55e' if (alpha_cac or 0)>=0 else '#ef4444'},transparent)")
+        + '</div>'
+    )
+    st.markdown(kpi_bt, unsafe_allow_html=True)
+
+    # ── Graphique principal ───────────────────────────────────────────────────
+    section_label("Évolution de la valeur · Base 100")
+    fig_bt = go.Figure()
+
+    # Lignes individuelles (transparentes)
+    for col in df_s.columns:
+        if col == "Stratégie":
+            continue
+        fig_bt.add_trace(go.Scatter(
+            x=df_s.index, y=df_s[col], name=col,
+            line=dict(width=1, color="#1a2538"),
+            hovertemplate=f"<b>{col}</b> %{{x|%d %b %Y}}<br>%{{y:.1f}}<extra></extra>",
+            opacity=0.5,
+        ))
+
+    # Benchmarks
+    for bname, bcol in [("CAC 40", "#3b82f6"), ("MSCI World", "#8b5cf6")]:
+        if bname in df_b.columns:
+            fig_bt.add_trace(go.Scatter(
+                x=df_b.index, y=df_b[bname], name=bname,
+                line=dict(width=2, color=bcol, dash="dash"),
+                hovertemplate=f"<b>{bname}</b> %{{x|%d %b %Y}}<br>%{{y:.1f}}<extra></extra>",
+            ))
+
+    # Stratégie en gras
+    if "Stratégie" in df_s.columns:
+        sc2 = "#22c55e" if strat_perf >= 0 else "#ef4444"
+        fig_bt.add_trace(go.Scatter(
+            x=df_s.index, y=df_s["Stratégie"], name="Stratégie (équipond.)",
+            line=dict(width=3, color=sc2),
+            hovertemplate="<b>Stratégie</b> %{x|%d %b %Y}<br>%{y:.1f}<extra></extra>",
+        ))
+
+    fig_bt.add_hline(y=100, line_color="#2d3f57", line_width=1, line_dash="dot")
+    fig_bt.update_layout(**plotly_base(380, {"ticksuffix": "", "tickformat": ".0f"}))
+    st.plotly_chart(fig_bt, use_container_width=True)
+
+    # ── Tableau des actions sélectionnées ─────────────────────────────────────
+    section_label(f"Actions sélectionnées · score ≥ {res['thresh']}")
+    rows_bt = ""
+    for tk, sc_v, nom in sorted(scored, key=lambda x: -x[1]):
+        perf = float(df_s[tk].iloc[-1] - 100) if tk in df_s.columns else None
+        pc   = "#22c55e" if (perf or 0) >= 0 else "#ef4444"
+        sc_c = "#22c55e" if sc_v >= 70 else ("#f59e0b" if sc_v >= 50 else "#ef4444")
+        rows_bt += (
+            f'<tr>'
+            f'<td style="text-align:left"><span style="font-family:DM Mono,monospace;'
+            f'font-size:0.75rem;color:#22c55e;font-weight:600">{tk}</span></td>'
+            f'<td style="text-align:left;font-size:0.82rem">{nom}</td>'
+            f'<td><span style="font-family:DM Mono,monospace;font-size:0.75rem;'
+            f'font-weight:700;color:{sc_c}">{sc_v}</span></td>'
+            f'<td class="{"pos" if (perf or 0)>=0 else "neg"}">'
+            f'{f"{perf:+.1f}%" if perf is not None else "—"}</td>'
+            f'</tr>'
+        )
+    st.markdown(
+        f'<div style="background:var(--s1);border:1px solid var(--border);'
+        f'border-radius:11px;overflow:hidden">'
+        f'<table class="ptable"><thead><tr>'
+        f'<th style="text-align:left">Ticker</th>'
+        f'<th style="text-align:left">Nom</th>'
+        f'<th>Score</th><th>Perf période</th>'
+        f'</tr></thead><tbody>{rows_bt}</tbody></table></div>',
+        unsafe_allow_html=True
+    )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE 6 — ACTUALITÉS
+# ══════════════════════════════════════════════════════════════════════════════
+
+SENTIMENT_POS = ["hausse","croissance","bénéfice","profit","record","acquiert","dividende",
+                 "surperforme","croît","optimiste","beat","strong","growth","rises","gain",
+                 "up","positive","buy","upgrade","raise","outperform","beat","exceed"]
+SENTIMENT_NEG = ["baisse","perte","risque","avertissement","chute","recul","déçoit","faible",
+                 "coupe","inquiétude","warn","loss","cut","down","negative","sell","downgrade",
+                 "miss","below","decline","drop","weak","concern","risk","lawsuit","investigation"]
+
+def score_sentiment(text: str) -> str:
+    t = text.lower()
+    pos = sum(1 for w in SENTIMENT_POS if w in t)
+    neg = sum(1 for w in SENTIMENT_NEG if w in t)
+    if pos > neg:   return "g"
+    if neg > pos:   return "r"
+    return "n"
+
+@st.cache_data(ttl=900)
+def get_ticker_news(ticker: str, max_items: int = 8):
+    """Fetch news from yfinance for a ticker."""
+    try:
+        raw = yf.Ticker(ticker).news
+        if not raw:
+            return []
+        items = []
+        for n in raw[:max_items]:
+            title     = n.get("title", "")
+            publisher = n.get("publisher", "")
+            link      = n.get("link", "#")
+            ts        = n.get("providerPublishTime", 0)
+            try:
+                dt = datetime.fromtimestamp(ts).strftime("%d/%m %H:%M")
+            except:
+                dt = "—"
+            sentiment = score_sentiment(title)
+            items.append({"title": title, "publisher": publisher,
+                          "link": link, "dt": dt, "sentiment": sentiment})
+        return items
+    except:
+        return []
+
+
+def page_news():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">📰 Flux d\'informations</div>'
+                '<div class="ph-title">Actualités</div>'
+                '<div class="ph-sub">Ce matin dans ton portefeuille · Sentiment scoring</div>'
+                '</div>', unsafe_allow_html=True)
+
+    try:
+        df_hist, df_corr, df_vers = load_data()
+        df_pos, _ = compute_portfolio(df_hist, df_corr, df_vers)
+    except Exception as e:
+        st.error(f"Fichiers introuvables : {e}"); return
+
+    port_tickers_news = [r["Ticker"] for _, r in df_pos.iterrows()
+                         if r["Ticker"] and r["Ticker"] != "N/A"]
+
+    # Tickers supplémentaires
+    extra = st.text_input("Ajouter des tickers (optionnel)",
+                          placeholder="AAPL, MSFT, ASML.AS…", key="news_extra",
+                          label_visibility="visible")
+    extra_tks = [t.strip().upper() for t in extra.replace(",", " ").split() if t.strip()]
+    all_news_tks = list(dict.fromkeys(port_tickers_news + extra_tks))
+
+    SENT_COLOR = {"g": "#22c55e", "r": "#ef4444", "n": "#475569"}
+    SENT_BG    = {"g": "rgba(34,197,94,0.06)", "r": "rgba(239,68,68,0.06)", "n": "var(--s1)"}
+    SENT_LABEL = {"g": "↑ Positif", "r": "↓ Négatif", "n": "→ Neutre"}
+
+    # Stats globales
+    all_articles = []
+    with st.spinner("Récupération des actualités…"):
+        news_by_ticker = {}
+        for tk in all_news_tks:
+            items = get_ticker_news(tk)
+            news_by_ticker[tk] = items
+            all_articles.extend([(tk, it) for it in items])
+
+    n_pos = sum(1 for _, it in all_articles if it["sentiment"] == "g")
+    n_neg = sum(1 for _, it in all_articles if it["sentiment"] == "r")
+    n_neu = sum(1 for _, it in all_articles if it["sentiment"] == "n")
+    total = len(all_articles)
+    sentiment_global = "g" if n_pos > n_neg * 1.5 else ("r" if n_neg > n_pos * 1.5 else "n")
+    sent_labels = {"g": "AMBIANCE POSITIVE", "r": "AMBIANCE NÉGATIVE", "n": "AMBIANCE NEUTRE"}
+    sc_glob = {"g": "#22c55e", "r": "#ef4444", "n": "#f59e0b"}
+
+    kpi_n = (
+        f'<div class="kpi-row" style="grid-template-columns:repeat(5,1fr)">'
+        + kpi_card("Articles collectés", str(total),
+                   top_color="linear-gradient(90deg,#3b82f6,transparent)")
+        + kpi_card("Sentiment global", sent_labels[sentiment_global],
+                   top_color=f"linear-gradient(90deg,{sc_glob[sentiment_global]},transparent)")
+        + kpi_card("↑ Positifs", str(n_pos),
+                   f"{n_pos/total*100:.0f}%" if total else "—",
+                   True, top_color="linear-gradient(90deg,#22c55e,transparent)")
+        + kpi_card("↓ Négatifs", str(n_neg),
+                   f"{n_neg/total*100:.0f}%" if total else "—",
+                   False, top_color="linear-gradient(90deg,#ef4444,transparent)")
+        + kpi_card("→ Neutres", str(n_neu),
+                   top_color="linear-gradient(90deg,#475569,transparent)")
+        + '</div>'
+    )
+    st.markdown(kpi_n, unsafe_allow_html=True)
+
+    # Filtre sentiment
+    filt_sent = st.radio("Filtrer par sentiment",
+                         ["Tous", "↑ Positifs", "↓ Négatifs", "→ Neutres"],
+                         horizontal=True, key="news_filt")
+    filt_map  = {"Tous": None, "↑ Positifs": "g", "↓ Négatifs": "r", "→ Neutres": "n"}
+    filt_code = filt_map[filt_sent]
+
+    # Affichage par ticker
+    for tk in all_news_tks:
+        items = news_by_ticker.get(tk, [])
+        if filt_code:
+            items = [it for it in items if it["sentiment"] == filt_code]
+        if not items:
+            continue
+
+        ticker_pos = sum(1 for it in items if it["sentiment"] == "g")
+        ticker_neg = sum(1 for it in items if it["sentiment"] == "r")
+        tk_sent    = "g" if ticker_pos > ticker_neg else ("r" if ticker_neg > ticker_pos else "n")
+
+        section_label(f"{tk}  ·  {SENT_LABEL[tk_sent]}  ·  {len(items)} articles")
+
+        cards_html = ""
+        for it in items:
+            sc = it["sentiment"]
+            cards_html += (
+                f'<a href="{it["link"]}" target="_blank" style="text-decoration:none">'
+                f'<div style="background:{SENT_BG[sc]};border:1px solid {SENT_COLOR[sc]}22;'
+                f'border-left:3px solid {SENT_COLOR[sc]};border-radius:9px;'
+                f'padding:12px 15px;margin-bottom:7px;transition:border-color .15s;cursor:pointer">'
+                f'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">'
+                f'<div style="font-family:Outfit,sans-serif;font-size:0.85rem;font-weight:500;'
+                f'color:var(--text);line-height:1.4;flex:1">{it["title"]}</div>'
+                f'<span style="font-family:DM Mono,monospace;font-size:0.6rem;font-weight:600;'
+                f'color:{SENT_COLOR[sc]};white-space:nowrap;padding:2px 7px;'
+                f'background:{SENT_BG[sc]};border:1px solid {SENT_COLOR[sc]}44;'
+                f'border-radius:4px">{SENT_LABEL[sc]}</span>'
+                f'</div>'
+                f'<div style="font-family:DM Mono,monospace;font-size:0.58rem;color:var(--t3);'
+                f'margin-top:6px;display:flex;gap:12px">'
+                f'<span>{it["publisher"]}</span><span>{it["dt"]}</span>'
+                f'</div></div></a>'
+            )
+        st.markdown(cards_html, unsafe_allow_html=True)
+
+    if not any(news_by_ticker.values()):
+        st.markdown("""<div class="empty-state">
+          <div class="empty-icon">📰</div>
+          <div class="empty-title">Aucune actualité disponible</div>
+          <div class="empty-sub">yfinance n'a pas retourné d'articles pour ces tickers.</div>
+        </div>""", unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE 7 — RAPPORT PDF
+# ══════════════════════════════════════════════════════════════════════════════
+
+def page_rapport():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">📄 Export</div>'
+                '<div class="ph-title">Rapport PDF</div>'
+                '<div class="ph-sub">Rapport mensuel · Positions · Signaux · Score 10-Baggers</div>'
+                '</div>', unsafe_allow_html=True)
+
+    try:
+        df_hist, df_corr, df_vers = load_data()
+        df_pos, s = compute_portfolio(df_hist, df_corr, df_vers)
+    except Exception as e:
+        st.error(f"Fichiers introuvables : {e}"); return
+
+    st.markdown(
+        '<div style="font-family:DM Mono,monospace;font-size:0.67rem;color:var(--t3);'
+        'margin-bottom:1.4rem">Générez un rapport PDF complet de votre portefeuille PEA '
+        'incluant la valorisation, les positions, les scores 10-Baggers et les signaux techniques.</div>',
+        unsafe_allow_html=True)
+
+    # Options
+    c1, c2 = st.columns(2)
+    with c1:
+        include_signals  = st.toggle("Inclure les signaux techniques", value=True, key="pdf_sig")
+        include_scores   = st.toggle("Inclure les scores 10-Baggers",  value=True, key="pdf_sc")
+    with c2:
+        include_perf     = st.toggle("Inclure la performance",         value=True, key="pdf_perf")
+        report_title_inp = st.text_input("Titre du rapport",
+                           value=f"Rapport PEA · {datetime.now().strftime('%B %Y')}",
+                           key="pdf_title")
+
+    gen_btn = st.button("📄  Générer le rapport PDF", type="primary", key="pdf_gen")
+
+    if not gen_btn:
+        st.markdown("""<div class="empty-state">
+          <div class="empty-icon">📄</div>
+          <div class="empty-title">Prêt à générer</div>
+          <div class="empty-sub">Configurez les options et cliquez sur Générer.</div>
+        </div>""", unsafe_allow_html=True)
+        return
+
+    with st.spinner("Génération du rapport…"):
+        try:
+            from reportlab.lib.pagesizes import A4
+            from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+            from reportlab.lib.units import cm
+            from reportlab.lib import colors
+            from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer,
+                                            Table, TableStyle, HRFlowable)
+            from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
+            import io
+
+            buf = io.BytesIO()
+            doc = SimpleDocTemplate(buf, pagesize=A4,
+                                    leftMargin=2*cm, rightMargin=2*cm,
+                                    topMargin=2*cm, bottomMargin=2*cm)
+
+            # ── Styles ────────────────────────────────────────────────────────
+            W, H = A4
+            C_BG     = colors.HexColor("#05070e")
+            C_GREEN  = colors.HexColor("#22c55e")
+            C_RED    = colors.HexColor("#ef4444")
+            C_AMBER  = colors.HexColor("#f59e0b")
+            C_BLUE   = colors.HexColor("#3b82f6")
+            C_TEXT   = colors.HexColor("#f1f5f9")
+            C_T2     = colors.HexColor("#94a3b8")
+            C_T3     = colors.HexColor("#475569")
+            C_BORDER = colors.HexColor("#1e2a3a")
+            C_S1     = colors.HexColor("#0c0f1a")
+            C_S2     = colors.HexColor("#111827")
+
+            styles = getSampleStyleSheet()
+
+            def sty(name, **kw):
+                return ParagraphStyle(name, **kw)
+
+            st_title  = sty("title",  fontName="Helvetica-Bold", fontSize=22,
+                            textColor=C_TEXT, spaceAfter=4, leading=26)
+            st_sub    = sty("sub",    fontName="Helvetica",      fontSize=9,
+                            textColor=C_T3,   spaceAfter=12, leading=12)
+            st_h2     = sty("h2",     fontName="Helvetica-Bold", fontSize=13,
+                            textColor=C_TEXT, spaceAfter=6, spaceBefore=14, leading=16)
+            st_h3     = sty("h3",     fontName="Helvetica-Bold", fontSize=10,
+                            textColor=C_T2,   spaceAfter=4, spaceBefore=8,  leading=13)
+            st_body   = sty("body",   fontName="Helvetica",      fontSize=8.5,
+                            textColor=C_T2,   spaceAfter=4, leading=12)
+            st_mono   = sty("mono",   fontName="Courier",        fontSize=8,
+                            textColor=C_T3,   spaceAfter=2, leading=11)
+            st_green  = sty("green",  fontName="Helvetica-Bold", fontSize=9,
+                            textColor=C_GREEN, spaceAfter=2)
+            st_red    = sty("red",    fontName="Helvetica-Bold", fontSize=9,
+                            textColor=C_RED,   spaceAfter=2)
+
+            def hr():
+                return HRFlowable(width="100%", thickness=0.5,
+                                  color=C_BORDER, spaceAfter=8, spaceBefore=4)
+
+            def tbl_style(header_color=C_S2):
+                return TableStyle([
+                    ("BACKGROUND",  (0,0), (-1,0),  header_color),
+                    ("TEXTCOLOR",   (0,0), (-1,0),  C_T3),
+                    ("FONTNAME",    (0,0), (-1,0),  "Helvetica-Bold"),
+                    ("FONTSIZE",    (0,0), (-1,0),  7),
+                    ("TEXTCOLOR",   (0,1), (-1,-1), C_T2),
+                    ("FONTNAME",    (0,1), (-1,-1), "Helvetica"),
+                    ("FONTSIZE",    (0,1), (-1,-1), 7.5),
+                    ("ROWBACKGROUNDS",(0,1),(-1,-1),[C_BG, C_S1]),
+                    ("GRID",        (0,0), (-1,-1), 0.3, C_BORDER),
+                    ("LEFTPADDING", (0,0), (-1,-1), 6),
+                    ("RIGHTPADDING",(0,0), (-1,-1), 6),
+                    ("TOPPADDING",  (0,0), (-1,-1), 5),
+                    ("BOTTOMPADDING",(0,0),(-1,-1), 5),
+                    ("VALIGN",      (0,0), (-1,-1), "MIDDLE"),
+                ])
+
+            story = []
+
+            # ── Cover ─────────────────────────────────────────────────────────
+            story.append(Spacer(1, 0.5*cm))
+            story.append(Paragraph(report_title_inp, st_title))
+            story.append(Paragraph(
+                f"Généré le {datetime.now().strftime('%d/%m/%Y à %H:%M')} · yfinance · PEA Dashboard",
+                st_sub))
+            story.append(hr())
+
+            # ── KPIs valorisation ──────────────────────────────────────────────
+            story.append(Paragraph("Valorisation du portefeuille", st_h2))
+            val_totale   = s["total_valeur"] + s["liquidites"]
+            gain_vs_vers = val_totale - s["total_verse"]
+            pct_vs_vers  = gain_vs_vers / s["total_verse"] * 100 if s["total_verse"] > 0 else 0
+
+            kpi_data = [
+                ["Indicateur", "Valeur"],
+                ["Capital versé",       f"{s['total_verse']:,.0f} €"],
+                ["Investi en titres",   f"{s['total_investi']:,.0f} €"],
+                ["+/− Latente titres",  f"{s['total_pv']:+,.0f} €  ({s['total_pv_pct']:+.2f}%)"],
+                ["Liquidités",          f"{s['liquidites']:,.0f} €"],
+                ["Valeur totale",       f"{val_totale:,.0f} €  ({gain_vs_vers:+,.0f} €  {pct_vs_vers:+.1f}%)"],
+            ]
+            t = Table(kpi_data, colWidths=[8*cm, 8*cm])
+            t.setStyle(tbl_style())
+            story.append(t)
+            story.append(Spacer(1, 0.4*cm))
+
+            # ── Positions ─────────────────────────────────────────────────────
+            story.append(hr())
+            story.append(Paragraph("Positions ouvertes", st_h2))
+            pos_data = [["Titre", "Ticker", "Qté", "PRU", "Cours", "Valeur", "+/− €", "+/− %"]]
+            for _, r in df_pos.sort_values("Valeur (€)", ascending=False).iterrows():
+                crs = f"{r['Cours']:.2f}" if r["Cours"] else "—"
+                pos_data.append([
+                    r["Titre"][:22], r["Ticker"],
+                    f"{r['Quantité']:.0f}", f"{r['PRU (€)']:.2f}",
+                    crs, f"{r['Valeur (€)']:,.0f}",
+                    f"{r['+/- Value (€)']:+,.0f}", f"{r['+/- Value (%)']:+.1f}%",
+                ])
+            t2 = Table(pos_data, colWidths=[4.5*cm,1.8*cm,1.2*cm,1.8*cm,1.8*cm,2.2*cm,2.2*cm,1.5*cm])
+            ts2 = tbl_style()
+            for i, r in enumerate(pos_data[1:], 1):
+                try:
+                    pv = float(r[6].replace("+","").replace(" ","").replace(",",".").replace("€",""))
+                    ts2.add("TEXTCOLOR", (6,i),(7,i), C_GREEN if pv>=0 else C_RED)
+                    ts2.add("FONTNAME",  (6,i),(7,i), "Helvetica-Bold")
+                except: pass
+            t2.setStyle(ts2)
+            story.append(t2)
+            story.append(Spacer(1, 0.4*cm))
+
+            # ── Scores 10-Baggers ──────────────────────────────────────────────
+            if include_scores:
+                story.append(hr())
+                story.append(Paragraph("Scores 10-Baggers — Positions", st_h2))
+                story.append(Paragraph(
+                    "Score pondéré /100 calculé sur 10 critères fondamentaux.", st_body))
+
+                sc_data = [["Ticker", "Score", "Verdict"]]
+                act_tks = [r["Ticker"] for _, r in df_pos.iterrows()
+                           if r["Ticker"] != "N/A" and r.get("Type","Action") == "Action"]
+                for tk in act_tks[:12]:  # limite 12 pour le PDF
+                    d = compute_10bagger_data(tk)
+                    if d:
+                        verdict = "EXCELLENT" if d["Score"] >= 70 else ("CORRECT" if d["Score"] >= 50 else "INSUFFISANT")
+                        sc_data.append([tk, str(d["Score"]), verdict])
+
+                t3 = Table(sc_data, colWidths=[4*cm, 3*cm, 10*cm])
+                ts3 = tbl_style()
+                for i, r in enumerate(sc_data[1:], 1):
+                    try:
+                        sc_v = int(r[1])
+                        c = C_GREEN if sc_v >= 70 else (C_AMBER if sc_v >= 50 else C_RED)
+                        ts3.add("TEXTCOLOR", (1,i),(2,i), c)
+                        ts3.add("FONTNAME",  (1,i),(2,i), "Helvetica-Bold")
+                    except: pass
+                t3.setStyle(ts3)
+                story.append(t3)
+                story.append(Spacer(1, 0.4*cm))
+
+            # ── Signaux techniques ─────────────────────────────────────────────
+            if include_signals:
+                story.append(hr())
+                story.append(Paragraph("Signaux techniques", st_h2))
+                act_tks2 = [r["Ticker"] for _, r in df_pos.iterrows()
+                            if r["Ticker"] != "N/A" and r.get("Type","Action") == "Action"]
+                sig_data = [["Ticker", "Signal principal", "RSI", "vs 52s haut"]]
+                for tk in act_tks2[:10]:
+                    sig = get_ticker_signals(tk)
+                    if sig:
+                        top_sig = sig["signals"][0][0] if sig["signals"] else "—"
+                        sig_data.append([tk, top_sig, f"{sig['rsi']:.0f}", f"{sig['pct_from_high']:+.1f}%"])
+                t4 = Table(sig_data, colWidths=[3*cm, 8*cm, 2.5*cm, 3.5*cm])
+                t4.setStyle(tbl_style())
+                story.append(t4)
+                story.append(Spacer(1, 0.4*cm))
+
+            # ── Footer ────────────────────────────────────────────────────────
+            story.append(hr())
+            story.append(Paragraph(
+                f"PEA Dashboard · {datetime.now().strftime('%d/%m/%Y')} · "
+                "Données yfinance · Document confidentiel",
+                st_mono))
+
+            doc.build(story)
+            pdf_bytes = buf.getvalue()
+
+            st.success("✓ Rapport généré avec succès !")
+            st.download_button(
+                label="⬇  Télécharger le rapport PDF",
+                data=pdf_bytes,
+                file_name=f"rapport_pea_{datetime.now().strftime('%Y%m')}.pdf",
+                mime="application/pdf",
+                use_container_width=False,
+            )
+
+            # Aperçu
+            section_label("Aperçu du contenu")
+            preview_items = [
+                ("Valorisation", f"Capital versé, investi, +/− latente, liquidités, valeur totale"),
+                ("Positions", f"{len(df_pos)} lignes · PRU, cours, valeur, P&L"),
+                ("Scores 10-Baggers", "Scores fondamentaux /100 pour chaque action" if include_scores else "Non inclus"),
+                ("Signaux techniques", "RSI, position 52s, signal principal" if include_signals else "Non inclus"),
+            ]
+            prev_html = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
+            for title, desc in preview_items:
+                prev_html += (f'<div style="background:var(--s1);border:1px solid var(--border);'
+                              f'border-radius:9px;padding:12px 15px">'
+                              f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;'
+                              f'color:var(--green);text-transform:uppercase;letter-spacing:0.1em;'
+                              f'margin-bottom:4px">{title}</div>'
+                              f'<div style="font-family:Outfit,sans-serif;font-size:0.8rem;'
+                              f'color:var(--t2)">{desc}</div></div>')
+            prev_html += '</div>'
+            st.markdown(prev_html, unsafe_allow_html=True)
+
+        except ImportError:
+            st.error("reportlab non installé. Lancez : `pip install reportlab`")
+        except Exception as e:
+            st.error(f"Erreur génération PDF : {e}")
+            import traceback
+            st.code(traceback.format_exc())
+
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE — SIMULATEUR D'ÉPARGNE PROGRAMMÉE
+# ══════════════════════════════════════════════════════════════════════════════
+
+def page_simulateur():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">💰 Projection financière</div>'
+                '<div class="ph-title">Simulateur</div>'
+                '<div class="ph-sub">Épargne programmée · Intérêts composés · Scénarios comparés</div>'
+                '</div>', unsafe_allow_html=True)
+
+    # ── Récupération capital actuel ───────────────────────────────────────────
+    capital_actuel = 0.0
+    try:
+        df_hist, df_corr, df_vers = load_data()
+        df_pos, s = compute_portfolio(df_hist, df_corr, df_vers)
+        capital_actuel = s["total_valeur"] + s["liquidites"]
+    except:
+        pass
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # PARAMÈTRES — 3 scénarios côte à côte
+    # ══════════════════════════════════════════════════════════════════════════
+    section_label("Paramètres des scénarios")
+
+    st.markdown('<div style="font-family:DM Mono,monospace;font-size:0.65rem;color:var(--t3);'
+                'margin-bottom:1rem">Comparez jusqu\'à 3 scénarios simultanément. '
+                'Capital de départ pré-rempli depuis votre portefeuille réel.</div>',
+                unsafe_allow_html=True)
+
+    SCENARIO_COLORS = ["#22c55e", "#3b82f6", "#f59e0b"]
+    SCENARIO_NAMES  = ["Scénario A", "Scénario B", "Scénario C"]
+
+    col_a, col_b, col_c = st.columns(3)
+    scenarios = []
+
+    for i, (col, color, name) in enumerate(zip([col_a, col_b, col_c], SCENARIO_COLORS, SCENARIO_NAMES)):
+        with col:
+            # Header coloré
+            st.markdown(f'<div style="background:rgba({",".join(str(int(color.lstrip("#")[j:j+2],16)) for j in (0,2,4))},0.08);'
+                        f'border:1px solid {color}33;border-radius:10px;padding:14px 16px;margin-bottom:12px">'
+                        f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;color:{color};'
+                        f'text-transform:uppercase;letter-spacing:0.12em;font-weight:600">{name}</div>'
+                        f'</div>', unsafe_allow_html=True)
+
+            capital   = st.number_input("Capital initial (€)", value=round(capital_actuel) if i == 0 else 0,
+                                         min_value=0, step=500, key=f"sim_cap_{i}", format="%d")
+            versement = st.number_input("Versement mensuel (€)", value=200 + i*100,
+                                         min_value=0, step=50, key=f"sim_vers_{i}", format="%d")
+            perf_an   = st.slider("Performance annuelle (%)", 0.0, 20.0,
+                                   [5.0, 8.0, 12.0][i], 0.5, key=f"sim_perf_{i}")
+            duree     = st.slider("Durée (années)", 1, 40,
+                                   [10, 15, 20][i], 1, key=f"sim_dur_{i}")
+            frais     = st.number_input("Frais annuels (%)", value=0.3, min_value=0.0,
+                                         max_value=5.0, step=0.1, key=f"sim_frais_{i}", format="%.1f")
+            actif     = st.toggle("Actif", value=True, key=f"sim_on_{i}")
+
+            scenarios.append({
+                "name": name, "color": color, "capital": capital,
+                "versement": versement, "perf": perf_an, "duree": duree,
+                "frais": frais, "actif": actif,
+            })
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # CALCUL des projections mois par mois
+    # ══════════════════════════════════════════════════════════════════════════
+    def simulate(capital, versement, perf_an, duree, frais):
+        """Simulation mensuelle. Retourne liste de dicts par mois."""
+        rate_mensuel = (1 + (perf_an - frais) / 100) ** (1/12) - 1
+        rows = []
+        val = float(capital)
+        total_verse = float(capital)
+        total_interets = 0.0
+
+        for mois in range(1, duree * 12 + 1):
+            interets = val * rate_mensuel
+            val = val + interets + versement
+            total_verse    += versement
+            total_interets += interets
+            rows.append({
+                "mois":            mois,
+                "annee":           mois / 12,
+                "valeur":          val,
+                "total_verse":     total_verse,
+                "total_interets":  total_interets,
+                "interets_mois":   interets,
+            })
+        return rows
+
+    results = []
+    for sc in scenarios:
+        if sc["actif"]:
+            data = simulate(sc["capital"], sc["versement"], sc["perf"], sc["duree"], sc["frais"])
+            results.append({"sc": sc, "data": data})
+
+    if not results:
+        st.info("Activez au moins un scénario.")
+        return
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # KPIs FINAUX
+    # ══════════════════════════════════════════════════════════════════════════
+    section_label("Résultats finaux")
+
+    kpi_cols = st.columns(len(results))
+    for col, res in zip(kpi_cols, results):
+        sc   = res["sc"]
+        last = res["data"][-1]
+        val_finale     = last["valeur"]
+        total_verse    = last["total_verse"]
+        total_interets = last["total_interets"]
+        mult = val_finale / total_verse if total_verse > 0 else 1
+        c = sc["color"]
+
+        with col:
+            st.markdown(
+                f'<div style="background:var(--s1);border:1px solid {c}33;border-radius:13px;'
+                f'padding:22px 20px;text-align:center;position:relative;overflow:hidden">'
+                f'<div style="position:absolute;top:0;left:0;right:0;height:2px;background:{c}"></div>'
+                f'<div style="font-family:DM Mono,monospace;font-size:0.58rem;color:var(--t3);'
+                f'text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px">{sc["name"]}</div>'
+                f'<div style="font-family:Outfit,sans-serif;font-size:2.2rem;font-weight:900;'
+                f'color:{c};letter-spacing:-0.03em;line-height:1">'
+                f'{val_finale:,.0f} €</div>'
+                f'<div style="font-family:DM Mono,monospace;font-size:0.62rem;color:var(--t3);'
+                f'margin-top:6px">après {sc["duree"]} ans</div>'
+                f'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px">'
+                f'<div style="background:var(--s2);border-radius:8px;padding:10px">'
+                f'<div style="font-family:DM Mono,monospace;font-size:0.52rem;color:var(--t3);'
+                f'text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Versé</div>'
+                f'<div style="font-family:Outfit,sans-serif;font-size:0.95rem;font-weight:700;'
+                f'color:var(--t2)">{total_verse:,.0f} €</div></div>'
+                f'<div style="background:var(--s2);border-radius:8px;padding:10px">'
+                f'<div style="font-family:DM Mono,monospace;font-size:0.52rem;color:var(--t3);'
+                f'text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Intérêts</div>'
+                f'<div style="font-family:Outfit,sans-serif;font-size:0.95rem;font-weight:700;'
+                f'color:{c}">{total_interets:,.0f} €</div></div>'
+                f'</div>'
+                f'<div style="font-family:DM Mono,monospace;font-size:0.65rem;color:{c};'
+                f'font-weight:600;margin-top:12px">×{mult:.2f} mise de fonds</div>'
+                f'</div>',
+                unsafe_allow_html=True
+            )
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # GRAPHIQUES
+    # ══════════════════════════════════════════════════════════════════════════
+    section_label("Évolution de la valeur du portefeuille")
+
+    view_opt = st.radio("Vue", ["Valeur totale", "Décomposition versé / intérêts", "Intérêts mensuels"],
+                        horizontal=True, key="sim_view")
+
+    fig_main = go.Figure()
+
+    for res in results:
+        sc   = res["sc"]
+        data = res["data"]
+        xs   = [d["annee"] for d in data]
+
+        if view_opt == "Valeur totale":
+            fig_main.add_trace(go.Scatter(
+                x=xs, y=[d["valeur"] for d in data],
+                name=f'{sc["name"]} ({sc["perf"]}%/an)',
+                line=dict(color=sc["color"], width=2.5),
+                hovertemplate=(f'<b>{sc["name"]}</b> — %{{x:.1f}} ans<br>'
+                               f'Valeur : %{{y:,.0f}} €<extra></extra>'),
+            ))
+            # Zone versé en transparence (seulement scénario A)
+            if sc["name"] == results[0]["sc"]["name"]:
+                fig_main.add_trace(go.Scatter(
+                    x=xs, y=[d["total_verse"] for d in data],
+                    name="Capital versé", fill="tozeroy",
+                    line=dict(color="#1a2538", width=0),
+                    fillcolor="rgba(26,37,56,0.5)",
+                    hovertemplate='Capital versé : %{y:,.0f} €<extra></extra>',
+                ))
+
+        elif view_opt == "Décomposition versé / intérêts":
+            fig_main.add_trace(go.Scatter(
+                x=xs, y=[d["total_verse"] for d in data],
+                name=f'{sc["name"]} — Versé',
+                stackgroup=sc["name"],
+                line=dict(color="#1a2538", width=0),
+                fillcolor=sc["color"] + "33",
+                hovertemplate='Versé : %{y:,.0f} €<extra></extra>',
+            ))
+            fig_main.add_trace(go.Scatter(
+                x=xs, y=[d["total_interets"] for d in data],
+                name=f'{sc["name"]} — Intérêts',
+                stackgroup=sc["name"],
+                line=dict(color=sc["color"], width=1.5),
+                fillcolor=sc["color"] + "66",
+                hovertemplate=f'<b>{sc["name"]}</b> Intérêts : %{{y:,.0f}} €<extra></extra>',
+            ))
+
+        else:  # Intérêts mensuels
+            fig_main.add_trace(go.Scatter(
+                x=xs, y=[d["interets_mois"] for d in data],
+                name=f'{sc["name"]} — intérêts/mois',
+                line=dict(color=sc["color"], width=2),
+                hovertemplate=(f'<b>{sc["name"]}</b> %{{x:.1f}} ans<br>'
+                               f'Intérêts ce mois : %{{y:,.0f}} €/mois<extra></extra>'),
+            ))
+
+    if view_opt == "Valeur totale":
+        yopts = {"ticksuffix": " €", "tickformat": ",.0f"}
+    else:
+        yopts = {"ticksuffix": " €", "tickformat": ",.0f"}
+
+    fig_main.update_layout(**plotly_base(380, yopts))
+    fig_main.update_layout(xaxis=dict(ticksuffix=" ans", gridcolor="#1a2538"))
+    st.plotly_chart(fig_main, use_container_width=True)
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # POINT DE BASCULE — quand les intérêts dépassent les versements
+    # ══════════════════════════════════════════════════════════════════════════
+    section_label("Point de bascule — les intérêts dépassent les versements")
+
+    bascule_html = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">'
+    for res in results:
+        sc   = res["sc"]
+        data = res["data"]
+        bascule = None
+        for d in data:
+            if d["interets_mois"] >= sc["versement"] and sc["versement"] > 0:
+                bascule = d
+                break
+        c = sc["color"]
+        if bascule:
+            ans   = int(bascule["annee"])
+            mois  = int((bascule["annee"] - ans) * 12)
+            label = f"{ans} ans {mois} mois"
+            val   = f"{bascule['valeur']:,.0f} €"
+            sub   = f"Les intérêts ({bascule['interets_mois']:,.0f} €/mois) dépassent les versements ({sc['versement']:,} €/mois)"
+        elif sc["versement"] == 0:
+            label = "—"
+            val   = "Pas de versement"
+            sub   = "Sans versement mensuel, pas de point de bascule à calculer"
+        else:
+            label = f"> {sc['duree']} ans"
+            val   = "Hors période"
+            sub   = "Augmente la durée ou la performance pour atteindre ce cap"
+
+        bascule_html += (
+            f'<div style="background:var(--s1);border:1px solid {c}33;border-radius:11px;'
+            f'padding:18px 20px;position:relative;overflow:hidden">'
+            f'<div style="position:absolute;top:0;left:0;right:0;height:2px;background:{c}"></div>'
+            f'<div style="font-family:DM Mono,monospace;font-size:0.58rem;color:{c};'
+            f'text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px">{sc["name"]}</div>'
+            f'<div style="font-family:Outfit,sans-serif;font-size:1.6rem;font-weight:900;'
+            f'color:{c};letter-spacing:-0.02em;line-height:1">{label}</div>'
+            f'<div style="font-family:Outfit,sans-serif;font-size:0.85rem;color:var(--t2);'
+            f'margin-top:4px">{val}</div>'
+            f'<div style="font-family:DM Mono,monospace;font-size:0.58rem;color:var(--t3);'
+            f'margin-top:8px;line-height:1.6">{sub}</div>'
+            f'</div>'
+        )
+    bascule_html += '</div>'
+    st.markdown(bascule_html, unsafe_allow_html=True)
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # TABLE ANNUELLE DÉTAILLÉE
+    # ══════════════════════════════════════════════════════════════════════════
+    section_label("Table de projection annuelle")
+
+    # Sélecteur scénario pour la table
+    sc_names_actifs = [res["sc"]["name"] for res in results]
+    sel_sc_name = st.radio("Scénario à détailler", sc_names_actifs,
+                           horizontal=True, key="sim_table_sc")
+    sel_res = next(r for r in results if r["sc"]["name"] == sel_sc_name)
+    sc_sel  = sel_res["sc"]
+    data    = sel_res["data"]
+
+    # Agrège par année
+    ann_rows = []
+    for annee in range(1, sc_sel["duree"] + 1):
+        mois_data = [d for d in data if int(d["annee"]) == annee - 1
+                     or (d["mois"] == annee * 12)]
+        d_an = next((d for d in data if d["mois"] == annee * 12), data[-1])
+        vers_an = sc_sel["versement"] * 12
+        int_an  = sum(d["interets_mois"] for d in data
+                      if (annee-1)*12 < d["mois"] <= annee*12)
+        ann_rows.append({
+            "Année":            annee,
+            "Valeur fin d'année": d_an["valeur"],
+            "Versé (cumul)":    d_an["total_verse"],
+            "Intérêts (année)": int_an,
+            "Intérêts (cumul)": d_an["total_interets"],
+            "Part intérêts":    d_an["total_interets"] / d_an["valeur"] * 100 if d_an["valeur"] else 0,
+        })
+
+    rows_t = ""
+    for r in ann_rows:
+        int_pct = r["Part intérêts"]
+        bar_w   = min(100, int(int_pct))
+        int_c   = "#22c55e" if int_pct > 50 else ("#f59e0b" if int_pct > 25 else "#3b82f6")
+
+        rows_t += (
+            f'<tr>'
+            f'<td style="font-family:DM Mono,monospace;font-size:0.72rem;'
+            f'color:{sc_sel["color"]};font-weight:600">Année {r["Année"]}</td>'
+            f'<td><b>{r["Valeur fin d\'année"]:,.0f} €</b></td>'
+            f'<td>{r["Versé (cumul)"]:,.0f} €</td>'
+            f'<td style="color:#22c55e">{r["Intérêts (année)"]:+,.0f} €</td>'
+            f'<td>{r["Intérêts (cumul)"]:,.0f} €</td>'
+            f'<td><div style="display:flex;align-items:center;gap:8px;justify-content:flex-end">'
+            f'<span style="font-family:DM Mono,monospace;font-size:0.7rem;color:{int_c}">'
+            f'{int_pct:.0f}%</span>'
+            f'<div style="width:55px;height:5px;background:var(--s3);border-radius:3px;overflow:hidden">'
+            f'<div style="width:{bar_w}%;height:100%;background:{int_c};border-radius:3px"></div>'
+            f'</div></div></td>'
+            f'</tr>'
+        )
+
+    st.markdown(
+        f'<div style="background:var(--s1);border:1px solid var(--border);'
+        f'border-radius:11px;overflow:hidden;margin-bottom:1.5rem">'
+        f'<table class="ptable"><thead><tr>'
+        f'<th style="text-align:left">Période</th>'
+        f'<th>Valeur totale</th>'
+        f'<th>Capital versé</th>'
+        f'<th>Intérêts (année)</th>'
+        f'<th>Intérêts (cumul)</th>'
+        f'<th>Part intérêts</th>'
+        f'</tr></thead><tbody>{rows_t}</tbody></table></div>',
+        unsafe_allow_html=True
+    )
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # GRAPHIQUE CAMEMBERT FINAL — versé vs intérêts
+    # ══════════════════════════════════════════════════════════════════════════
+    section_label("Composition finale du capital")
+
+    pie_cols = st.columns(len(results))
+    for col, res in zip(pie_cols, results):
+        sc   = res["sc"]
+        last = res["data"][-1]
+        with col:
+            fig_pie = go.Figure(go.Pie(
+                labels=["Capital versé", "Intérêts composés"],
+                values=[last["total_verse"], max(0, last["total_interets"])],
+                hole=0.55,
+                marker=dict(colors=["#1a2538", sc["color"]]),
+                textfont=dict(family="DM Mono", size=9),
+                hovertemplate="<b>%{label}</b><br>%{value:,.0f} €  (%{percent})<extra></extra>",
+            ))
+            fig_pie.update_layout(
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                margin=dict(l=10, r=10, t=30, b=10),
+                height=220,
+                showlegend=True,
+                legend=dict(orientation="h", x=0.5, xanchor="center",
+                            y=-0.1, font=dict(family="DM Mono", size=8),
+                            bgcolor="rgba(0,0,0,0)"),
+                title=dict(text=sc["name"], font=dict(family="Outfit", size=11,
+                           color="#94a3b8"), x=0.5),
+                font=dict(family="DM Mono", color="#94a3b8"),
+            )
+            st.plotly_chart(fig_pie, use_container_width=True)
+
+    # ══════════════════════════════════════════════════════════════════════════
+    # RÈGLE DES 72 et insights
+    # ══════════════════════════════════════════════════════════════════════════
+    section_label("Insights & Règle des 72")
+
+    insights_html = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">'
+    for res in results:
+        sc   = res["sc"]
+        last = res["data"][-1]
+        c    = sc["color"]
+        perf_nette = sc["perf"] - sc["frais"]
+
+        # Règle des 72
+        if perf_nette > 0:
+            double_years = 72 / perf_nette
+            double_str   = f"{double_years:.1f} ans"
+        else:
+            double_str = "∞"
+
+        # Taux d'effort mensuel (versement / valeur finale)
+        effort = sc["versement"] / (last["valeur"] / (sc["duree"] * 12)) if last["valeur"] > 0 else 0
+
+        insights_html += (
+            f'<div style="background:var(--s1);border:1px solid {c}22;border-radius:11px;padding:16px 18px">'
+            f'<div style="font-family:DM Mono,monospace;font-size:0.58rem;color:{c};'
+            f'text-transform:uppercase;letter-spacing:0.12em;margin-bottom:10px">{sc["name"]}</div>'
+
+            f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;color:var(--t3);margin-bottom:2px">'
+            f'Doublement du capital (règle des 72)</div>'
+            f'<div style="font-family:Outfit,sans-serif;font-size:1.1rem;font-weight:700;'
+            f'color:{c};margin-bottom:10px">{double_str}</div>'
+
+            f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;color:var(--t3);margin-bottom:2px">'
+            f'Performance nette de frais</div>'
+            f'<div style="font-family:Outfit,sans-serif;font-size:1.1rem;font-weight:700;'
+            f'color:var(--text);margin-bottom:10px">{perf_nette:.1f}%/an</div>'
+
+            f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;color:var(--t3);margin-bottom:2px">'
+            f'Versement total sur la période</div>'
+            f'<div style="font-family:Outfit,sans-serif;font-size:1.1rem;font-weight:700;'
+            f'color:var(--text);margin-bottom:10px">'
+            f'{sc["versement"] * sc["duree"] * 12:,.0f} €</div>'
+
+            f'<div style="font-family:DM Mono,monospace;font-size:0.58rem;color:var(--t3);'
+            f'border-top:1px solid var(--border);padding-top:8px;margin-top:4px;line-height:1.8">'
+            f'{sc["versement"]:,} €/mois · {sc["perf"]}%/an · {sc["duree"]} ans<br>'
+            f'Frais : {sc["frais"]}%/an · Départ : {sc["capital"]:,} €'
+            f'</div></div>'
+        )
+    insights_html += '</div>'
+    st.markdown(insights_html, unsafe_allow_html=True)
+
+
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE — JOURNAL DE TRADING
+# ══════════════════════════════════════════════════════════════════════════════
+
+def page_journal():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">📓 Suivi décisionnel</div>'
+                '<div class="ph-title">Journal de Trading</div>'
+                '<div class="ph-sub">Annotations · Thèses d\'investissement · Historique des décisions</div>'
+                '</div>', unsafe_allow_html=True)
+
+    journal = get_state("journal", [])
+
+    # ── Formulaire nouvelle entrée ─────────────────────────────────────────────
+    with st.expander("➕  Nouvelle entrée", expanded=len(journal) == 0):
+        j1, j2, j3 = st.columns([1, 1, 1])
+        with j1:
+            j_date   = st.date_input("Date", value=datetime.today(), key="j_date")
+            j_ticker = st.text_input("Ticker", placeholder="MC.PA", key="j_ticker").upper()
+        with j2:
+            j_action = st.selectbox("Action", ["Achat", "Vente", "Renforcement",
+                                                "Allègement", "Observation", "Analyse"], key="j_act")
+            j_prix   = st.number_input("Prix (€)", value=0.0, min_value=0.0,
+                                        step=0.01, format="%.2f", key="j_prix")
+        with j3:
+            j_emotion = st.selectbox("Contexte émotionnel",
+                                      ["Confiant", "Neutre", "Hésitant",
+                                       "FOMO", "Panique", "Discipliné"], key="j_emo")
+            j_conviction = st.slider("Conviction (1→10)", 1, 10, 7, key="j_conv")
+
+        j_these  = st.text_area("Thèse d'investissement",
+                                  placeholder="Pourquoi cette décision ? Quels sont les catalyseurs attendus ?",
+                                  height=80, key="j_these")
+        j_risques = st.text_area("Risques identifiés",
+                                  placeholder="Quels sont les scénarios défavorables ?",
+                                  height=60, key="j_risques")
+
+        j_tags = st.multiselect("Tags", ["Fondamental", "Technique", "Macro", "Dividende",
+                                          "Croissance", "Value", "Momentum", "Contrarian",
+                                          "Long terme", "Court terme"], key="j_tags")
+
+        if st.button("💾  Enregistrer l'entrée", type="primary", key="j_save"):
+            if j_ticker and j_these:
+                entry = {
+                    "id":         len(journal) + 1,
+                    "date":       str(j_date),
+                    "ticker":     j_ticker,
+                    "action":     j_action,
+                    "prix":       j_prix,
+                    "these":      j_these,
+                    "risques":    j_risques,
+                    "emotion":    j_emotion,
+                    "conviction": j_conviction,
+                    "tags":       j_tags,
+                    "created_at": datetime.now().strftime("%d/%m/%Y %H:%M"),
+                }
+                journal.insert(0, entry)
+                set_state("journal", journal)
+                st.success("✓ Entrée enregistrée !")
+                st.rerun()
+            else:
+                st.warning("Ticker et thèse obligatoires.")
+
+    if not journal:
+        st.markdown("""<div class="empty-state">
+          <div class="empty-icon">📓</div>
+          <div class="empty-title">Journal vide</div>
+          <div class="empty-sub">Commencez par enregistrer votre première décision d'investissement.<br>
+          C'est l'outil le plus puissant pour progresser.</div>
+        </div>""", unsafe_allow_html=True)
+        return
+
+    # ── Filtres ───────────────────────────────────────────────────────────────
+    section_label(f"Entrées · {len(journal)} décisions enregistrées")
+
+    jf1, jf2, jf3 = st.columns(3)
+    with jf1:
+        filter_tk = st.text_input("Filtrer par ticker", placeholder="MC.PA…", key="jf_tk").upper()
+    with jf2:
+        filter_act = st.multiselect("Type d'action", ["Achat", "Vente", "Renforcement",
+                                                        "Allègement", "Observation", "Analyse"],
+                                    key="jf_act")
+    with jf3:
+        filter_tag = st.multiselect("Tags", ["Fondamental", "Technique", "Macro", "Dividende",
+                                              "Croissance", "Value", "Momentum", "Contrarian",
+                                              "Long terme", "Court terme"], key="jf_tag")
+
+    filtered_j = journal
+    if filter_tk:
+        filtered_j = [e for e in filtered_j if filter_tk in e.get("ticker","")]
+    if filter_act:
+        filtered_j = [e for e in filtered_j if e.get("action") in filter_act]
+    if filter_tag:
+        filtered_j = [e for e in filtered_j if any(t in e.get("tags",[]) for t in filter_tag)]
+
+    # ── Stats rapides ──────────────────────────────────────────────────────────
+    n_achats  = sum(1 for e in journal if e.get("action") in ["Achat","Renforcement"])
+    n_ventes  = sum(1 for e in journal if e.get("action") in ["Vente","Allègement"])
+    avg_conv  = sum(e.get("conviction",5) for e in journal) / len(journal) if journal else 0
+    tickers_u = len({e["ticker"] for e in journal if e.get("ticker")})
+
+    kpi_j = (
+        f'<div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">'
+        + kpi_card("Entrées totales", str(len(journal)),
+                   top_color="linear-gradient(90deg,#3b82f6,transparent)")
+        + kpi_card("Achats / Renforts", str(n_achats),
+                   top_color="linear-gradient(90deg,#22c55e,transparent)")
+        + kpi_card("Ventes / Allègements", str(n_ventes),
+                   top_color="linear-gradient(90deg,#ef4444,transparent)")
+        + kpi_card("Conviction moyenne", f"{avg_conv:.1f}/10",
+                   top_color=f"linear-gradient(90deg,{'#22c55e' if avg_conv>=7 else '#f59e0b'},transparent)")
+        + '</div>'
+    )
+    st.markdown(kpi_j, unsafe_allow_html=True)
+
+    # ── Affichage des entrées ──────────────────────────────────────────────────
+    ACTION_COLOR = {
+        "Achat": "#22c55e", "Renforcement": "#16a34a",
+        "Vente": "#ef4444", "Allègement": "#dc2626",
+        "Observation": "#3b82f6", "Analyse": "#8b5cf6",
+    }
+    EMOTION_ICON = {
+        "Confiant": "💪", "Neutre": "😐", "Hésitant": "🤔",
+        "FOMO": "😰", "Panique": "😱", "Discipliné": "🎯",
+    }
+
+    for i, entry in enumerate(filtered_j):
+        ac  = ACTION_COLOR.get(entry.get("action","Observation"), "#475569")
+        emo = EMOTION_ICON.get(entry.get("emotion","Neutre"), "😐")
+        conv = entry.get("conviction", 5)
+        conv_c = "#22c55e" if conv >= 8 else ("#f59e0b" if conv >= 5 else "#ef4444")
+        tags_html = "".join(
+            f'<span style="font-family:DM Mono,monospace;font-size:0.55rem;color:#3b82f6;'
+            f'background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);'
+            f'border-radius:3px;padding:1px 6px;margin-right:4px">{t}</span>'
+            for t in entry.get("tags", [])
+        )
+
+        with st.expander(
+            f"{entry.get('date','')}  ·  {entry.get('ticker','')}  ·  "
+            f"{entry.get('action','')}  ·  {emo} {entry.get('emotion','')}",
+            expanded=(i == 0)
+        ):
+            ec1, ec2 = st.columns([3, 1])
+            with ec1:
+                st.markdown(
+                    f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;color:{ac};'
+                    f'text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">'
+                    f'{entry.get("action","")} · {entry.get("ticker","")} '
+                    f'{"@ "+str(entry.get("prix",""))+" €" if entry.get("prix",0)>0 else ""}'
+                    f'</div>'
+                    f'<div style="font-family:Outfit,sans-serif;font-size:0.88rem;'
+                    f'color:var(--text);line-height:1.6;margin-bottom:10px">'
+                    f'<b style="color:var(--t3);font-size:0.75rem">THÈSE</b><br>'
+                    f'{entry.get("these","")}</div>',
+                    unsafe_allow_html=True
+                )
+                if entry.get("risques"):
+                    st.markdown(
+                        f'<div style="font-family:Outfit,sans-serif;font-size:0.82rem;'
+                        f'color:var(--t2);line-height:1.5;margin-bottom:8px">'
+                        f'<b style="color:#ef4444;font-size:0.72rem">RISQUES</b><br>'
+                        f'{entry.get("risques","")}</div>',
+                        unsafe_allow_html=True
+                    )
+                if tags_html:
+                    st.markdown(f'<div style="margin-top:6px">{tags_html}</div>',
+                                unsafe_allow_html=True)
+            with ec2:
+                conv_ring_dash = 2 * 3.14159 * 18 * conv / 10
+                conv_ring_gap  = 2 * 3.14159 * 18 - conv_ring_dash
+                st.markdown(
+                    f'<div style="text-align:center;background:var(--s2);border-radius:10px;'
+                    f'padding:14px 10px">'
+                    f'<svg width="60" height="60" viewBox="0 0 60 60" style="transform:rotate(-90deg)">'
+                    f'<circle cx="30" cy="30" r="18" fill="none" stroke="#1a2538" stroke-width="4"/>'
+                    f'<circle cx="30" cy="30" r="18" fill="none" stroke="{conv_c}" stroke-width="4"'
+                    f' stroke-linecap="round"'
+                    f' stroke-dasharray="{conv_ring_dash:.1f} {conv_ring_gap:.1f}"/>'
+                    f'</svg>'
+                    f'<div style="font-family:Outfit,sans-serif;font-size:1.2rem;font-weight:800;'
+                    f'color:{conv_c};margin-top:-44px;margin-bottom:34px">{conv}</div>'
+                    f'<div style="font-family:DM Mono,monospace;font-size:0.52rem;color:var(--t3)'
+                    f';text-transform:uppercase;letter-spacing:0.1em">Conviction</div>'
+                    f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;color:var(--t3);'
+                    f'margin-top:8px">{entry.get("created_at","")}</div>'
+                    f'</div>',
+                    unsafe_allow_html=True
+                )
+
+            if st.button(f"🗑 Supprimer", key=f"j_del_{i}"):
+                journal.pop(journal.index(entry))
+                set_state("journal", journal)
+                st.rerun()
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE — DIVIDENDES
+# ══════════════════════════════════════════════════════════════════════════════
+
+@st.cache_data(ttl=600)
+def get_dividends_for(ticker: str, start: str):
+    try:
+        d = yf.Ticker(ticker).dividends
+        if d.empty: return pd.Series(dtype=float)
+        d.index = d.index.tz_localize(None)
+        return d[d.index >= pd.Timestamp(start)]
+    except:
+        return pd.Series(dtype=float)
+
+def page_dividendes():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">💸 Revenus passifs</div>'
+                '<div class="ph-title">Dividendes</div>'
+                '<div class="ph-sub">Historique · Projection · Revenus passifs mensuels</div>'
+                '</div>', unsafe_allow_html=True)
+
+    try:
+        df_hist, df_corr, df_vers = load_data()
+        df_pos, s = compute_portfolio(df_hist, df_corr, df_vers)
+    except Exception as e:
+        st.error(f"Fichiers introuvables : {e}"); return
+
+    port_tickers_d = [(r["Ticker"], r["Titre"], r["Quantité"], r["Valeur (€)"])
+                      for _, r in df_pos.iterrows()
+                      if r["Ticker"] and r["Ticker"] != "N/A"]
+
+    # ── Calcul des dates d'entrée par ticker depuis l'historique réel ────────
+    corr_fwd = dict(zip(df_corr["Libelle_fortuneo"], df_corr["code_yfinance"]))
+
+    first_buy = {}
+    for _, row in df_hist.iterrows():
+        op  = str(row.get("Opération","")).strip().lower()
+        lib = str(row.get("libellé","")).strip()
+        dt  = row.get("Date")
+        tk  = corr_fwd.get(lib)
+        if "achat" in op and tk and dt is not None:
+            ts = pd.Timestamp(dt)
+            if tk not in first_buy or ts < first_buy[tk]:
+                first_buy[tk] = ts
+
+    # ── Données dividendes ────────────────────────────────────────────────────
+    section_label("Dividendes — Historique & Projection")
+
+    per_div = st.radio("Fenêtre d'analyse", ["1 an", "3 ans", "5 ans", "Max"],
+                       horizontal=True, key="div_per")
+    fenetre_days = {"1 an":365,"3 ans":1095,"5 ans":1825,"Max":7300}[per_div]
+    fenetre_start = datetime.today() - timedelta(days=fenetre_days)
+
+    all_divs = {}
+    total_div_annuel = 0.0
+    div_par_ticker   = {}
+
+    with st.spinner("Récupération des dividendes…"):
+        for tk, titre, qty, val in port_tickers_d:
+            date_entree = first_buy.get(tk)
+
+            if date_entree is None:
+                div_par_ticker[tk] = {"titre": titre, "qty": qty, "val": val,
+                                      "divs": pd.Series(dtype=float),
+                                      "date_entree": None, "yield": 0}
+                continue
+
+            # Borne = MAX(premier achat, début fenêtre) — en tz-naive
+            date_debut_reelle = max(date_entree, pd.Timestamp(fenetre_start))
+            # S'assurer tz-naive
+            if date_debut_reelle.tzinfo is not None:
+                date_debut_reelle = date_debut_reelle.tz_localize(None)
+
+            try:
+                raw = yf.Ticker(tk).dividends
+                if raw.empty:
+                    divs_miens = pd.Series(dtype=float)
+                else:
+                    # Normaliser l'index en tz-naive quel que soit le format yfinance
+                    if raw.index.tzinfo is not None or hasattr(raw.index, 'tz') and raw.index.tz is not None:
+                        raw.index = raw.index.tz_convert("UTC").tz_localize(None)
+                    else:
+                        raw.index = pd.to_datetime(raw.index)
+                    # Filtre strict : seulement après ton achat réel ET dans la fenêtre
+                    divs_miens = raw[raw.index >= date_debut_reelle]
+            except Exception:
+                divs_miens = pd.Series(dtype=float)
+
+            if not divs_miens.empty:
+                all_divs[tk] = divs_miens * qty
+            div_par_ticker[tk] = {"titre": titre, "qty": qty, "val": val,
+                                  "divs": divs_miens, "date_entree": date_entree, "yield": 0}
+
+    # Yield actuel → projection
+    for tk, titre, qty, val in port_tickers_d:
+        try:
+            info_tk = yf.Ticker(tk).info
+            dy_raw = float(info_tk.get("dividendYield", 0) or 0)
+            # yfinance retourne parfois le yield × 100 (ex: 1.93 au lieu de 0.0193)
+            # Sanity check : un yield >1 (=100%) est impossible → diviser par 100
+            if dy_raw > 1:
+                dy_raw = dy_raw / 100
+            # Cap à 25% max pour éviter les données corrompues
+            dy = min(dy_raw, 0.25)
+            div_par_ticker.setdefault(tk, {"titre": titre, "qty": qty, "val": val,
+                                           "divs": pd.Series(dtype=float),
+                                           "date_entree": first_buy.get(tk), "yield": 0})
+            div_par_ticker[tk]["yield"] = dy
+            total_div_annuel += val * dy
+        except:
+            pass
+
+    # KPIs
+    total_div_hist   = sum(s.sum() for s in all_divs.values()) if all_divs else 0
+    div_mensuel_proj = total_div_annuel / 12
+
+    # ── Debug expander pour vérifier les données brutes ───────────────────────
+    with st.expander("🔍 Données brutes (debug — cliquer pour vérifier)"):
+        for tk, info_d in div_par_ticker.items():
+            de = info_d.get("date_entree")
+            divs = info_d["divs"]
+            st.markdown(f"**{tk}** — achat : `{de.strftime('%d/%m/%Y') if de else 'inconnu'}` "
+                        f"— fenêtre : `{fenetre_start.strftime('%d/%m/%Y')}` → aujourd'hui "
+                        f"— {len(divs)} versements trouvés après filtre")
+            if not divs.empty:
+                st.dataframe(divs.reset_index().rename(columns={0:"Dividende/action","index":"Date"}),
+                             use_container_width=True, hide_index=True)
+
+    kpi_d = (
+        f'<div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">'
+        + kpi_card("Dividendes réellement reçus",
+                   f"{total_div_hist:,.2f} €" if total_div_hist > 0 else "0 €",
+                   "depuis votre date d'achat" if total_div_hist > 0 else "Aucun versement détecté",
+                   total_div_hist > 0,
+                   top_color="linear-gradient(90deg,#22c55e,transparent)")
+        + kpi_card("Revenus annuels projetés", f"{total_div_annuel:,.0f} €",
+                   "yield actuel × valeur positions",
+                   top_color="linear-gradient(90deg,#3b82f6,transparent)")
+        + kpi_card("Revenus mensuels projetés", f"{div_mensuel_proj:,.0f} €/mois",
+                   top_color="linear-gradient(90deg,#8b5cf6,transparent)")
+        + kpi_card("Yield moyen portefeuille",
+                   f"{(total_div_annuel / s['total_valeur'] * 100) if s['total_valeur'] > 0 else 0:.2f}%",
+                   top_color="linear-gradient(90deg,#f59e0b,transparent)")
+        + '</div>'
+    )
+    st.markdown(kpi_d, unsafe_allow_html=True)
+
+    if total_div_hist == 0:
+        st.markdown(
+            '<div style="background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);'
+            'border-radius:10px;padding:12px 16px;margin-bottom:1rem;font-family:DM Mono,monospace;'
+            'font-size:0.65rem;color:#3b82f6">ℹ Aucun dividende détecté depuis vos dates d\'achat réelles. '
+            'Raisons possibles : positions récentes (pas encore passé la date de détachement), '
+            'ETF à capitalisation (Acc), ou actions qui ne versent pas de dividende. '
+            'La projection est basée sur le yield actuel annoncé par yfinance.</div>',
+            unsafe_allow_html=True
+        )
+
+    # ── Graphique historique des dividendes ────────────────────────────────────
+    if all_divs:
+        # Agrège tous les dividendes par mois
+        all_series = []
+        for tk, divs in all_divs.items():
+            df_tmp = divs.reset_index()
+            df_tmp.columns = ["Date", "Montant"]
+            df_tmp["Ticker"] = tk
+            all_series.append(df_tmp)
+        df_all_divs = pd.concat(all_series).sort_values("Date")
+        df_all_divs["Mois"] = df_all_divs["Date"].dt.to_period("M").dt.to_timestamp()
+        df_monthly = df_all_divs.groupby(["Mois","Ticker"])["Montant"].sum().reset_index()
+
+        fig_dh = go.Figure()
+        colors_d = P_COLORS * 3
+        for ci, tk in enumerate(df_monthly["Ticker"].unique()):
+            df_tk = df_monthly[df_monthly["Ticker"] == tk]
+            fig_dh.add_trace(go.Bar(
+                x=df_tk["Mois"], y=df_tk["Montant"],
+                name=tk, marker_color=colors_d[ci % len(colors_d)],
+                hovertemplate=f"<b>{tk}</b> %{{x|%b %Y}}<br>%{{y:,.2f}} €<extra></extra>",
+            ))
+        fig_dh.update_layout(**plotly_base(280, {"ticksuffix":" €","tickformat":",.0f"}))
+        fig_dh.update_layout(barmode="stack")
+        st.plotly_chart(fig_dh, use_container_width=True)
+
+    # ── Projection revenus futurs ──────────────────────────────────────────────
+    section_label("Projection des revenus passifs futurs")
+
+    proj_years = st.slider("Horizon de projection (ans)", 1, 20, 10, key="div_proj")
+    growth_rate = st.slider("Croissance annuelle des dividendes (%)", 0.0, 15.0, 5.0, 0.5, key="div_growth")
+
+    fig_proj = go.Figure()
+    years = list(range(1, proj_years + 1))
+
+    # Mensuel projeté avec croissance
+    monthly_proj = [(total_div_annuel / 12) * ((1 + growth_rate/100) ** y) for y in years]
+    annual_proj  = [total_div_annuel * ((1 + growth_rate/100) ** y) for y in years]
+    cumul_proj   = [sum(annual_proj[:i+1]) for i in range(len(annual_proj))]
+
+    fig_proj.add_trace(go.Bar(
+        x=years, y=annual_proj, name="Revenus annuels",
+        marker_color="#22c55e", marker_opacity=0.7,
+        hovertemplate="Année %{x}<br>Revenus : %{y:,.0f} €/an<extra></extra>",
+    ))
+    fig_proj.add_trace(go.Scatter(
+        x=years, y=cumul_proj, name="Cumul revenus",
+        line=dict(color="#3b82f6", width=2, dash="dash"), yaxis="y2",
+        hovertemplate="Année %{x}<br>Cumul : %{y:,.0f} €<extra></extra>",
+    ))
+    fig_proj.update_layout(
+        **plotly_base(300, {"ticksuffix":" €","tickformat":",.0f"}),
+        yaxis2=dict(overlaying="y", side="right", tickformat=",.0f",
+                    ticksuffix=" €", gridcolor="rgba(0,0,0,0)"),
+    )
+    st.plotly_chart(fig_proj, use_container_width=True)
+
+    # ── Tableau par position ───────────────────────────────────────────────────
+    section_label("Dividendes par position")
+    rows_div = ""
+    for tk, info_d in sorted(div_par_ticker.items(),
+                              key=lambda x: x[1].get("yield",0), reverse=True):
+        dy     = info_d.get("yield", 0) * 100
+        rev_a  = info_d["val"] * info_d.get("yield", 0)
+        rev_m  = rev_a / 12
+        dy_c   = "#22c55e" if dy > 3 else ("#f59e0b" if dy > 1 else "#475569")
+        # divs contient les dividendes PAR ACTION → total reçu = sum * qty
+        recus  = float(info_d["divs"].sum()) * info_d["qty"] if not info_d["divs"].empty else 0
+        de     = info_d.get("date_entree")
+        de_str = de.strftime("%d/%m/%Y") if de else "—"
+        rows_div += (
+            f'<tr>'
+            f'<td style="text-align:left">{info_d["titre"][:22]}'
+            f'<span class="tbadge">{tk}</span></td>'
+            f'<td style="font-family:DM Mono,monospace;font-size:0.65rem;color:var(--t3)">{de_str}</td>'
+            f'<td>{info_d["qty"]:.0f}</td>'
+            f'<td>{info_d["val"]:,.0f} €</td>'
+            f'<td><span style="font-family:DM Mono,monospace;font-size:0.75rem;'
+            f'font-weight:600;color:{dy_c}">{dy:.2f}%</span></td>'
+            f'<td class="{"pos" if recus>0 else "n"}">{recus:,.2f} €</td>'
+            f'<td class="pos">{rev_a:,.0f} €/an</td>'
+            f'<td>{rev_m:,.0f} €/mois</td>'
+            f'</tr>'
+        )
+    st.markdown(
+        f'<div style="background:var(--s1);border:1px solid var(--border);'
+        f'border-radius:11px;overflow:hidden">'
+        f'<table class="ptable"><thead><tr>'
+        f'<th style="text-align:left">Titre</th>'
+        f'<th style="text-align:left">Achat</th>'
+        f'<th>Qté</th><th>Valeur</th><th>Yield</th>'
+        f'<th>Reçus réels</th><th>Projeté/an</th><th>Projeté/mois</th>'
+        f'</tr></thead><tbody>{rows_div}</tbody></table></div>',
+        unsafe_allow_html=True
+    )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE — TRI PAR POSITION
+# ══════════════════════════════════════════════════════════════════════════════
+
+def compute_tri(cash_flows: list) -> float:
+    """
+    Newton-Raphson pour calculer le TRI annualisé.
+    cash_flows = liste de (date, montant) — négatif = sortie, positif = entrée.
+    """
+    if len(cash_flows) < 2:
+        return None
+    try:
+        dates  = [cf[0] for cf in cash_flows]
+        t0     = dates[0]
+        t_days = [(d - t0).days for d in dates]
+        amounts = [cf[1] for cf in cash_flows]
+
+        def npv(r):
+            return sum(amt / (1 + r) ** (t / 365.25)
+                       for amt, t in zip(amounts, t_days))
+
+        def npv_prime(r):
+            return sum(-amt * (t / 365.25) / (1 + r) ** (t / 365.25 + 1)
+                       for amt, t in zip(amounts, t_days))
+
+        r = 0.1
+        for _ in range(100):
+            f  = npv(r)
+            fp = npv_prime(r)
+            if abs(fp) < 1e-12: break
+            r_new = r - f / fp
+            if abs(r_new - r) < 1e-8: break
+            r = r_new
+            if r <= -0.999: return None
+        return r if -1 < r < 100 else None
+    except:
+        return None
+
+
+def page_tri():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">📐 Performance réelle</div>'
+                '<div class="ph-title">TRI par Position</div>'
+                '<div class="ph-sub">Taux de Rentabilité Interne · Performance ajustée au temps</div>'
+                '</div>', unsafe_allow_html=True)
+
+    st.markdown(
+        '<div style="background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);'
+        'border-radius:10px;padding:12px 16px;margin-bottom:1.4rem;font-family:DM Mono,monospace;'
+        'font-size:0.65rem;color:#3b82f6">ℹ Le TRI intègre les dates d\'achat et de vente réelles. '
+        '20% sur 5 ans = ~3.7%/an. 20% sur 6 mois = ~46%/an. '
+        'C\'est la vraie mesure d\'un investisseur.</div>',
+        unsafe_allow_html=True
+    )
+
+    try:
+        df_hist, df_corr, df_vers = load_data()
+        _, s = compute_portfolio(df_hist, df_corr, df_vers)
+    except Exception as e:
+        st.error(f"Fichiers introuvables : {e}"); return
+
+    corr_d = dict(zip(df_corr["Libelle_fortuneo"], df_corr["code_yfinance"]))
+
+    # Groupe les opérations par libellé
+    def op_order(row):
+        op = str(row["Opération"]).strip().lower()
+        return 0 if "achat" in op else (1 if "taxe" in op else 2)
+    df_s = df_hist.copy()
+    df_s["_ord"] = df_s.apply(op_order, axis=1)
+    df_s = df_s.sort_values(["Date","_ord"])
+
+    ops_by_lib = {}
+    for _, row in df_s.iterrows():
+        lib = str(row["libellé"]).strip()
+        op  = str(row["Opération"]).strip().lower()
+        qty = float(row["Qté"]) if pd.notna(row["Qté"]) else 0
+        net = float(row["Montant net"]) if pd.notna(row["Montant net"]) else 0
+        dt  = row["Date"]
+        ops_by_lib.setdefault(lib, [])
+        if "achat" in op and qty > 0:
+            ops_by_lib[lib].append(("buy",  dt, -abs(net), qty))
+        elif "vente" in op and qty > 0:
+            ops_by_lib[lib].append(("sell", dt, +abs(net), qty))
+        elif "taxe" in op:
+            ops_by_lib[lib].append(("tax",  dt, -abs(net), 0))
+
+    with st.spinner("Calcul des TRI…"):
+        tri_results = []
+        for lib, ops in ops_by_lib.items():
+            tk = corr_d.get(lib)
+            if not tk: continue
+
+            # Cash flows: achats = négatif, ventes = positif
+            cfs = [(op[1], op[2]) for op in ops if op[0] in ("buy","sell","tax")]
+            if not cfs: continue
+
+            # Valeur actuelle des titres encore détenus
+            qty_held = sum(op[3] if op[0]=="buy" else -op[3]
+                           for op in ops if op[0] in ("buy","sell"))
+            qty_held = max(0.0, qty_held)
+
+            if qty_held > 0.001:
+                cur_px = get_current_price(tk)
+                if cur_px:
+                    cfs.append((datetime.today(), cur_px * qty_held))
+
+            if len(cfs) < 2: continue
+
+            tri = compute_tri(cfs)
+            if tri is None: continue
+
+            # Durée de détention
+            dt_first = min(cf[0] for cf in cfs)
+            dt_last  = max(cf[0] for cf in cfs)
+            duree_j  = (dt_last - dt_first).days if hasattr(dt_last - dt_first, "days") else 0
+
+            total_investi = sum(abs(cf[1]) for cf in cfs if cf[1] < 0)
+            total_retour  = sum(cf[1] for cf in cfs if cf[1] > 0)
+            pnl           = total_retour - total_investi
+
+            tri_results.append({
+                "Titre":     lib[:28],
+                "Ticker":    tk,
+                "TRI/an":    tri * 100,
+                "Durée":     duree_j,
+                "Investi":   total_investi,
+                "Retour":    total_retour,
+                "PnL":       pnl,
+                "En cours":  qty_held > 0.001,
+            })
+
+    if not tri_results:
+        st.info("Données d'historique insuffisantes pour calculer les TRI.")
+        return
+
+    tri_results.sort(key=lambda x: x["TRI/an"], reverse=True)
+
+    # KPIs globaux
+    tris = [r["TRI/an"] for r in tri_results]
+    tri_moy = sum(tris) / len(tris) if tris else 0
+    tri_max = max(tris) if tris else 0
+    tri_min = min(tris) if tris else 0
+    n_pos   = sum(1 for t in tris if t > 0)
+
+    kpi_tri = (
+        f'<div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">'
+        + kpi_card("TRI moyen pondéré", f"{tri_moy:+.1f}%/an",
+                   f"{n_pos}/{len(tris)} positions positives",
+                   tri_moy > 0,
+                   top_color=f"linear-gradient(90deg,{'#22c55e' if tri_moy>0 else '#ef4444'},transparent)")
+        + kpi_card("Meilleure position", f"{tri_max:+.1f}%/an",
+                   tri_results[0]["Ticker"] if tri_results else "—",
+                   True,
+                   top_color="linear-gradient(90deg,#22c55e,transparent)")
+        + kpi_card("Moins bonne position", f"{tri_min:+.1f}%/an",
+                   tri_results[-1]["Ticker"] if tri_results else "—",
+                   False,
+                   top_color="linear-gradient(90deg,#ef4444,transparent)")
+        + kpi_card("Positions analysées", str(len(tri_results)),
+                   top_color="linear-gradient(90deg,#3b82f6,transparent)")
+        + '</div>'
+    )
+    st.markdown(kpi_tri, unsafe_allow_html=True)
+
+    # Graphique TRI en barres horizontales
+    section_label("TRI annualisé par position")
+    tri_sorted = sorted(tri_results, key=lambda x: x["TRI/an"])
+    fig_tri = go.Figure(go.Bar(
+        x=[r["TRI/an"] for r in tri_sorted],
+        y=[f'{r["Ticker"]}' for r in tri_sorted],
+        orientation="h",
+        marker_color=["#22c55e" if r["TRI/an"] >= 0 else "#ef4444" for r in tri_sorted],
+        marker_opacity=0.85,
+        text=[f'{r["TRI/an"]:+.1f}%' for r in tri_sorted],
+        textposition="outside",
+        textfont=dict(family="DM Mono", size=9),
+        hovertemplate="<b>%{y}</b><br>TRI : %{x:+.1f}%/an<extra></extra>",
+    ))
+    fig_tri.add_vline(x=0, line_color="#2d3f57", line_width=1)
+    fig_tri.update_layout(**plotly_base(max(280, len(tri_results) * 30),
+                                        {"ticksuffix": "%"}))
+    fig_tri.update_layout(xaxis=dict(ticksuffix="%", gridcolor="#1a2538"))
+    st.plotly_chart(fig_tri, use_container_width=True)
+
+    # Tableau détaillé
+    section_label("Détail par position")
+    rows_tri = ""
+    for r in tri_results:
+        tc   = "#22c55e" if r["TRI/an"] >= 0 else "#ef4444"
+        pc   = "#22c55e" if r["PnL"] >= 0 else "#ef4444"
+        dur  = f"{r['Durée']//365}a {(r['Durée']%365)//30}m" if r["Durée"] > 0 else "—"
+        stat = '<span style="color:#22c55e;font-size:0.65rem">● En cours</span>' \
+               if r["En cours"] else \
+               '<span style="color:#475569;font-size:0.65rem">○ Clôturée</span>'
+        rows_tri += (
+            f'<tr>'
+            f'<td style="text-align:left">{r["Titre"]}'
+            f'<span class="tbadge">{r["Ticker"]}</span></td>'
+            f'<td><span style="font-family:DM Mono,monospace;font-size:0.8rem;'
+            f'font-weight:700;color:{tc}">{r["TRI/an"]:+.1f}%/an</span></td>'
+            f'<td>{dur}</td>'
+            f'<td>{r["Investi"]:,.0f} €</td>'
+            f'<td class="{"pos" if r["PnL"]>=0 else "neg"}">{r["PnL"]:+,.0f} €</td>'
+            f'<td>{stat}</td>'
+            f'</tr>'
+        )
+    st.markdown(
+        f'<div style="background:var(--s1);border:1px solid var(--border);'
+        f'border-radius:11px;overflow:hidden">'
+        f'<table class="ptable"><thead><tr>'
+        f'<th style="text-align:left">Position</th>'
+        f'<th>TRI annualisé</th><th>Durée détention</th>'
+        f'<th>Capital investi</th><th>PnL réalisé+latent</th><th>Statut</th>'
+        f'</tr></thead><tbody>{rows_tri}</tbody></table></div>',
+        unsafe_allow_html=True
+    )
+
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE — WATCHLIST
+# ══════════════════════════════════════════════════════════════════════════════
+
+def page_watchlist():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">👁 Surveillance</div>'
+                '<div class="ph-title">Watchlist</div>'
+                '<div class="ph-sub">Cibles à surveiller · Score 10-Baggers · Alertes prix</div>'
+                '</div>', unsafe_allow_html=True)
+
+    watchlist = get_state("watchlist", [])
+
+    with st.expander("➕  Ajouter à la watchlist", expanded=len(watchlist) == 0):
+        wa, wb, wc, wd = st.columns([2, 1, 1, 1])
+        with wa:
+            w_ticker = st.text_input("Ticker", placeholder="ASML.AS", key="wl_tk").upper()
+        with wb:
+            w_target = st.number_input("Prix cible (€)", value=0.0, min_value=0.0,
+                                        step=0.5, format="%.2f", key="wl_target")
+        with wc:
+            w_stop   = st.number_input("Stop-loss (€)", value=0.0, min_value=0.0,
+                                        step=0.5, format="%.2f", key="wl_stop")
+        with wd:
+            w_note   = st.text_input("Note courte", placeholder="Pourquoi ?", key="wl_note")
+        if st.button("Ajouter à la watchlist", key="wl_add"):
+            if w_ticker:
+                watchlist.append({
+                    "ticker": w_ticker, "target": w_target, "stop": w_stop,
+                    "note": w_note, "added": datetime.now().strftime("%d/%m/%Y")
+                })
+                set_state("watchlist", watchlist)
+                st.rerun()
+
+    if not watchlist:
+        st.markdown("""<div class="empty-state">
+          <div class="empty-icon">👁</div>
+          <div class="empty-title">Watchlist vide</div>
+          <div class="empty-sub">Ajoutez les tickers que vous surveillez avant d'acheter.</div>
+        </div>""", unsafe_allow_html=True)
+        return
+
+    section_label(f"Surveillance · {len(watchlist)} titres")
+
+    with st.spinner("Analyse des titres en watchlist…"):
+        wl_data = []
+        for item in watchlist:
+            tk   = item["ticker"]
+            sig  = get_ticker_signals(tk)
+            sc_d = compute_10bagger_data(tk)
+            px   = sig["last"] if sig else None
+            wl_data.append({**item, "sig": sig, "sc_d": sc_d, "px": px})
+
+    SIG_C = {"g":"#22c55e","r":"#ef4444","y":"#f59e0b","n":"#475569"}
+
+    for i, item in enumerate(wl_data):
+        sig  = item["sig"]
+        sc_d = item["sc_d"]
+        px   = item["px"]
+        tk   = item["ticker"]
+
+        at_target  = px and item["target"] > 0 and px >= item["target"]
+        at_stop    = px and item["stop"]   > 0 and px <= item["stop"]
+        border_c   = "#22c55e" if at_target else ("#ef4444" if at_stop else "var(--border)")
+
+        score_val = sc_d["Score"] if sc_d else None
+        sc_c = "#22c55e" if (score_val or 0) >= 70 else ("#f59e0b" if (score_val or 0) >= 50 else "#ef4444")
+        top_sig_label = sig["signals"][0][0] if sig and sig["signals"] else "—"
+        top_sig_cls   = sig["signals"][0][1] if sig and sig["signals"] else "n"
+
+        st.markdown(
+            f'<div style="background:var(--s1);border:1px solid {border_c};'
+            f'border-radius:11px;padding:16px 20px;margin-bottom:10px">'
+            f'<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">'
+            f'<div style="min-width:80px"><div style="font-family:DM Mono,monospace;font-size:0.82rem;'
+            f'color:#22c55e;font-weight:600">{tk}</div>'
+            f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;color:var(--t3);margin-top:2px">'
+            f'{item["added"]}</div></div>'
+            f'<div style="min-width:90px"><div style="font-family:DM Mono,monospace;font-size:0.55rem;'
+            f'color:var(--t3);text-transform:uppercase;letter-spacing:0.1em">Prix actuel</div>'
+            f'<div style="font-family:Outfit,sans-serif;font-size:1.1rem;font-weight:700;color:var(--text)">'
+            f'{f"{px:.2f} €" if px else "—"}</div></div>'
+            + (f'<div style="min-width:90px"><div style="font-family:DM Mono,monospace;font-size:0.55rem;'
+               f'color:var(--t3);text-transform:uppercase;letter-spacing:0.1em">Cible</div>'
+               f'<div style="font-family:Outfit,sans-serif;font-size:1rem;font-weight:600;'
+               f'color:{"#22c55e" if at_target else "var(--t2)"}">'
+               f'{item["target"]:.2f} €{"  ✓" if at_target else ""}</div></div>'
+               if item["target"] > 0 else "")
+            + (f'<div style="min-width:90px"><div style="font-family:DM Mono,monospace;font-size:0.55rem;'
+               f'color:var(--t3);text-transform:uppercase;letter-spacing:0.1em">Stop-loss</div>'
+               f'<div style="font-family:Outfit,sans-serif;font-size:1rem;font-weight:600;'
+               f'color:{"#ef4444" if at_stop else "var(--t2)"}">'
+               f'{item["stop"]:.2f} €{"  ✗" if at_stop else ""}</div></div>'
+               if item["stop"] > 0 else "")
+            + f'<div style="min-width:70px"><div style="font-family:DM Mono,monospace;font-size:0.55rem;'
+            f'color:var(--t3);text-transform:uppercase;letter-spacing:0.1em">Score</div>'
+            f'<div style="font-family:Outfit,sans-serif;font-size:1rem;font-weight:700;color:{sc_c}">'
+            f'{score_val if score_val is not None else "—"}</div></div>'
+            f'<div style="flex:1;min-width:120px"><div style="font-family:DM Mono,monospace;font-size:0.55rem;'
+            f'color:var(--t3);text-transform:uppercase;letter-spacing:0.1em">Signal</div>'
+            f'<div style="font-family:DM Mono,monospace;font-size:0.68rem;font-weight:600;'
+            f'color:{SIG_C[top_sig_cls]}">{top_sig_label}</div></div>'
+            + (f'<div style="font-family:Outfit,sans-serif;font-size:0.78rem;color:var(--t3);'
+               f'font-style:italic;flex:1">{item["note"]}</div>' if item.get("note") else "")
+            + f'</div></div>',
+            unsafe_allow_html=True
+        )
+        col_del, _ = st.columns([1, 6])
+        with col_del:
+            if st.button("🗑 Retirer", key=f"wl_del_{i}"):
+                watchlist.pop(i)
+                set_state("watchlist", watchlist)
+                st.rerun()
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE — COMPARAISON PAIR-À-PAIR
+# ══════════════════════════════════════════════════════════════════════════════
+
+def page_comparaison():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">⚖ Analyse comparative</div>'
+                '<div class="ph-title">Comparaison</div>'
+                '<div class="ph-sub">Pair-à-pair · Fondamentaux · Performance · 10-Baggers</div>'
+                '</div>', unsafe_allow_html=True)
+
+    # ── Saisie des tickers ────────────────────────────────────────────────────
+    try:
+        df_hist, df_corr, df_vers = load_data()
+        df_pos, _ = compute_portfolio(df_hist, df_corr, df_vers)
+        port_suggestions = [r["Ticker"] for _, r in df_pos.iterrows()
+                            if r["Ticker"] != "N/A"]
+    except:
+        port_suggestions = []
+
+    st.markdown('<div style="font-family:DM Mono,monospace;font-size:0.65rem;color:var(--t3);'
+                'margin-bottom:1rem">Entrez 2 à 5 tickers à comparer côte à côte.</div>',
+                unsafe_allow_html=True)
+
+    comp_input = st.text_input("Tickers à comparer (séparés par virgules)",
+                                placeholder="AIR.PA, SAF.PA, MTU.DE, HO.PA",
+                                key="comp_tickers",
+                                value=", ".join(port_suggestions[:3]) if port_suggestions else "")
+    run_comp = st.button("▶  Comparer", type="primary", key="comp_run")
+
+    if "comp_results" not in st.session_state:
+        st.session_state.comp_results = []
+
+    if run_comp and comp_input:
+        tks = [t.strip().upper() for t in comp_input.replace(",", " ").split() if t.strip()][:5]
+        with st.spinner("Analyse comparative…"):
+            comp_data = []
+            prog = st.progress(0)
+            for i, tk in enumerate(tks):
+                prog.progress(int((i+1)/len(tks)*100), f"Analyse {tk}…")
+                d = compute_10bagger_data(tk)
+                sig = get_ticker_signals(tk)
+                if d:
+                    d["sig"] = sig
+                    comp_data.append(d)
+            st.session_state.comp_results = comp_data
+
+    comp_data = st.session_state.comp_results
+    if not comp_data:
+        st.markdown("""<div class="empty-state">
+          <div class="empty-icon">⚖</div>
+          <div class="empty-title">Entrez des tickers et lancez la comparaison</div>
+          <div class="empty-sub">2 à 5 tickers · Toutes métriques côte à côte.</div>
+        </div>""", unsafe_allow_html=True)
+        return
+
+    n = len(comp_data)
+    COMP_C = ["#22c55e","#3b82f6","#f59e0b","#8b5cf6","#ef4444"]
+
+    # ── Score overview ─────────────────────────────────────────────────────────
+    section_label("Vue d'ensemble")
+    kpi_comp = f'<div class="kpi-row" style="grid-template-columns:repeat({n},1fr)">'
+    for i, d in enumerate(comp_data):
+        c   = COMP_C[i % len(COMP_C)]
+        sc  = d["Score"]
+        sc_c = "#22c55e" if sc>=70 else ("#f59e0b" if sc>=50 else "#ef4444")
+        circ = 2*3.14159*22
+        dash = circ * sc / 100
+        kpi_comp += (
+            f'<div style="background:var(--s1);border:1px solid {c}33;border-radius:13px;'
+            f'padding:20px 16px;text-align:center;position:relative;overflow:hidden">'
+            f'<div style="position:absolute;top:0;left:0;right:0;height:2px;background:{c}"></div>'
+            f'<div style="font-family:DM Mono,monospace;font-size:0.65rem;color:{c};'
+            f'font-weight:600;margin-bottom:6px">{d["Ticker"]}</div>'
+            f'<svg width="60" height="60" viewBox="0 0 60 60" style="transform:rotate(-90deg)">'
+            f'<circle cx="30" cy="30" r="22" fill="none" stroke="#1a2538" stroke-width="5"/>'
+            f'<circle cx="30" cy="30" r="22" fill="none" stroke="{sc_c}" stroke-width="5"'
+            f' stroke-linecap="round"'
+            f' stroke-dasharray="{dash:.1f} {circ-dash:.1f}"/></svg>'
+            f'<div style="font-family:Outfit,sans-serif;font-size:1.4rem;font-weight:900;'
+            f'color:{sc_c};margin-top:-44px;margin-bottom:32px">{sc}</div>'
+            f'<div style="font-family:Outfit,sans-serif;font-size:0.75rem;color:var(--t2);'
+            f'white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{d["Nom"][:20]}</div>'
+            f'<div style="font-family:DM Mono,monospace;font-size:0.65rem;color:{c};'
+            f'margin-top:4px">{d["Cours"]:.2f} €' if d["Cours"] else "—"
+            + f'</div></div>'
+        )
+    kpi_comp += '</div>'
+    st.markdown(kpi_comp, unsafe_allow_html=True)
+
+    # ── Tableau comparatif des 10 critères ─────────────────────────────────────
+    section_label("Comparaison des 10 critères 10-Baggers")
+
+    CRIT_KEYS = ["CA CAGR","Rachat","ROIC","Marge FCF","Div CAGR",
+                 "Payout","FCF CAGR","D/EBITDA","PER","Momentum"]
+    STATUS_COLOR2 = {"g":"#22c55e","r":"#ef4444","y":"#f59e0b","n":"#475569"}
+    STATUS_ICON2  = {"g":"✓","r":"✗","y":"◐","n":"○"}
+
+    header = '<tr><th style="text-align:left">Critère</th>' + \
+             "".join(f'<th style="color:{COMP_C[i%len(COMP_C)]}">{d["Ticker"]}</th>'
+                     for i, d in enumerate(comp_data)) + '</tr>'
+    rows_cmp = ""
+    for ci, crit in enumerate(CRIT_KEYS):
+        val_key = [  "CA CAGR","Rachat","ROIC","Marge FCF","Div CAGR",
+                     "Payout","FCF CAGR","D/EBITDA","PER","Momentum"][ci]
+        row = f'<tr><td style="text-align:left;font-family:DM Mono,monospace;font-size:0.68rem;color:var(--t2)">{crit}</td>'
+        for i, d in enumerate(comp_data):
+            st_c = d["_st"][ci]
+            val  = d.get(val_key, "—")
+            row += (f'<td><span style="font-family:DM Mono,monospace;font-size:0.7rem;'
+                    f'font-weight:600;color:{STATUS_COLOR2[st_c]}">'
+                    f'{STATUS_ICON2[st_c]} {val}</span></td>')
+        row += '</tr>'
+        rows_cmp += row
+
+    st.markdown(
+        f'<div style="background:var(--s1);border:1px solid var(--border);'
+        f'border-radius:11px;overflow:hidden">'
+        f'<table class="ptable"><thead>{header}</thead>'
+        f'<tbody>{rows_cmp}</tbody></table></div>',
+        unsafe_allow_html=True
+    )
+
+    # ── Radar chart ─────────────────────────────────────────────────────────────
+    section_label("Radar des scores pondérés")
+    categories = ["CA CAGR","Rachat","ROIC","Marge FCF","Div CAGR",
+                  "Payout","FCF CAGR","D/EBITDA","PER","Momentum"]
+    WEIGHTS_LIST = [15, 8, 15, 12, 6, 5, 12, 10, 7, 10]
+
+    def hex_to_rgba(hex_color, alpha=0.13):
+        h = hex_color.lstrip("#")
+        r, g, b = int(h[0:2],16), int(h[2:4],16), int(h[4:6],16)
+        return f"rgba({r},{g},{b},{alpha})"
+
+    fig_radar = go.Figure()
+    for i, d in enumerate(comp_data):
+        vals = []
+        for ci, (cat, w) in enumerate(zip(categories, WEIGHTS_LIST)):
+            st_c = d["_st"][ci]
+            score_v = w if st_c=="g" else (w*0.5 if st_c=="y" else 0)
+            vals.append(score_v)
+        vals_closed = vals + [vals[0]]
+        cats_closed = categories + [categories[0]]
+        c = COMP_C[i%len(COMP_C)]
+        fig_radar.add_trace(go.Scatterpolar(
+            r=vals_closed, theta=cats_closed,
+            fill="toself", name=d["Ticker"],
+            line=dict(color=c, width=2),
+            fillcolor=hex_to_rgba(c, 0.13),
+        ))
+    fig_radar.update_layout(
+        polar=dict(
+            bgcolor="rgba(14,20,32,0.8)",
+            radialaxis=dict(visible=True, range=[0, 15],
+                            gridcolor="#1a2538", linecolor="#1a2538",
+                            tickfont=dict(family="DM Mono", size=7, color="#475569")),
+            angularaxis=dict(gridcolor="#1a2538", linecolor="#1a2538",
+                             tickfont=dict(family="DM Mono", size=8, color="#94a3b8")),
+        ),
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="DM Mono", size=9, color="#475569"),
+        height=400,
+        legend=dict(orientation="h", y=-0.1, x=0.5, xanchor="center",
+                    font=dict(family="DM Mono", size=9)),
+        margin=dict(l=40, r=40, t=20, b=40),
+    )
+    st.plotly_chart(fig_radar, use_container_width=True)
+
+    # ── Perf historique comparée ────────────────────────────────────────────────
+    section_label("Performance historique comparée · Base 100")
+    perf_period = st.radio("Période", ["1 an","3 ans","5 ans"], horizontal=True, key="comp_perf")
+    perf_map = {"1 an":"1y","3 ans":"3y","5 ans":"5y"}
+
+    with st.spinner("Chargement des historiques…"):
+        df_comp_h = get_multi_history(
+            tuple(d["Ticker"] for d in comp_data),
+            perf_map[perf_period]
+        )
+
+    # Add benchmark
+    bench_name = get_state("benchmark", "MSCI World (IWDA)")
+    bench_sym  = BENCHMARKS_AVAILABLE.get(bench_name, "IWDA.AS")
+    try:
+        bh = yf.Ticker(bench_sym).history(period=perf_map[perf_period])["Close"]
+        bh.index = bh.index.tz_localize(None)
+        df_comp_h[bench_name] = bh
+    except: pass
+
+    if not df_comp_h.empty:
+        df_norm = df_comp_h.apply(lambda col: col / col.dropna().iloc[0] * 100 if not col.dropna().empty else col)
+        fig_ch = go.Figure()
+        for i, col in enumerate(df_norm.columns):
+            is_bench = col == bench_name
+            fig_ch.add_trace(go.Scatter(
+                x=df_norm.index, y=df_norm[col], name=col,
+                line=dict(
+                    color=COMP_C[i%len(COMP_C)] if not is_bench else "#475569",
+                    width=2.5 if not is_bench else 1.5,
+                    dash="solid" if not is_bench else "dash",
+                ),
+                hovertemplate=f"<b>{col}</b> %{{x|%d %b %Y}}<br>%{{y:.1f}}<extra></extra>",
+            ))
+        fig_ch.add_hline(y=100, line_color="#2d3f57", line_width=1, line_dash="dot")
+        fig_ch.update_layout(**plotly_base(320, {"tickformat":".0f"}))
+        st.plotly_chart(fig_ch, use_container_width=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE — PARAMÈTRES
+# ══════════════════════════════════════════════════════════════════════════════
+
+def page_parametres():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">⚙ Configuration</div>'
+                '<div class="ph-title">Paramètres</div>'
+                '<div class="ph-sub">Benchmark · Persistance · Données</div>'
+                '</div>', unsafe_allow_html=True)
+
+    # ── Benchmark ─────────────────────────────────────────────────────────────
+    section_label("Benchmark de référence")
+    st.markdown('<div style="font-family:DM Mono,monospace;font-size:0.65rem;color:var(--t3);'
+                'margin-bottom:1rem">Utilisé dans les comparaisons de performance, '
+                'la page Intelligence et les graphiques momentum.</div>', unsafe_allow_html=True)
+
+    current_bench = get_state("benchmark", "MSCI World (IWDA)")
+    bench_options = list(BENCHMARKS_AVAILABLE.keys())
+    new_bench = st.selectbox("Benchmark principal", bench_options,
+                             index=bench_options.index(current_bench) if current_bench in bench_options else 0,
+                             key="param_bench")
+    if new_bench != current_bench:
+        set_state("benchmark", new_bench)
+        st.success(f"✓ Benchmark mis à jour : {new_bench}")
+
+    # ── État de la persistance ─────────────────────────────────────────────────
+    section_label("Données persistantes")
+    journal   = get_state("journal",   [])
+    alerts    = get_state("alerts",    [])
+    watchlist = get_state("watchlist", [])
+
+    state_html = (
+        f'<div class="kpi-row" style="grid-template-columns:repeat(3,1fr)">'
+        + kpi_card("Journal", f"{len(journal)} entrées",
+                   top_color="linear-gradient(90deg,#22c55e,transparent)")
+        + kpi_card("Alertes", f"{len(alerts)} actives",
+                   top_color="linear-gradient(90deg,#f59e0b,transparent)")
+        + kpi_card("Watchlist", f"{len(watchlist)} titres",
+                   top_color="linear-gradient(90deg,#3b82f6,transparent)")
+        + '</div>'
+    )
+    st.markdown(state_html, unsafe_allow_html=True)
+
+    st.markdown(f'<div style="font-family:DM Mono,monospace;font-size:0.65rem;color:var(--t3);'
+                f'margin-top:0.5rem">Fichier de persistance : '
+                f'<code style="color:#22c55e">{os.path.abspath(STATE_FILE)}</code></div>',
+                unsafe_allow_html=True)
+
+    # Export / Reset
+    ec1, ec2, ec3 = st.columns(3)
+    with ec1:
+        state_export = _load_state()
+        st.download_button(
+            "⬇  Exporter state.json",
+            data=json.dumps(state_export, ensure_ascii=False, indent=2, default=str),
+            file_name="pea_state.json", mime="application/json",
+        )
+    with ec2:
+        if st.button("🗑  Vider le journal", key="p_clr_journal"):
+            set_state("journal", [])
+            st.rerun()
+    with ec3:
+        if st.button("🗑  Tout réinitialiser", key="p_reset_all"):
+            _save_state({"journal":[],"alerts":[],"watchlist":[],"benchmark":"MSCI World (IWDA)"})
+            for k in list(st.session_state.keys()):
+                if k.startswith("_pstate_"): del st.session_state[k]
+            st.success("État réinitialisé.")
+            st.rerun()
+
+    # ── Cache ─────────────────────────────────────────────────────────────────
+    section_label("Cache & données")
+    if st.button("⟳  Vider tout le cache yfinance", type="primary", key="p_cache"):
+        st.cache_data.clear()
+        st.success("✓ Cache vidé.")
+
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE — CALENDRIER DES ÉVÉNEMENTS
+# ══════════════════════════════════════════════════════════════════════════════
+
+@st.cache_data(ttl=3600)
+def get_calendar_data(ticker: str):
+    """
+    Récupère toutes les données calendrier disponibles pour un ticker.
+    Retourne un dict avec les événements trouvés.
+    """
+    try:
+        t    = yf.Ticker(ticker)
+        info = t.info or {}
+        events = []
+
+        from datetime import timezone
+
+        def ts_to_date(ts):
+            """Convertit un timestamp unix en date lisible."""
+            try:
+                if ts and ts > 0:
+                    return datetime.fromtimestamp(int(ts)).date()
+            except:
+                pass
+            return None
+
+        # ── Résultats financiers (Earnings) ───────────────────────────────────
+        # Méthode 1 : earningsTimestamp (date précise)
+        et = info.get("earningsTimestamp")
+        if et:
+            d = ts_to_date(et)
+            if d and d >= datetime.today().date():
+                events.append({
+                    "type":    "Résultats",
+                    "icon":    "📊",
+                    "color":   "#3b82f6",
+                    "date":    d,
+                    "label":   "Publication résultats",
+                    "detail":  f"EPS estimé : {info.get('epsForward', '—')}",
+                    "ticker":  ticker,
+                    "futur":   True,
+                })
+
+        # Méthode 2 : earningsTimestampStart / End (fourchette)
+        ets = info.get("earningsTimestampStart")
+        ete = info.get("earningsTimestampEnd")
+        if ets and not et:
+            ds = ts_to_date(ets)
+            de = ts_to_date(ete) if ete else ds
+            if ds and ds >= datetime.today().date():
+                lbl = f"Entre {ds.strftime('%d/%m')} et {de.strftime('%d/%m')}" if de and de != ds else ds.strftime('%d/%m/%Y')
+                events.append({
+                    "type":    "Résultats",
+                    "icon":    "📊",
+                    "color":   "#3b82f6",
+                    "date":    ds,
+                    "label":   "Fourchette résultats",
+                    "detail":  lbl,
+                    "ticker":  ticker,
+                    "futur":   True,
+                })
+
+        # Méthode 3 : t.calendar dict
+        try:
+            cal = t.calendar
+            if isinstance(cal, dict):
+                ed = cal.get("Earnings Date")
+                if ed:
+                    # Peut être une liste ou une valeur unique
+                    dates_list = ed if isinstance(ed, list) else [ed]
+                    for d_raw in dates_list:
+                        try:
+                            d_parsed = pd.Timestamp(d_raw).date()
+                            if d_parsed >= datetime.today().date():
+                                events.append({
+                                    "type":   "Résultats",
+                                    "icon":   "📊",
+                                    "color":  "#3b82f6",
+                                    "date":   d_parsed,
+                                    "label":  "Publication résultats (calendar)",
+                                    "detail": f"EPS moy. estimé : {cal.get('Earnings Average','—')}",
+                                    "ticker": ticker,
+                                    "futur":  True,
+                                })
+                        except:
+                            pass
+        except:
+            pass
+
+        # Méthode 4 : earnings_dates DataFrame
+        try:
+            ed_df = t.earnings_dates
+            if ed_df is not None and not ed_df.empty:
+                ed_df.index = pd.to_datetime(ed_df.index)
+                if ed_df.index.tz is not None:
+                    ed_df.index = ed_df.index.tz_localize(None)
+                future_ed = ed_df[ed_df.index.date >= datetime.today().date()]  # type: ignore
+                for dt_idx, row in future_ed.head(4).iterrows():
+                    eps_est = row.get("EPS Estimate", None)
+                    events.append({
+                        "type":   "Résultats",
+                        "icon":   "📊",
+                        "color":  "#3b82f6",
+                        "date":   dt_idx.date(),
+                        "label":  "Résultats trimestriels",
+                        "detail": f"EPS estimé : {eps_est:.2f}" if eps_est and str(eps_est) != 'nan' else "EPS estimé : —",
+                        "ticker": ticker,
+                        "futur":  True,
+                    })
+        except:
+            pass
+
+        # ── Ex-Dividende ──────────────────────────────────────────────────────
+        exdiv = info.get("exDividendDate")
+        if exdiv:
+            d = ts_to_date(exdiv)
+            if d:
+                futur = d >= datetime.today().date()
+                div_amt = info.get("lastDividendValue") or info.get("dividendRate", 0) or 0
+                if div_amt > 100: div_amt = div_amt / 100  # yfinance parfois × 100
+                events.append({
+                    "type":   "Ex-Dividende",
+                    "icon":   "💸",
+                    "color":  "#22c55e",
+                    "date":   d,
+                    "label":  "Date ex-dividende",
+                    "detail": f"Montant : {div_amt:.2f} €/action" if div_amt else "Montant : —",
+                    "ticker": ticker,
+                    "futur":  futur,
+                })
+
+        # ── Date de paiement dividende ────────────────────────────────────────
+        divdate = info.get("dividendDate")
+        if divdate:
+            d = ts_to_date(divdate)
+            if d:
+                futur = d >= datetime.today().date()
+                events.append({
+                    "type":   "Paiement Div.",
+                    "icon":   "💰",
+                    "color":  "#22c55e",
+                    "date":   d,
+                    "label":  "Paiement dividende",
+                    "detail": f"Versement effectif sur le compte",
+                    "ticker": ticker,
+                    "futur":  futur,
+                })
+
+        # ── Fin exercice fiscal ───────────────────────────────────────────────
+        fy = info.get("nextFiscalYearEnd")
+        if fy:
+            d = ts_to_date(fy)
+            if d and d >= datetime.today().date():
+                events.append({
+                    "type":   "Fin exercice",
+                    "icon":   "📋",
+                    "color":  "#8b5cf6",
+                    "date":   d,
+                    "label":  "Fin d'exercice fiscal",
+                    "detail": "Clôture de l'année comptable",
+                    "ticker": ticker,
+                    "futur":  True,
+                })
+
+        return events
+    except:
+        return []
+
+
+def page_calendrier():
+    st.markdown('<div class="ph">'
+                '<div class="ph-eyebrow">📅 Agenda financier</div>'
+                '<div class="ph-title">Calendrier</div>'
+                '<div class="ph-sub">Résultats · Ex-dividendes · Paiements · Exercices fiscaux</div>'
+                '</div>', unsafe_allow_html=True)
+
+    # ── Chargement du portefeuille ────────────────────────────────────────────
+    try:
+        df_hist, df_corr, df_vers = load_data()
+        df_pos, _ = compute_portfolio(df_hist, df_corr, df_vers)
+    except Exception as e:
+        st.error(f"Fichiers introuvables : {e}"); return
+
+    port_tickers_cal = [r["Ticker"] for _, r in df_pos.iterrows()
+                        if r["Ticker"] and r["Ticker"] != "N/A"]
+
+    # Tickers supplémentaires
+    extra_cal = st.text_input("Ajouter des tickers (optionnel)",
+                               placeholder="ASML.AS, MSFT, AAPL…",
+                               key="cal_extra", label_visibility="visible")
+    extra_tks_cal = [t.strip().upper() for t in extra_cal.replace(",", " ").split() if t.strip()]
+    all_cal_tks   = list(dict.fromkeys(port_tickers_cal + extra_tks_cal))
+
+    # Filtre type
+    type_filter = st.multiselect(
+        "Types d'événements",
+        ["Résultats", "Ex-Dividende", "Paiement Div.", "Fin exercice"],
+        default=["Résultats", "Ex-Dividende", "Paiement Div.", "Fin exercice"],
+        key="cal_types"
+    )
+
+    # Vue passé/futur
+    show_past = st.toggle("Afficher aussi les événements passés", value=False, key="cal_past")
+
+    # ── Récupération ──────────────────────────────────────────────────────────
+    all_events = []
+    with st.spinner("Récupération du calendrier…"):
+        prog = st.progress(0)
+        for i, tk in enumerate(all_cal_tks):
+            prog.progress(int((i+1)/len(all_cal_tks)*100), f"Calendrier {tk}…")
+            evts = get_calendar_data(tk)
+            all_events.extend(evts)
+        prog.empty()
+
+    # Filtre type et futur/passé
+    all_events = [e for e in all_events if e["type"] in type_filter]
+    if not show_past:
+        all_events = [e for e in all_events if e["futur"]]
+
+    # Déduplique par (ticker, type, date)
+    seen = set()
+    deduped = []
+    for e in all_events:
+        key = (e["ticker"], e["type"], str(e["date"]))
+        if key not in seen:
+            seen.add(key)
+            deduped.append(e)
+    all_events = sorted(deduped, key=lambda x: x["date"])
+
+    # ── KPIs ──────────────────────────────────────────────────────────────────
+    today = datetime.today().date()
+    n_res = sum(1 for e in all_events if e["type"] == "Résultats" and e["futur"])
+    n_div = sum(1 for e in all_events if e["type"] == "Ex-Dividende" and e["futur"])
+    next_evt = all_events[0] if all_events else None
+    n_30j   = sum(1 for e in all_events if e["futur"] and (e["date"] - today).days <= 30)
+
+    kpi_cal = (
+        f'<div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">'
+        + kpi_card("Événements à venir", str(len([e for e in all_events if e["futur"]])),
+                   top_color="linear-gradient(90deg,#3b82f6,transparent)")
+        + kpi_card("Résultats à venir", str(n_res),
+                   top_color="linear-gradient(90deg,#3b82f6,transparent)")
+        + kpi_card("Ex-dividendes à venir", str(n_div),
+                   top_color="linear-gradient(90deg,#22c55e,transparent)")
+        + kpi_card("Dans les 30 prochains jours", str(n_30j),
+                   top_color=f"linear-gradient(90deg,{'#f59e0b' if n_30j>0 else '#475569'},transparent)")
+        + '</div>'
+    )
+    st.markdown(kpi_cal, unsafe_allow_html=True)
+
+    if not all_events:
+        st.markdown("""<div class="empty-state">
+          <div class="empty-icon">📅</div>
+          <div class="empty-title">Aucun événement trouvé</div>
+          <div class="empty-sub">yfinance ne dispose pas de données calendrier pour ces tickers.<br>
+          Cela arrive fréquemment pour les actions françaises (.PA) — les données sont plus disponibles<br>
+          pour les grandes capitalisations américaines et européennes.</div>
+        </div>""", unsafe_allow_html=True)
+        return
+
+    # ── Timeline par mois ─────────────────────────────────────────────────────
+    section_label("Timeline des événements")
+
+    # Grouper par mois
+    from itertools import groupby
+    def month_key(e):
+        return e["date"].strftime("%B %Y").capitalize()
+
+    # Couleurs par type
+    TYPE_COLOR = {
+        "Résultats":     "#3b82f6",
+        "Ex-Dividende":  "#22c55e",
+        "Paiement Div.": "#16a34a",
+        "Fin exercice":  "#8b5cf6",
+    }
+    TYPE_BG = {
+        "Résultats":     "rgba(59,130,246,0.07)",
+        "Ex-Dividende":  "rgba(34,197,94,0.07)",
+        "Paiement Div.": "rgba(22,163,74,0.07)",
+        "Fin exercice":  "rgba(139,92,246,0.07)",
+    }
+
+    # Groupe par mois
+    months = {}
+    for e in all_events:
+        mk = e["date"].strftime("%Y-%m")
+        months.setdefault(mk, []).append(e)
+
+    for mk in sorted(months.keys()):
+        evts_month = months[mk]
+        month_label_str = datetime.strptime(mk, "%Y-%m").strftime("%B %Y").capitalize()
+        is_current = mk == today.strftime("%Y-%m")
+
+        section_label(f"{'📍 ' if is_current else ''}{month_label_str}"
+                       + (f"  ·  {len(evts_month)} événement{'s' if len(evts_month)>1 else ''}" ))
+
+        # Grille d'événements
+        html_evts = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem">'
+        for e in sorted(evts_month, key=lambda x: x["date"]):
+            c      = TYPE_COLOR.get(e["type"], "#475569")
+            bg     = TYPE_BG.get(e["type"], "var(--s1)")
+            jours  = (e["date"] - today).days
+            if jours == 0:
+                delai = '<span style="color:#f59e0b;font-weight:600">Aujourd\'hui !</span>'
+            elif jours == 1:
+                delai = '<span style="color:#f59e0b">Demain</span>'
+            elif jours < 0:
+                delai = f'<span style="color:#475569">Il y a {-jours}j</span>'
+            elif jours <= 7:
+                delai = f'<span style="color:#f59e0b">Dans {jours}j</span>'
+            elif jours <= 30:
+                delai = f'<span style="color:{c}">Dans {jours}j</span>'
+            else:
+                delai = f'<span style="color:var(--t3)">Dans {jours}j</span>'
+
+            html_evts += (
+                f'<div style="background:{bg};border:1px solid {c}33;'
+                f'border-left:3px solid {c};border-radius:10px;padding:14px 16px">'
+
+                # Header : icon + type + ticker
+                f'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">'
+                f'<div style="display:flex;align-items:center;gap:8px">'
+                f'<span style="font-size:1rem">{e["icon"]}</span>'
+                f'<span style="font-family:DM Mono,monospace;font-size:0.6rem;color:{c};'
+                f'text-transform:uppercase;letter-spacing:0.1em;font-weight:600">{e["type"]}</span>'
+                f'</div>'
+                f'<span style="font-family:DM Mono,monospace;font-size:0.65rem;color:#22c55e;'
+                f'font-weight:600">{e["ticker"]}</span>'
+                f'</div>'
+
+                # Date + délai
+                f'<div style="font-family:Outfit,sans-serif;font-size:1.05rem;font-weight:700;'
+                f'color:var(--text);margin-bottom:4px">'
+                f'{e["date"].strftime("%d %B %Y")}</div>'
+                f'<div style="font-family:DM Mono,monospace;font-size:0.62rem;margin-bottom:6px">'
+                f'{delai}</div>'
+
+                # Label + détail
+                f'<div style="font-family:Outfit,sans-serif;font-size:0.82rem;color:var(--t2);'
+                f'margin-bottom:3px">{e["label"]}</div>'
+                f'<div style="font-family:DM Mono,monospace;font-size:0.6rem;color:var(--t3)">'
+                f'{e["detail"]}</div>'
+                f'</div>'
+            )
+        html_evts += '</div>'
+        st.markdown(html_evts, unsafe_allow_html=True)
+
+    # ── Vue tableau compact ────────────────────────────────────────────────────
+    with st.expander("📋  Vue tableau compacte"):
+        rows_cal = ""
+        for e in all_events:
+            c     = TYPE_COLOR.get(e["type"], "#475569")
+            jours = (e["date"] - today).days
+            urgence_c = "#f59e0b" if 0 <= jours <= 7 else ("#22c55e" if 0 <= jours <= 30 else "#475569")
+            rows_cal += (
+                f'<tr>'
+                f'<td style="text-align:left"><span style="font-family:DM Mono,monospace;'
+                f'font-size:0.72rem;color:#22c55e;font-weight:600">{e["ticker"]}</span></td>'
+                f'<td style="text-align:left"><span style="font-family:DM Mono,monospace;'
+                f'font-size:0.65rem;font-weight:600;color:{c}">{e["icon"]} {e["type"]}</span></td>'
+                f'<td style="font-family:DM Mono,monospace;font-size:0.72rem">'
+                f'{e["date"].strftime("%d/%m/%Y")}</td>'
+                f'<td><span style="font-family:DM Mono,monospace;font-size:0.68rem;color:{urgence_c}">'
+                f'{"Passé" if jours < 0 else f"J+{jours}"}</span></td>'
+                f'<td style="text-align:left;font-family:Outfit,sans-serif;font-size:0.8rem;'
+                f'color:var(--t2)">{e["detail"]}</td>'
+                f'</tr>'
+            )
+        st.markdown(
+            f'<div style="background:var(--s1);border:1px solid var(--border);'
+            f'border-radius:11px;overflow:hidden">'
+            f'<table class="ptable"><thead><tr>'
+            f'<th style="text-align:left">Ticker</th>'
+            f'<th style="text-align:left">Type</th>'
+            f'<th>Date</th><th>Délai</th>'
+            f'<th style="text-align:left">Détail</th>'
+            f'</tr></thead><tbody>{rows_cal}</tbody></table></div>',
+            unsafe_allow_html=True
+        )
+
+    # ── Note sur la disponibilité des données ─────────────────────────────────
+    st.markdown(
+        '<div style="font-family:DM Mono,monospace;font-size:0.6rem;color:#2d3f57;'
+        'margin-top:1rem;line-height:2">ℹ Données via yfinance · Disponibilité variable selon les tickers · '
+        'Actions françaises (.PA) souvent non disponibles · Rafraîchissement toutes les heures</div>',
+        unsafe_allow_html=True
+    )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 
 with st.sidebar:
     st.markdown("""<div class="nav-logo">
@@ -2542,12 +5987,26 @@ with st.sidebar:
     </div>""", unsafe_allow_html=True)
 
     page = st.radio("Navigation",
-        options=["▸  Portefeuille", "◎  Analyse 10-Baggers", "⊞  Screener Multi-Actions"],
+        options=[
+            "▸  Portefeuille",
+            "◎  Analyse 10-Baggers",
+            "⊞  Screener Multi-Actions",
+            "◈  Intelligence de Marché",
+            "⏱  Backtesting",
+            "💰  Simulateur",
+            "📓  Journal",
+            "💸  Dividendes",
+            "📐  TRI",
+            "👁  Watchlist",
+            "⚖  Comparaison",
+            "📅  Calendrier",
+            "📄  Rapport PDF",
+            "⚙  Paramètres",
+        ],
         label_visibility="collapsed",
     )
 
     st.markdown('<div class="nav-divider"></div>', unsafe_allow_html=True)
-
     st.markdown('<div class="nav-section">Sources de données</div>', unsafe_allow_html=True)
     for f in ["Historique.xlsx", "Corrrespondance.xlsx", "Versements.xlsx"]:
         st.markdown(f'<div class="file-pill">{f}</div>', unsafe_allow_html=True)
@@ -2561,9 +6020,17 @@ with st.sidebar:
                 'margin-top:1.8rem;line-height:2.2;text-align:center">yfinance · cache 5 min</div>',
                 unsafe_allow_html=True)
 
-if "Portefeuille" in page:
-    page_portfolio()
-elif "10-Baggers" in page:
-    page_10baggers()
-else:
-    page_screener()
+if   "Portefeuille"  in page: page_portfolio()
+elif "10-Baggers"    in page: page_10baggers()
+elif "Screener"      in page: page_screener()
+elif "Intelligence"  in page: page_intelligence()
+elif "Backtesting"   in page: page_backtesting()
+elif "Simulateur"    in page: page_simulateur()
+elif "Journal"       in page: page_journal()
+elif "Dividendes"    in page: page_dividendes()
+elif "TRI"           in page: page_tri()
+elif "Watchlist"     in page: page_watchlist()
+elif "Comparaison"   in page: page_comparaison()
+elif "Calendrier"    in page: page_calendrier()
+elif "Rapport"       in page: page_rapport()
+else:                          page_parametres()
